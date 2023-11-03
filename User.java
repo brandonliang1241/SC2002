@@ -3,7 +3,7 @@ package Java.SC2002FinalProj;
 public abstract class User {
     private String userId;
     private String password;
-    private String facultyInfo;
+    private Faculty facultyInfo;
 
     public User(){
     }
@@ -24,11 +24,11 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getFacultyInfo() {
+    public Faculty getFacultyInfo() {
         return this.facultyInfo;
     }
 
-    public void setFacultyInfo(String facultyInfo) {
+    public void setFacultyInfo(Faculty facultyInfo) {
         this.facultyInfo = facultyInfo;
     }
     //Function to view camp list
