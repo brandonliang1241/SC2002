@@ -29,7 +29,7 @@ public class Staff extends User{
     }
 
     public void deleteCamp(){}
-    public void editCamp(){}
+    public void editCamp(){} //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     public void toggleCampVisibility(){}
     public void viewInquiries(){}
     public void replyInquiries(){}
