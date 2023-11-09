@@ -24,6 +24,9 @@ public class Staff extends User{
 
 
     public void viewCampList(){
+        if (campsCreated.isEmpty()){
+            System.out.println("No camps available");
+        }
         for (int i = 0; i<numOfCamps; i++){
             System.out.println(campsCreated[i].getCampName() + " : " + (i+1));
     }
