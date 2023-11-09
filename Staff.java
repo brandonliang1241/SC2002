@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
+    private int numOfCamps = 0;
 
     public Staff(){
         super();
@@ -17,11 +18,14 @@ public class Staff extends User{
         Camp camp1 = new Camp(campName, this.getUserID());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
+        numOfCamps++;
         sc.close();
     }
 
 
     public void viewCampList(){
+        for (int i = 0; i<numOfCamps; i++){
+            System.out.println(campsCreated[i].getCampName() + " : " + (i+1));
     }
 
     public void deleteCamp(){}
