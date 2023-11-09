@@ -28,7 +28,9 @@ public class Staff extends User{
             System.out.println(campsCreated[i].getCampName() + " : " + (i+1));
     }
 
-    public void deleteCamp(){}
+    public void deleteCamp(String campName){
+        
+    }
     public void editCamp(){} //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     public void toggleCampVisibility(){}
     public void viewInquiries(){}
