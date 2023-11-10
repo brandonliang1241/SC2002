@@ -11,15 +11,13 @@ public class Staff extends User{
         this.campsCreated = new ArrayList<Camp>();
     }
 
-    public Camp createCamp(){
-        Scanner sc = new Scanner(System.in);
+    public Camp createCamp(Scanner sc){
         System.out.println("Enter camp name: ");
         String campName = sc.nextLine();
         Camp camp1 = new Camp(campName, super.getUserId());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
         numOfCamps++;
-        sc.close();
         return camp1;
     }
 
