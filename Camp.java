@@ -17,12 +17,7 @@ public class Camp {
     private Staff staffInCharge;
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
 
-    public Camp(String campName, Staff userID){
-        this.campName = campName;
-        this.userID = userID;
-    }
-
-    public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, User staffInCharge) {
+    public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, Staff staffInCharge) {
         this.campName = campName;
         this.campDate = campDate;
         this.closingTime = closingTime;
