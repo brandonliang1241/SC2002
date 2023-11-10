@@ -1,4 +1,5 @@
-package Java.SC2002FinalProj;
+package excel;
+
 import java.time.*;
 import java.util.ArrayList;
 
@@ -15,7 +16,22 @@ public class Camp {
 
     private String description;
     private Staff staffInCharge;
+    private String staffId;
+
+    public String getStaffId() {
+        return this.staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
+    }
+
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
+
+    public Camp(String campName, String staffId){
+        this.campName = campName;
+        this.staffId = staffId;
+    }
 
     public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, Staff staffInCharge) {
         this.campName = campName;
