@@ -1,25 +1,26 @@
-package Java.SC2002FinalProj;
+package excel;
+
 import java.util.*;
-import java.util.Scanner;
 
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
     private int numOfCamps = 0;
 
-    public Staff(){
-        super();
+    public Staff(String userId, String password, Faculty facultyInfo){
+        super(userId, password, facultyInfo);
         this.campsCreated = new ArrayList<Camp>();
     }
 
-    public void createCamp(){
+    public Camp createCamp(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter camp name: ");
         String campName = sc.nextLine();
-        Camp camp1 = new Camp(campName, this.getUserID());
+        Camp camp1 = new Camp(campName, super.getUserId());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
         numOfCamps++;
         sc.close();
+        return camp1;
     }
 
 
@@ -28,7 +29,8 @@ public class Staff extends User{
             System.out.println("No camps available");
         }
         for (int i = 0; i<numOfCamps; i++){
-            System.out.println(campsCreated[i].getCampName() + " : " + (i+1));
+            System.out.println(campsCreated.get(i).getCampName() + " : " + (i+1));
+        }
     }
 
     public void deleteCamp(String campName){
