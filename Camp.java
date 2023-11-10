@@ -14,7 +14,7 @@ public class Camp {
     private int slotsLeft;
 
     private String description;
-    private User staffInCharge;
+    private Staff staffInCharge;
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
 
     public Camp(String campName, Staff userID){
@@ -82,7 +82,7 @@ public class Camp {
     public void setSlotsLeft(int slotsLeft){ //i dont think this will be needed? just total-campcomslots
         this.slotsLeft = slotsLeft;
     }
-    public User getStaffInCharge() {
+    public Staff getStaffInCharge() {
          return staffInCharge;
     }
     public void setStaffInCharge(Staff staffInCharge) {
