@@ -1,11 +1,14 @@
-package Java.SC2002FinalProj;
+package excel;
 
 public abstract class User {
     private String userId;
     private String password;
     private Faculty facultyInfo;
 
-    public User(){
+    public User(String userId, String password, Faculty facultyInfo){
+        this.userId = userId;
+        this.password = password;
+        this.facultyInfo = facultyInfo;
     }
     
     public String getUserId() {
