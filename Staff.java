@@ -11,14 +11,17 @@ public class Staff extends User{
         this.campsCreated = new ArrayList<Camp>();
     }
 
-    public Camp createCamp(Scanner sc){
+    public void createCamp(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("Enter camp name: ");
         String campName = sc.nextLine();
         Camp camp1 = new Camp(campName, super.getUserId());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
         numOfCamps++;
-        return camp1;
+        campsCreated.add(camp1);
+        Database.addCamp(camp1);
+        sc.close();
     }
 
 
@@ -31,8 +34,15 @@ public class Staff extends User{
         }
     }
 
-    public void deleteCamp(String campName){
-        
+    public void deleteCamp(String campName) {
+        for (int i = 0; i < campsCreated.size(); i++) {
+            if (campName.equals(campsCreated.get(i).getCampName())) {
+                Database.removeCamp(campsCreated.get(i)); // Removing camp from list of all camps
+                campsCreated.remove(i); // Removing camp from staff's list of camps
+                numOfCamps--; // Decrease the count of camps
+                break;
+            }
+        }
     }
     public void editCamp(){} //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     public void toggleCampVisibility(){}
