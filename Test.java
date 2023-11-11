@@ -1,6 +1,7 @@
 package excel;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Test {
     public static void main(String[] args) {
@@ -10,6 +11,7 @@ public class Test {
         Student brandon = new Student("BLIANG003", "password", Faculty.SCSE);
         Staff david = new Staff("DAVID", "password", Faculty.LKC);
         database.addCamp(david.createCamp(sc));// database adds the camp that david creates.
+        database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
         database.addStudent(brandon);
         //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
         int choice;
@@ -56,7 +58,7 @@ public class Test {
                 }
                 System.out.println("Password:");
                 String password = sc.nextLine();
-                if(tempStudent.getPassword().equals(password)){System.out.println("Student Login Successful!");}
+                if(tempStudent.getPassword().equals(password)){studentInterface(sc, database, tempStudent);}
                 else{System.out.println("Student Login Failed!");}
                 break;
 
@@ -107,6 +109,10 @@ public class Test {
                 username = sc.nextLine();
                 System.out.println("Password:");
                 password = sc.nextLine();
+                System.out.println("Faculty:"); //Do another function for gods sake
+                faculty = sc.nextLine();
+                Staff tempStaff = new Staff(username, password, Faculty.valueOf(faculty));
+                database.addStaff(tempStaff);
                 System.out.println("Staff Creation Successful!");
                 break;
                 case 3: break;
@@ -114,5 +120,52 @@ public class Test {
                 break;
             }
         }while(choice != 3);
+    }
+
+    public static void studentInterface(Scanner sc, Database database, Student student){
+        int choice;
+        do{
+            System.out.println("1: See available list of camps"); 
+            System.out.println("2: List of camps that you have joined"); 
+            System.out.println("3: Student information"); 
+            System.out.println("4: Return"); 
+            choice = Integer.parseInt(sc.nextLine());
+            switch(choice){
+                case 1:
+                studentInterfaceCamp(sc, database, student); 
+                case 2:
+                case 3:
+                case 4:
+                default:
+            }
+        } while (choice != 10);
+    }
+
+    public static void studentInterfaceCamp(Scanner sc, Database database, Student student){
+        int choice;
+        System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
+        //Need to create an array for each student that stores the names of the camps that they have joined.
+        ArrayList<Camp> tempCamp = new ArrayList<Camp>(10);
+        database.listOfCampsFaculty(tempCamp, student.getFacultyInfo());
+        for(int i = 0; i < tempCamp.size(); i++){
+            System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
+        }
+        choice = Integer.parseInt(sc.nextLine()); //choice chooses the camp we would like to access. 
+        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student);
+    }
+
+    public static void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student){
+        //Specific to the selected camp
+        int choice;
+        System.out.println("Visibility: "); //need a visibility value
+        System.out.println("Slots remaining: ");
+        System.out.println("Slots remaining: ");
+        System.out.println("You have joined this camp"); //or not we need to check with the student obj
+        //if student is camp com state if camp com. (can make camp com store the camp he is com of) 
+        //print more choices if camp com
+        System.out.println("1: Leave this camp"); //or join
+        System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
+        System.out.println("3:");
+        System.out.println("4:");
     }
 }
