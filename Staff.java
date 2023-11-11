@@ -114,7 +114,22 @@ public class Staff extends User{
         sc.close();
     } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     
-    public void toggleCampVisibility(){}
+    public void toggleCampVisibility(String campName) {
+        if (campsCreated == null || campsCreated.isEmpty()) {
+            System.out.println("No camps available to toggle visibility.");
+            return;
+        }
+
+        for (Camp camp : campsCreated) {
+            if (campName.equals(camp.getCampName())) {
+                camp.toggleVisibility(); // Assuming Camp class has a toggleVisibility method
+                System.out.println("Visibility toggled for camp: " + campName);
+                return;
+            }
+        }
+
+        System.out.println("Camp not found: " + campName);
+    }
     public void viewInquiries(){}
     public void replyInquiries(){}
     public void viewSuggestions(){} //from camp committee
