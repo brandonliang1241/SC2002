@@ -44,7 +44,74 @@ public class Staff extends User{
             }
         }
     }
-    public void editCamp(){} //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
+
+    public void editCamp() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the name of the camp you want to edit: ");
+        String campName = sc.nextLine();
+
+        // Find the camp
+        Camp selectedCamp = null;
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                selectedCamp = camp;
+                break;
+            }
+        }
+
+        if (selectedCamp == null) {
+            System.out.println("Camp not found.");
+            return;
+        }
+
+        // Edit options
+        System.out.println("Select what you want to edit: ");
+        System.out.println("1. Camp Name\n2. Camp Date\n3. Closing Time\n4. User Group\n5. Location\n6. Total Slots\n7. Camp Committee Slots\n8. Description");
+        int choice = sc.nextInt();
+        sc.nextLine(); // Consume the leftover newline
+
+        switch (choice) {
+            case 1:
+                System.out.println("Enter new camp name: ");
+                selectedCamp.setCampName(sc.nextLine());
+                break;
+            case 2:
+                System.out.println("Enter new camp date: ");
+                selectedCamp.setCampDate(sc.nextLine());
+                break;
+            case 3:
+                System.out.println("Enter new closing time: ");
+                selectedCamp.setClosingTime(sc.nextLine());
+                break;
+            case 4:
+                System.out.println("Enter new user group: ");
+                selectedCamp.setUserGroup(sc.nextLine());
+                break;
+            case 5:
+                System.out.println("Enter new location: ");
+                selectedCamp.setLocation(sc.nextLine());
+                break;
+            case 6:
+                System.out.println("Enter new total slots: ");
+                selectedCamp.setTotalSlots(sc.nextInt());
+                sc.nextLine(); // Consume the leftover newline
+                break;
+            case 7:
+                System.out.println("Enter new camp committee slots: ");
+                selectedCamp.setCampComSlots(sc.nextInt());
+                sc.nextLine(); // Consume the leftover newline
+                break;
+            case 8:
+                System.out.println("Enter new description: ");
+                selectedCamp.setDescription(sc.nextLine());
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
+        }
+
+        System.out.println("Camp updated successfully!");
+    } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     public void toggleCampVisibility(){}
     public void viewInquiries(){}
     public void replyInquiries(){}
