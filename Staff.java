@@ -68,7 +68,7 @@ public class Staff extends User{
         System.out.println("Select what you want to edit: ");
         System.out.println("1. Camp Name\n2. Camp Date\n3. Closing Time\n4. User Group\n5. Location\n6. Total Slots\n7. Camp Committee Slots\n8. Description");
         int choice = sc.nextInt();
-        sc.nextLine(); // Consume the leftover newline
+        //sc.nextLine(); // Consume the leftover newline
 
         switch (choice) {
             case 1:
@@ -94,12 +94,12 @@ public class Staff extends User{
             case 6:
                 System.out.println("Enter new total slots: ");
                 selectedCamp.setTotalSlots(sc.nextInt());
-                sc.nextLine(); // Consume the leftover newline
+                //sc.nextLine(); // Consume the leftover newline
                 break;
             case 7:
                 System.out.println("Enter new camp committee slots: ");
                 selectedCamp.setCampComSlots(sc.nextInt());
-                sc.nextLine(); // Consume the leftover newline
+                //sc.nextLine(); // Consume the leftover newline
                 break;
             case 8:
                 System.out.println("Enter new description: ");
