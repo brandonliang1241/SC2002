@@ -111,7 +111,9 @@ public class Staff extends User{
         }
 
         System.out.println("Camp updated successfully!");
+        sc.close();
     } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
+    
     public void toggleCampVisibility(){}
     public void viewInquiries(){}
     public void replyInquiries(){}
