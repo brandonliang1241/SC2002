@@ -130,8 +130,8 @@ public class Staff extends User{
 
         System.out.println("Camp not found: " + campName);
     }
-    public void viewInquiries(){}
-    public void replyInquiries(){}
+    public void viewEnquiries(){}
+    public void replyEnquiries(){}
     public void viewSuggestions(){} //from camp committee
     public void approveSuggestions(){}
     public void generateList(){} //generate list of students
