@@ -4,11 +4,13 @@ public class Enquiry {
     private String enquiryText;
     private String status; // e.g., "Pending", "Resolved", "In Progress"
     private String owner; // ID or name of the user who made the enquiry
+    private String campName;
 
-    public Enquiry(String enquiryText, String owner) {
+    public Enquiry(String enquiryText, String owner, String campName) {
         this.enquiryText = enquiryText;
         this.owner = owner;
         this.status = "Pending"; // Default status
+        this.campName = campName;
     }
 
     public String getEnquiryText() {
@@ -33,6 +35,14 @@ public class Enquiry {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getCampName(){
+        return campName;
+    }
+
+    public void setCampName(String campName){
+        this.campName = campName;
     }
 
     public void displayEnquiry() {
