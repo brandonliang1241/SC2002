@@ -131,8 +131,57 @@ public class Staff extends User{
 
         System.out.println("Camp not found: " + campName);
     }
-    public void viewEnquiries(){}
-    public void replyEnquiries(){}
+    
+    public void viewEnquiries(String campName) {
+        boolean found = false;
+        for (Enquiry enquiry : enquiries) {
+            if (enquiry.getCampName().equals(campName)) {
+                enquiry.displayEnquiry();
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No enquiries found for camp: " + campName);
+        }
+    }
+    
+    public void replyEnquiries(String campName) {
+        Scanner sc = new Scanner(System.in);
+
+        // Display enquiries for the specified camp
+        this.viewEnquiries(campName);
+
+        // Filter enquiries for the specified camp
+        List<Enquiry> filteredEnquiries = new ArrayList<>();
+        for (Enquiry enquiry : enquiries) {
+            if (enquiry.getCampName().equals(campName)) {
+                filteredEnquiries.add(enquiry);
+            }
+        }
+
+        if (filteredEnquiries.isEmpty()) {
+            return; // No enquiries to reply to
+        }
+
+        System.out.println("Enter the number of the enquiry you wish to reply to: ");
+        int enquiryNumber = sc.nextInt();
+
+        if (enquiryNumber < 1 || enquiryNumber > filteredEnquiries.size()) {
+            System.out.println("Invalid enquiry number.");
+            return;
+        }
+
+        Enquiry selectedEnquiry = filteredEnquiries.get(enquiryNumber - 1);
+
+        System.out.println("Enter your reply: ");
+        sc.nextLine(); // Consume the leftover newline
+        String reply = sc.nextLine();
+
+        System.out.println("Your reply: " + reply);
+        selectedEnquiry.setStatus("Resolved"); // Update status or handle as needed
+
+        System.out.println("Reply sent and enquiry status updated.");
+    }
     public void viewSuggestions(){} //from camp committee
     public void approveSuggestions(){}
     public void generateList(){} //generate list of students
