@@ -5,6 +5,7 @@ import java.util.*;
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
     private int numOfCamps = 0;
+    private List<Enquiry> enquiries = new ArrayList<>();
 
     public Staff(String userId, String password, Faculty facultyInfo){
         super(userId, password, facultyInfo);
