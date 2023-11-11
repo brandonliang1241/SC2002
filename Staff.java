@@ -174,7 +174,7 @@ public class Staff extends User{
         Enquiry selectedEnquiry = filteredEnquiries.get(enquiryNumber - 1);
 
         System.out.println("Enter your reply: ");
-        sc.nextLine(); // Consume the leftover newline
+        //sc.nextLine(); // Consume the leftover newline
         String reply = sc.nextLine();
 
         System.out.println("Your reply: " + reply);
