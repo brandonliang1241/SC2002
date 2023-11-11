@@ -1,3 +1,4 @@
+package excel;
 public class Enquiry {
     private String enquiryText;
     private String status; // e.g., "Pending", "Resolved", "In Progress"
