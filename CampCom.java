@@ -1,4 +1,5 @@
 package Java.SC2002FinalProj;
+import java.util.*;
 
 public interface CampCom {
     public void viewCampDetails();
