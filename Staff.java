@@ -176,6 +176,7 @@ public class Staff extends User{
 
         System.out.println("Reply sent and enquiry status updated.");
     }
+    
     public void viewSuggestions(String campName) {
         for (Camp camp : campsCreated) {
             if (camp.getCampName().equals(campName)) {
