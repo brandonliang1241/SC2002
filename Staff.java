@@ -176,8 +176,8 @@ public class Staff extends User{
 
         System.out.println("Reply sent and enquiry status updated.");
     }
-    public void viewSuggestions(){} //from camp committee
-    public void approveSuggestions(){}
+    public void viewSuggestions(String campName){} //from camp committee
+    public void approveSuggestions(String campName){}
     public void generateList(){} //generate list of students
     
     public void viewStudentsInCamp(int camp){
