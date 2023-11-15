@@ -203,7 +203,7 @@ public class Test {
                     break;
                 case 4:
                     System.out.println("Enter camp name to set visibility: ");
-                    campToBeEdited = sc.nextLine();
+                    String campToBeEdited = sc.nextLine();
                     staff.toggleCampVisibility(campToBeEdited);
                     break;
                 case 5:
@@ -253,6 +253,7 @@ public class Test {
                     break;
             }
         } while (choice != 14);
+    }
             
 
 }
