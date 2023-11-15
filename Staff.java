@@ -212,7 +212,10 @@ public class Staff extends User{
         System.out.println("Camp not found: " + campName);
     }
     
-    public void generateList(){} //generate list of students
+    public void generateList(){} //generate list of students (attendees/campcom)
+
+    public void generatePerformanceReport(){} //generate performance report of campcom members
+
     
     public void viewStudentsInCamp(int camp){
         campsCreated.get(camp).viewListStudents();
