@@ -188,6 +188,71 @@ public class Test {
             System.out.println("(13) Change Password");
             System.out.println("(14) Quit");
             choice = Integer.parseInt(sc.nextLine());
+
+            switch (choice) {
+                case 1:
+                    staff.createCamp(sc);
+                    break;
+                case 2:
+                    staff.editCamp();
+                    break;
+                case 3:
+                    System.out.println("Enter camp name to delete: ");
+                    String campToBeDeleted = sc.nextLine();
+                    staff.deleteCamp(campToBeDeleted);
+                    break;
+                case 4:
+                    System.out.println("Enter camp name to set visibility: ");
+                    campToBeEdited = sc.nextLine();
+                    staff.toggleCampVisibility(campToBeEdited);
+                    break;
+                case 5:
+                    Database.viewAllCamps();
+                    break;
+                case 6:
+                    staff.viewCampList();
+                    break;
+                case 7:
+                    System.out.println("Enter camp name to view enquiries: ");
+                    String campToViewEnquiries = sc.nextLine();
+                    staff.viewEnquiries(campToViewEnquiries);
+                    break;
+                case 8:
+                    System.out.println("Enter camp name to reply to enquiry: ");
+                    String campToReplyEnquiry = sc.nextLine();
+                    staff.replyEnquiries(campToReplyEnquiry);
+                    break;
+                case 9:
+                    System.out.println("Enter camp name to view suggestions: ");
+                    String campToViewSuggestions = sc.nextLine();
+                    staff.viewSuggestions(campToViewSuggestions);
+                    break;
+                case 10:
+                    System.out.println("Enter camp name: ");
+                    String camp = sc.nextLine();
+                    staff.approveSuggestions(camp);
+                    break;
+                case 11:
+                    System.out.println("Enter camp name to generate report: ");
+                    String campNameForReport = sc.nextLine();
+                    staff.generateCampReport(campNameForReport);
+                    break;
+                case 12:
+                    staff.generatePerformanceReport();
+                    break;
+                case 13:
+                    System.out.println("Enter New Password");
+                    String newPassword = sc.nextLine();
+                    staff.changePassword(newPassword);
+                    break;
+                case 14:
+                    System.out.println("Exiting Staff Interface.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } while (choice != 14);
             
 
 }
