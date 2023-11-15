@@ -17,14 +17,6 @@ public class Camp {
     private String description;
     private String staffId;
 
-    public String getStaffId() {
-        return this.staffId;
-    }
-
-    public void setStaffId(String staffId) {
-        this.staffId = staffId;
-    }
-
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
 
     public Camp(String campName, String staffId){
@@ -92,11 +84,11 @@ public class Camp {
     public void setSlotsLeft(int slotsLeft){ //i dont think this will be needed? just total-campcomslots
         this.slotsLeft = slotsLeft;
     }
-    public Staff getStaffInCharge() {
-         return staffInCharge;
+    public String getStaffId() {
+        return this.staffId;
     }
-    public void setStaffInCharge(Staff staffInCharge) {
-         this.staffInCharge = staffInCharge;
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
 
     public void viewListStudents(){
