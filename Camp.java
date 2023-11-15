@@ -18,6 +18,7 @@ public class Camp {
     private String staffId;
 
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
+    private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
 
     public Camp(String campName, String staffId){
         this.campName = campName;
