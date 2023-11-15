@@ -90,6 +90,12 @@ public class Camp {
     public void setSlotsLeft(int slotsLeft){ //i dont think this will be needed? just total-campcomslots
         this.slotsLeft = slotsLeft;
     }
+    public String getDescription(){
+        return this.description;
+    }
+    public void setDescription(String description){
+        this.description = description;
+    }
     public String getStaffId() {
         return this.staffId;
     }
