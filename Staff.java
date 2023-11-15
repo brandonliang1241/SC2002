@@ -193,7 +193,25 @@ public class Staff extends User{
         }
         System.out.println("Camp not found: " + campName);
     }//from camp committee
-    public void approveSuggestions(String campName){}
+    
+    public void approveSuggestions(String campName, int suggestionIndex) {
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+                if (suggestionIndex < 0 || suggestionIndex >= suggestions.size()) {
+                    System.out.println("Invalid suggestion index.");
+                    return;
+                }
+
+                Suggestion suggestion = suggestions.get(suggestionIndex);
+                suggestion.setStatus(true);
+                System.out.println("Suggestion approved: " + suggestion.getSuggestionText());
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    }
+    
     public void generateList(){} //generate list of students
     
     public void viewStudentsInCamp(int camp){
