@@ -243,7 +243,7 @@ public class Test {
                 case 13:
                     System.out.println("Enter New Password");
                     String newPassword = sc.nextLine();
-                    staff.changePassword(newPassword);
+                    staff.setPassword(newPassword);
                     break;
                 case 14:
                     System.out.println("Exiting Staff Interface.");
