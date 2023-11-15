@@ -173,20 +173,20 @@ public class Test {
         int choice;
         do {
             System.out.println("Staff Interface - Choose an option:");
-            System.out.println("(1) Create camp");
-            System.out.println("(2) Edit camp");
-            System.out.println("(3) Delete camp");
-            System.out.println("(4) Change camp visibility");
-            System.out.println("(5) View all camps");
-            System.out.println("(6) View your camps");
-            System.out.println("(7) View Enquiries");
-            System.out.println("(8) Reply to Enquiry");
-            System.out.println("(9) View Suggestions");
-            System.out.println("(10) Approve/Reject a Suggestion");
-            System.out.println("(11) Generate camp report");
-            System.out.println("(12) Generate performance report of camp committee");
-            System.out.println("(13) Change Password");
-            System.out.println("(14) Quit");
+            System.out.println("1: Create camp");
+            System.out.println("2: Edit camp");
+            System.out.println("3: Delete camp");
+            System.out.println("4: Change camp visibility");
+            System.out.println("5: View all camps");
+            System.out.println("6: View your camps");
+            System.out.println("7: View Enquiries");
+            System.out.println("8: Reply to Enquiry");
+            System.out.println("9: View Suggestions");
+            System.out.println("10: Approve/Reject a Suggestion");
+            System.out.println("11: Generate camp report");
+            System.out.println("12: Generate performance report of camp committee");
+            System.out.println("13: Change Password");
+            System.out.println("14: Quit");
             choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
