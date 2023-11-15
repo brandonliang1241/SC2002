@@ -176,7 +176,22 @@ public class Staff extends User{
 
         System.out.println("Reply sent and enquiry status updated.");
     }
-    public void viewSuggestions(String campName){} //from camp committee
+    public void viewSuggestions(String campName) {
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+                if (suggestions.isEmpty()) {
+                    System.out.println("No suggestions for this camp.");
+                } else {
+                    for (Suggestion suggestion : suggestions) {
+                        System.out.println(suggestion);
+                    }
+                }
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    }//from camp committee
     public void approveSuggestions(String campName){}
     public void generateList(){} //generate list of students
     
