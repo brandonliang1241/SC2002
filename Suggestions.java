@@ -6,7 +6,7 @@ public class Suggestion {
 
   public Suggestion(String suggestionText){
     this.suggestionText = suggestionText;
-    status = false;
+    status = false;  //initialise suggestion as not accepted
   }
 
   public String getSuggestionText() {
@@ -23,5 +23,9 @@ public class Suggestion {
 
   public void setStatus(boolean status){
     this.status = status;
+  }
+
+  public String toString() {
+      return "Suggestion: " + suggestionText + "\nStatus: " + (status ? "Accepted" : "Rejected");
   }
     
