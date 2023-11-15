@@ -93,7 +93,7 @@ public class Camp {
     public void setStaffId(String staffId) {
         this.staffId = staffId;
     }
-    public boolean isVisbile(Camp camp){
+    public boolean isVisible(Camp camp){
         return isVisible;
     }
 
