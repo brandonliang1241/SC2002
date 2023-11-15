@@ -77,12 +77,24 @@ public class Staff extends User{
                 selectedCamp.setCampName(sc.nextLine());
                 break;
             case 2:
-                System.out.println("Enter new camp date: ");
-                selectedCamp.setCampDate(sc.nextLine());
+                System.out.println("Enter new camp date (yyyy-MM-dd): ");
+                String dateStr = sc.nextLine();
+                try {
+                    LocalDate newDate = LocalDate.parse(dateStr);
+                    selectedCamp.setCampDate(newDate);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format.");
+                }
                 break;
             case 3:
-                System.out.println("Enter new closing time: ");
-                selectedCamp.setClosingTime(sc.nextLine());
+                System.out.println("Enter new closing time (yyyy-MM-ddTHH:mm): ");
+                String timeStr = sc.nextLine();
+                try {
+                    LocalDateTime newClosingTime = LocalDateTime.parse(timeStr);
+                    selectedCamp.setClosingTime(newClosingTime);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date and time format.");
+                }
                 break;
             case 4:
                 System.out.println("Enter new user group (e.g., SCSE, LKC): ");
