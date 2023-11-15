@@ -15,7 +15,6 @@ public class Camp {
     private int slotsLeft;
 
     private String description;
-    private Staff staffInCharge;
     private String staffId;
 
     public String getStaffId() {
@@ -33,7 +32,7 @@ public class Camp {
         this.staffId = staffId;
     }
 
-    public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, Staff staffInCharge) {
+    public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, String staffId) {
         this.campName = campName;
         this.campDate = campDate;
         this.closingTime = closingTime;
@@ -41,7 +40,7 @@ public class Camp {
         this.location = location;
         this.totalSlots = totalSlots;
         this.campComSlots = campComSlots;
-        this.staffInCharge = staffInCharge;
+        this.staffId = staffId;
         this.slotsLeft = slotsLeft;
     }
 
