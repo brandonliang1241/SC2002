@@ -96,6 +96,9 @@ public class Camp {
     public boolean isVisible(Camp camp){
         return isVisible;
     }
+    public void toggleVisibility(boolean isVisible){
+        this.isVisible = isVisible;
+    }
 
     public void viewListStudents(){
         //return the arraylist of students
