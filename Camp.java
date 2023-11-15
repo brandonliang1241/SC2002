@@ -16,7 +16,7 @@ public class Camp {
 
     private String description;
     private String staffId;
-    private boolean visibility;
+    private boolean isVisible;
 
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
     private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
@@ -36,7 +36,7 @@ public class Camp {
         this.campComSlots = campComSlots;
         this.staffId = staffId;
         this.slotsLeft = slotsLeft;
-        this.visibility = true;
+        this.isVisible = true;
     }
 
     public String getCampName() {
@@ -92,6 +92,9 @@ public class Camp {
     }
     public void setStaffId(String staffId) {
         this.staffId = staffId;
+    }
+    public boolean isVisbile(Camp camp){
+        return isVisible;
     }
 
     public void viewListStudents(){
