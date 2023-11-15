@@ -85,9 +85,15 @@ public class Staff extends User{
                 selectedCamp.setClosingTime(sc.nextLine());
                 break;
             case 4:
-                System.out.println("Enter new user group: ");
-                selectedCamp.setUserGroup(sc.nextLine());
-                break;
+                System.out.println("Enter new user group (e.g., SCSE, LKC): ");
+                String facultyName = sc.nextLine().toUpperCase();
+                try {
+                    Faculty newFaculty = Faculty.valueOf(facultyName);
+                    selectedCamp.setUserGroup(newFaculty);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid faculty name.");
+                }
+            break;
             case 5:
                 System.out.println("Enter new location: ");
                 selectedCamp.setLocation(sc.nextLine());
