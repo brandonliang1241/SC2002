@@ -21,6 +21,9 @@ public class Camp {
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
     private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
 
+    //suggestions
+    private ArrayList<Suggestion> suggestions = new ArrayList<>();
+
     public Camp(String campName, String staffId){
         this.campName = campName;
         this.staffId = staffId;
@@ -98,6 +101,12 @@ public class Camp {
     }
     public void toggleVisibility(boolean isVisible){
         this.isVisible = isVisible;
+    }
+    public void addSuggestion(Suggestion suggestion) {
+        suggestions.add(suggestion);
+    }
+    public ArrayList<Suggestion> getSuggestions() {
+        return suggestions;
     }
 
     public void viewListStudents(){
