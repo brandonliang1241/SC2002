@@ -1,4 +1,5 @@
 package excel;
 
 public class Suggestion {
-  private String
+  private String suggestionText;
+  private boolean
