@@ -16,6 +16,7 @@ public class Camp {
 
     private String description;
     private String staffId;
+    private boolean visibility;
 
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
     private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
@@ -35,6 +36,7 @@ public class Camp {
         this.campComSlots = campComSlots;
         this.staffId = staffId;
         this.slotsLeft = slotsLeft;
+        this.visibility = true;
     }
 
     public String getCampName() {
