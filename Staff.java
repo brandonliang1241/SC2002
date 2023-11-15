@@ -4,7 +4,6 @@ import java.util.*;
 
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
-    private int numOfCamps = 0;
     private List<Enquiry> enquiries = new ArrayList<>();
 
     public Staff(String userId, String password, Faculty facultyInfo){
@@ -19,8 +18,6 @@ public class Staff extends User{
         Camp camp1 = new Camp(campName, super.getUserId());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
-        numOfCamps++;
-        campsCreated.add(camp1);
         Database.addCamp(camp1);
         sc.close();
     }
@@ -36,14 +33,17 @@ public class Staff extends User{
     }
 
     public void deleteCamp(String campName) {
-        for (int i = 0; i < campsCreated.size(); i++) {
-            if (campName.equals(campsCreated.get(i).getCampName())) {
-                Database.removeCamp(campsCreated.get(i)); // Removing camp from list of all camps
-                campsCreated.remove(i); // Removing camp from staff's list of camps
-                numOfCamps--; // Decrease the count of camps
-                break;
+        Iterator<Camp> iterator = campsCreated.iterator();
+        while (iterator.hasNext()) {
+            Camp camp = iterator.next();
+            if (campName.equals(camp.getCampName())) {
+                Database.removeCamp(camp);
+                iterator.remove();
+                System.out.println("Camp deleted: " + campName);
+                return;
             }
         }
+        System.out.println("Camp not found: " + campName);
     }
 
     public void editCamp() {
@@ -116,19 +116,13 @@ public class Staff extends User{
     } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     
     public void toggleCampVisibility(String campName) {
-        if (campsCreated == null || campsCreated.isEmpty()) {
-            System.out.println("No camps available to toggle visibility.");
-            return;
-        }
-
         for (Camp camp : campsCreated) {
             if (campName.equals(camp.getCampName())) {
-                camp.toggleVisibility(); // Assuming Camp class has a toggleVisibility method
+                camp.toggleVisibility();
                 System.out.println("Visibility toggled for camp: " + campName);
                 return;
             }
         }
-
         System.out.println("Camp not found: " + campName);
     }
     
