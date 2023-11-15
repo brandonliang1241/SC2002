@@ -118,7 +118,7 @@ public class Staff extends User{
     public void toggleCampVisibility(String campName) {
         for (Camp camp : campsCreated) {
             if (campName.equals(camp.getCampName())) {
-                camp.toggleVisibility();
+                camp.toggleVisibility(true);
                 System.out.println("Visibility toggled for camp: " + campName);
                 return;
             }
