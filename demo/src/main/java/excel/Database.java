@@ -32,7 +32,19 @@
             }
             System.out.println("No camp found");
         }
-
+        
+        public void viewCampList() {
+        	if (camps.isEmpty()) {
+        		System.out.println("No camp found");
+        		return;
+        	}
+            System.out.println("All camps: ");
+            for (int i = 0; i < camps.size(); i++) {
+                if (camps.get(i) != null) {
+                    System.out.println(i + 1 + ": " + camps.get(i).getCampName());
+                }
+            }
+        }
         public Student getStudent(String studentName) {
             for(int i = 0; i < students.size(); i++){
                 if(students.get(i).getUserId().equals(studentName)){return students.get(i);}
@@ -74,24 +86,10 @@
             }
             System.out.println("No staff found");
         }
-        /**
-         * listOfCampsFaculty
-         * Runs through the camps to return camps belonging to a sepcific faculty and returns an arraylist
-        */
+
         public ArrayList<Camp> listOfCampsFaculty(ArrayList<Camp> inputCamp, Faculty faculty){
             for(int i = 0; i < camps.size(); i++){
                 if(camps.get(i).getUserGroup().equals(faculty)){inputCamp.add(camps.get(i));}
-            }
-            return inputCamp;
-        }
-        /**
-         * listOfCampsJoined
-         * Runs through the camps stored in database and checks for if joined camps present,
-         * then it puts the camp into arraylist so that we have the array of joined camps
-         */
-        public ArrayList<Camp> listOfCampsJoined(ArrayList<Camp> inputCamp, Student student){
-            for(int i = 0; i < camps.size(); i++){
-                if(camps.get(i).findStudent(student)){inputCamp.add(camps.get(i));};
             }
             return inputCamp;
         }
