@@ -2,6 +2,7 @@ package excel;
 
 import java.util.*;
 import java.time.*;
+import java.time.format.DateTimeParseException;
 
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
@@ -12,13 +13,14 @@ public class Staff extends User{
         this.campsCreated = new ArrayList<Camp>();
     }
 
-    public void createCamp(Scanner sc){
+    public Camp createCamp(Scanner sc, Database database){
         System.out.println("Enter camp name: ");
         String campName = sc.nextLine();
         Camp camp1 = new Camp(campName, super.getUserId());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
-        Database.addCamp(camp1);
+        database.addCamp(camp1);
+        return camp1;
     }
 
 
@@ -26,7 +28,7 @@ public class Staff extends User{
         if (campsCreated.isEmpty()){
             System.out.println("No camps available");
         }
-        for (int i = 0; i<numOfCamps; i++){
+        for (int i = 0; i<campsCreated.size(); i++){
             System.out.println(campsCreated.get(i).getCampName() + " : " + (i+1));
         }
     }
@@ -36,7 +38,7 @@ public class Staff extends User{
         while (iterator.hasNext()) {
             Camp camp = iterator.next();
             if (campName.equals(camp.getCampName())) {
-                Database.removeCamp(camp);
+				//Database.removeCamp(camp);
                 iterator.remove();
                 System.out.println("Camp deleted: " + campName);
                 return;
@@ -67,7 +69,7 @@ public class Staff extends User{
         System.out.println("Select what you want to edit: ");
         System.out.println("1. Camp Name\n2. Camp Date\n3. Closing Time\n4. User Group\n5. Location\n6. Total Slots\n7. Camp Committee Slots\n8. Description");
         int choice = sc.nextInt();
-        //sc.nextLine(); // Consume the leftover newline
+        sc.nextLine(); // Consume the leftover newline
 
         switch (choice) {
             case 1:
@@ -111,7 +113,7 @@ public class Staff extends User{
             case 6:
                 System.out.println("Enter new total slots: ");
                 selectedCamp.setTotalSlots(sc.nextInt());
-                //sc.nextLine(); // Consume the leftover newline
+                sc.nextLine(); // Consume the leftover newline
                 break;
             case 7:
                 System.out.println("Enter new camp committee slots: ");
@@ -130,11 +132,22 @@ public class Staff extends User{
         System.out.println("Camp updated successfully!");
     } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     
-    public void toggleCampVisibility(String campName) {
+    public void toggleCampVisibility(Scanner sc, String campName) {
         for (Camp camp : campsCreated) {
             if (campName.equals(camp.getCampName())) {
-                camp.toggleVisibility(true);
-                System.out.println("Visibility toggled for camp: " + campName);
+                System.out.println("Do you want to toggle visibility on/off?");
+                System.out.println("1: On");
+                System.out.println("2: Off");
+                int choice = sc.nextInt();
+                sc.nextLine(); // Consume the leftover newline
+
+                boolean visibility;
+                if (choice == 1) visibility = true;
+                else visibility = false;      // If choice is 1, visibility is true (On), otherwise false (Off)
+
+                camp.toggleVisibility(visibility);
+                String visibilityStatus = visibility ? "on" : "off";
+                System.out.println("Visibility toggled " + visibilityStatus + " for " + campName);
                 return;
             }
         }
