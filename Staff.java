@@ -12,15 +12,13 @@ public class Staff extends User{
         this.campsCreated = new ArrayList<Camp>();
     }
 
-    public void createCamp(){
-        Scanner sc = new Scanner(System.in);
+    public void createCamp(Scanner sc){
         System.out.println("Enter camp name: ");
         String campName = sc.nextLine();
         Camp camp1 = new Camp(campName, super.getUserId());
         campsCreated.add(camp1);
         System.out.println("Camp created successfully!");
         Database.addCamp(camp1);
-        sc.close();
     }
 
 
@@ -130,7 +128,6 @@ public class Staff extends User{
         }
 
         System.out.println("Camp updated successfully!");
-        sc.close();
     } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     
     public void toggleCampVisibility(String campName) {
