@@ -198,8 +198,9 @@ public class Staff extends User{
             return; // No enquiries to reply to
         }
 
-        System.out.println("Enter the number of the enquiry you wish to reply to: ");
+        System.out.println("Enter the number of the enquiry you wish to reply to:");
         int enquiryNumber = sc.nextInt();
+        sc.nextLine(); // Consume newline
 
         if (enquiryNumber < 1 || enquiryNumber > filteredEnquiries.size()) {
             System.out.println("Invalid enquiry number.");
@@ -208,23 +209,24 @@ public class Staff extends User{
 
         Enquiry selectedEnquiry = filteredEnquiries.get(enquiryNumber - 1);
 
-        System.out.println("Enter your reply: ");
-        //sc.nextLine(); // Consume the leftover newline
+        System.out.println("Enter your reply:");
         String reply = sc.nextLine();
 
-        System.out.println("Your reply: " + reply);
-        selectedEnquiry.setStatus("Resolved"); // Update status or handle as needed
+        selectedEnquiry.setReplyText(reply);
+        selectedEnquiry.setStatus(true); // Set the status as replied
 
-        System.out.println("Reply sent and enquiry status updated.");
+        System.out.println("Reply sent successfully.");
+        System.out.println("Updated Enquiry:");
+        selectedEnquiry.displayEnquiry();
     }
     
-    public void viewSuggestions(String campName) {
+    //created new method to display suggestion based on campname
+    private ArrayList<Suggestion> filterAndDisplaySuggestions(String campName) {
         for (Camp camp : campsCreated) {
             if (camp.getCampName().equals(campName)) {
                 ArrayList<Suggestion> suggestions = camp.getSuggestions();
                 ArrayList<Suggestion> filteredSuggestions = new ArrayList<>();
 
-                // Filter suggestions for the specified camp
                 for (Suggestion suggestion : suggestions) {
                     if (suggestion.getCampName().equals(campName)) {
                         filteredSuggestions.add(suggestion);
@@ -233,77 +235,59 @@ public class Staff extends User{
 
                 if (filteredSuggestions.isEmpty()) {
                     System.out.println("No suggestions available for this camp.");
-                    return;
-                }
-
-                // Display all filtered suggestions for the camp using displaySuggestion method
-                System.out.println("Suggestions for camp: " + campName);
-                for (Suggestion suggestion : filteredSuggestions) {
-                    suggestion.displaySuggestion();
-                }
-                return;
-            }
-        }
-        System.out.println("Camp not found: " + campName);
-    }//from camp committee
-    
-    public void replySuggestions(Scanner sc, String campName) {
-        for (Camp camp : campsCreated) {
-            if (camp.getCampName().equals(campName)) {
-                ArrayList<Suggestion> suggestions = camp.getSuggestions();
-                ArrayList<Suggestion> filteredSuggestions = new ArrayList<>();
-
-                // Filter suggestions for the specified camp
-                for (Suggestion suggestion : suggestions) {
-                    if (suggestion.getCampName().equals(campName)) {
-                        filteredSuggestions.add(suggestion);
-                    }
-                }
-
-                if (filteredSuggestions.isEmpty()) {
-                    System.out.println("No suggestions available for this camp.");
-                    return;
-                }
-
-                // Display all filtered suggestions for the camp using displaySuggestion method
-                for (int i = 0; i < filteredSuggestions.size(); i++) {
-                    System.out.print((i + 1) + ": ");
-                    filteredSuggestions.get(i).displaySuggestion();
-                }
-
-                System.out.println("Enter the index of the suggestion to reply:");
-                int arrayIndex = sc.nextInt() - 1; // Subtract 1 to convert to 0-based index
-                sc.nextLine(); // Consume the leftover newline
-
-                if (arrayIndex < 0 || arrayIndex >= filteredSuggestions.size()) {
-                    System.out.println("Invalid suggestion index.");
-                    return;
-                }
-
-                System.out.println("Do you want to approve or reject the suggestion?");
-                System.out.println("1: Approve");
-                System.out.println("2: Reject");
-                int choice = sc.nextInt();
-                sc.nextLine(); // Consume the leftover newline
-
-                Suggestion suggestion = filteredSuggestions.get(arrayIndex);
-
-                if (choice == 1) {
-                    suggestion.setStatus(true);
-                } else if (choice == 2) {
-                    suggestion.setStatus(false);
                 } else {
-                    System.out.println("Invalid choice.");
-                    return;
+                    System.out.println("Suggestions for camp: " + campName);
+                    for (Suggestion suggestion : filteredSuggestions) {
+                        suggestion.displaySuggestion();
+                    }
                 }
-
-                // Display the updated suggestion
-                System.out.println("Updated Suggestion:");
-                suggestion.displaySuggestion();
-                return;
+                return filteredSuggestions;
             }
         }
         System.out.println("Camp not found: " + campName);
+        return new ArrayList<>(); // Return empty list if camp not found
+    }
+
+    public void viewSuggestions(String campName) {
+        filterAndDisplaySuggestions(campName);
+    }
+
+    public void replySuggestions(Scanner sc, String campName) {
+        ArrayList<Suggestion> filteredSuggestions = filterAndDisplaySuggestions(campName);
+        
+        if (filteredSuggestions.isEmpty()) {
+            return;
+        }
+
+        System.out.println("Enter the index of the suggestion to reply:");
+        int suggestionNumber = sc.nextInt() - 1;
+        sc.nextLine();
+
+        if (suggestionNumber < 0 || suggestionNumber >= filteredSuggestions.size()) {
+            System.out.println("Invalid suggestion index.");
+            return;
+        }
+
+        System.out.println("Do you want to approve or reject the suggestion?");
+        System.out.println("1: Approve");
+        System.out.println("2: Reject");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        Suggestion suggestion = filteredSuggestions.get(suggestionNumber);
+
+        if (choice == 1) {
+            suggestion.setStatus(true);
+        } else if (choice == 2) {
+            suggestion.setStatus(false);
+        } else {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        // Display the updated suggestion
+        System.out.println("Updated Suggestion:");
+        suggestion.displaySuggestion();
     }
 
     public void generateCampReport(String campName){} //generate list of students (attendees/campcom)
