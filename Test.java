@@ -12,6 +12,7 @@ public class Test {
         Staff david = new Staff("DAVID", "password", Faculty.LKC);
         database.addCamp(david.createCamp(sc));// database adds the camp that david creates.
         database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
+        database.getCamp("SCSE").getTotalSlots(100);
         database.addStudent(brandon);
         //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
         int choice;
