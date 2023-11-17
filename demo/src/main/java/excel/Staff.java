@@ -41,12 +41,12 @@ public class Staff extends User{
         }
     }
 
-    public void deleteCamp(String campName) {
+    public void deleteCamp(String campName, Database database) {
         Iterator<Camp> iterator = campsCreated.iterator();
         while (iterator.hasNext()) {
             Camp camp = iterator.next();
             if (campName.equals(camp.getCampName())) {
-				//Database.removeCamp(camp);
+				database.removeCamp(camp);
                 iterator.remove();
                 System.out.println("Camp deleted: " + campName);
                 return;
