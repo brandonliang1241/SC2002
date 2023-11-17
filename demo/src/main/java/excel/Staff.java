@@ -35,9 +35,11 @@ public class Staff extends User{
     public void viewCampList(){
         if (campsCreated.isEmpty()){
             System.out.println("No camps available");
+            return;
         }
+    	System.out.println("All camps: ");
         for (int i = 0; i<campsCreated.size(); i++){
-            System.out.println(campsCreated.get(i).getCampName() + " : " + (i+1));
+            System.out.println((i+1) + ": " + campsCreated.get(i).getCampName());
         }
     }
 
