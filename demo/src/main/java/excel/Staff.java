@@ -12,14 +12,23 @@ public class Staff extends User{
         this.campsCreated = new ArrayList<Camp>();
     }
 
-    public Camp createCamp(Scanner sc, Database database){
+    public Camp createCamp(Scanner sc, Database database) {
         System.out.println("Enter camp name: ");
         String campName = sc.nextLine();
-        Camp camp1 = new Camp(campName, super.getUserId());
-        campsCreated.add(camp1);
+
+        // Check if a camp with the same name already exists
+        for (Camp existingCamp : campsCreated) {
+            if (existingCamp.getCampName().equalsIgnoreCase(campName)) {
+                System.out.println("A camp with this name already exists. Please choose a different name.");
+                return null; // Return null to indicate that no new camp was created
+            }
+        }
+
+        Camp newCamp = new Camp(campName, super.getUserId());
+        campsCreated.add(newCamp);
         System.out.println("Camp created successfully!");
-        database.addCamp(camp1);
-        return camp1;
+        database.addCamp(newCamp);
+        return newCamp;
     }
 
 
@@ -32,12 +41,12 @@ public class Staff extends User{
         }
     }
 
-    public void deleteCamp(String campName) {
+    public void deleteCamp(String campName, Database database) {
         Iterator<Camp> iterator = campsCreated.iterator();
         while (iterator.hasNext()) {
             Camp camp = iterator.next();
             if (campName.equals(camp.getCampName())) {
-				//Database.removeCamp(camp);
+				database.removeCamp(camp);
                 iterator.remove();
                 System.out.println("Camp deleted: " + campName);
                 return;
