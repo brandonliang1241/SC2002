@@ -25,14 +25,6 @@ public class Suggestion {
   public void setSuggestionText(String suggestionText) {
       this.suggestionText = suggestionText;
   }
-  
-  public int getSuggestionIndex() {
-	  return suggestionIndex;
-  }
-  
-  public void setSuggestionIndex(int suggestionIndex) {
-	  this.suggestionIndex = suggestionIndex;
-  }
 
   public boolean getStatus(){
     return status;
@@ -40,6 +32,14 @@ public class Suggestion {
 
   public void setStatus(boolean status){
     this.status = status;
+  }
+  
+  public int getSuggestionIndex() {
+	  return suggestionIndex;
+  }
+  
+  public void setSuggestionIndex(int suggestionIndex) {
+	  this.suggestionIndex = suggestionIndex;
   }
   
   public String getOwner() {
@@ -58,14 +58,11 @@ public class Suggestion {
 	  this.campName = campName;
   }
   
-  public String toString() {
-      return "Suggestion: " + suggestionText + "\nStatus: " + (status ? "Accepted" : "Rejected");
-  }
   
   public void displaySuggestion() {
       System.out.println("Suggestion Index: " + suggestionIndex);
       System.out.println("Suggestion: " + suggestionText + " by " + owner);
-      System.out.println("Status: " + status);
+      System.out.println("Status: " + (status ? "Approved" : "Rejected"));
   }
 }
     
