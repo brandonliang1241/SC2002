@@ -32,7 +32,15 @@
             }
             System.out.println("No camp found");
         }
-
+        
+        public void viewCampList() {
+            System.out.println("All camps: ");
+            for (int i = 0; i < camps.size(); i++) {
+                if (camps.get(i) != null) {
+                    System.out.println(i + 1 + ": " + camps.get(i).getCampName());
+                }
+            }
+        }
         public Student getStudent(String studentName) {
             for(int i = 0; i < students.size(); i++){
                 if(students.get(i).getUserId().equals(studentName)){return students.get(i);}
