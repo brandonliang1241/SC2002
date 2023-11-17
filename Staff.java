@@ -155,17 +155,33 @@ public class Staff extends User{
     }
     
     public void viewEnquiries(String campName) {
-        boolean found = false;
-        for (Enquiry enquiry : enquiries) {
-            if (enquiry.getCampName().equals(campName)) {
-                enquiry.displayEnquiry();
-                found = true;
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Enquiry> enquiries = camp.getEnquiries();
+                ArrayList<Enquiry> filteredEnquiries = new ArrayList<>();
+
+                // Filter enquiries for the specified camp
+                for (Enquiry enquiry : enquiries) {
+                    if (enquiry.getCampName().equals(campName)) {
+                        filteredEnquiries.add(enquiry);
+                    }
+                }
+
+                if (filteredEnquiries.isEmpty()) {
+                    System.out.println("No enquiries available for this camp.");
+                    return;
+                }
+
+                // Display all filtered enquiries for the camp using displayEnquiries method
+                System.out.println("Enquiries for camp: " + campName);
+                for (Enquiry enquiry : filteredEnquiries) {
+                    enquiry.displayEnquiry();
+                }
+                return;
             }
         }
-        if (!found) {
-            System.out.println("No enquiries found for camp: " + campName);
-        }
-    }
+        System.out.println("Camp not found: " + campName);
+    }//from camp committee
     
     public void replyEnquiries(Scanner sc, String campName) {
         // Display enquiries for the specified camp
