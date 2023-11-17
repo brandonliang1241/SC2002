@@ -12,8 +12,9 @@ public class Test {
         Staff david = new Staff("DAVID", "password", Faculty.LKC);
         database.addCamp(david.createCamp(sc));// database adds the camp that david creates.
         database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
-        database.getCamp("SCSE").getTotalSlots(100);
+        database.getCamp("SCSE").setTotalSlots(100);
         database.addStudent(brandon);
+        database.addStaff(david);
         //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
         int choice;
         do{
@@ -73,7 +74,7 @@ public class Test {
                 }
                 System.out.println("Password:");
                 password = sc.nextLine();
-                if(tempStaff.getPassword().equals(password)){System.out.println("Staff Login Successful!");}
+                if(tempStaff.getPassword().equals(password)){staffInterface(sc,database,tempStaff);}
                 else{System.out.println("Staff Login Failed!");}
                 break;
 
@@ -133,41 +134,90 @@ public class Test {
             choice = Integer.parseInt(sc.nextLine());
             switch(choice){
                 case 1:
-                studentInterfaceCamp(sc, database, student); 
+                studentInterfaceCamp(sc, database, student, false); break;
                 case 2:
+                studentInterfaceCamp(sc, database, student, true); break;
                 case 3:
-                case 4:
                 default:
             }
-        } while (choice != 10);
+        } while (choice != 4);
     }
 
-    public static void studentInterfaceCamp(Scanner sc, Database database, Student student){
+    public static void studentInterfaceCamp(Scanner sc, Database database, Student student, Boolean join){
         int choice;
-        System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
-        //Need to create an array for each student that stores the names of the camps that they have joined.
         ArrayList<Camp> tempCamp = new ArrayList<Camp>(10);
-        database.listOfCampsFaculty(tempCamp, student.getFacultyInfo());
+        if(join.equals(false)){
+            //Need to create an array for each student that stores the names of the camps that they have joined.
+            database.listOfCampsFaculty(tempCamp, student.getFacultyInfo());
+            if(tempCamp.size() == 0){System.out.println("No available for your faculty camps"); return;}
+            System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
+        }
+        else{
+            database.listOfCampsJoined(tempCamp, student.getJoinedCamps());
+            if(tempCamp.size() == 0){System.out.println("You have no joined camps"); return;}
+            System.out.println("Here is the list of joined camps."); 
+        }
+
         for(int i = 0; i < tempCamp.size(); i++){
             System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
         }
         choice = Integer.parseInt(sc.nextLine()); //choice chooses the camp we would like to access. 
-        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student);
+        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join);
+        System.out.println("Testing");
+        //once we leave this function returns to student interface
     }
 
-    public static void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student){
+    public static void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student, Boolean join){
         //Specific to the selected camp
         int choice;
-        System.out.println("Visibility: "); //need a visibility value
-        System.out.println("Slots remaining: ");
-        System.out.println("Slots remaining: ");
-        System.out.println("You have joined this camp"); //or not we need to check with the student obj
-        //if student is camp com state if camp com. (can make camp com store the camp he is com of) 
-        //print more choices if camp com
-        System.out.println("1: Leave this camp"); //or join
-        System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
-        System.out.println("3:");
-        System.out.println("4:");
+        do{
+            System.out.println("Visibility: "); //need a visibility value
+            System.out.println("Total Slots: " + camp.getTotalSlots());
+            System.out.println("Slots remaining: " + camp.getSlotsLeft());
+            if(join == true){System.out.println("You have joined this camp");} //or not we need to check with the student obj
+            else{
+                for(int i = 0; i < student.getJoinedCamps().size(); i++){
+                    if(student.getJoinedCamps().get(i).getCampName().equals(camp.getCampName())){
+                        if(student.getJoinedCamps().get(i).getInCamp() == false){break;}
+                        System.out.println("You have joined this camp");
+                        join = true;
+                        break;
+                    }
+                }
+                if(join == false){System.out.println("You have not joined this camp");}
+            }
+            //if student is camp com state if camp com. (can make camp com store the camp he is com of) 
+            //print more choices if camp com
+            if(join == true){System.out.println("1: Leave this camp");}
+            else{System.out.println("1: Join this camp");}
+            System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
+            System.out.println("3:");
+            System.out.println("4: Return");
+            choice = Integer.parseInt(sc.nextLine());
+            switch(choice){
+                case 1:
+                    if(join == false){
+                        if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
+                        camp.addStudent(student); student.addCamp(camp.getCampName(), false);
+                    }
+                    else{
+                        System.out.println("Do you want to leave this camp?");
+                        System.out.println("You will be unable to rejoin this camp.");
+                        System.out.println("1: Leave the camp");
+                        System.out.println("2: Return");
+                        choice = Integer.parseInt(sc.nextLine());
+                        if(choice == 1){
+                            camp.removeStudent(student);
+                            student.removeCamp(camp.getCampName());
+                            join = false;
+                        }
+                    }
+                    break;
+                case 2:
+                case 3:
+                default:
+            }
+        }while(choice != 4);
     }
 
     public static void staffInterface(Scanner sc, Database database, Staff staff) {
@@ -195,7 +245,7 @@ public class Test {
                     staff.createCamp(sc);
                     break;
                 case 2:
-                    staff.editCamp();
+                    staff.editCamp(sc);
                     break;
                 case 3:
                     System.out.println("Enter camp name to delete: ");
@@ -208,7 +258,7 @@ public class Test {
                     staff.toggleCampVisibility(campToBeEdited);
                     break;
                 case 5:
-                    Database.viewAllCamps();
+                    staff.viewCampList();
                     break;
                 case 6:
                     staff.viewCampList();
@@ -231,7 +281,7 @@ public class Test {
                 case 10:
                     System.out.println("Enter camp name: ");
                     String camp = sc.nextLine();
-                    staff.approveSuggestions(camp);
+                    staff.approveSuggestions(camp,1);
                     break;
                 case 11:
                     System.out.println("Enter camp name to generate report: ");
@@ -255,6 +305,4 @@ public class Test {
             }
         } while (choice != 14);
     }
-            
-
 }
