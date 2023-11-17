@@ -6,7 +6,6 @@ import java.time.format.DateTimeParseException;
 
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
-    private List<Enquiry> enquiries = new ArrayList<>();
 
     public Staff(String userId, String password, Faculty facultyInfo){
         super(userId, password, facultyInfo);
@@ -152,15 +151,15 @@ public class Staff extends User{
             }
         }
         System.out.println("Camp not found: " + campName);
-    }
+    } 
     
-    public void viewEnquiries(String campName) {
+     //created new method to display enquiry based on campname
+    private ArrayList<Enquiry> filterAndDisplayEnquiries(String campName) {
         for (Camp camp : campsCreated) {
             if (camp.getCampName().equals(campName)) {
                 ArrayList<Enquiry> enquiries = camp.getEnquiries();
                 ArrayList<Enquiry> filteredEnquiries = new ArrayList<>();
-
-                // Filter enquiries for the specified camp
+                
                 for (Enquiry enquiry : enquiries) {
                     if (enquiry.getCampName().equals(campName)) {
                         filteredEnquiries.add(enquiry);
@@ -168,34 +167,29 @@ public class Staff extends User{
                 }
 
                 if (filteredEnquiries.isEmpty()) {
-                    System.out.println("No enquiries available for this camp.");
-                    return;
+                    System.out.println("No enquiries available for camp: " + campName);
+                } else {
+                	System.out.println("Enquiries for camp: " + campName);
+                	for (Enquiry enquiry : filteredEnquiries) {
+                		enquiry.displayEnquiry();
+                	}
                 }
-
-                // Display all filtered enquiries for the camp using displayEnquiries method
-                System.out.println("Enquiries for camp: " + campName);
-                for (Enquiry enquiry : filteredEnquiries) {
-                    enquiry.displayEnquiry();
-                }
-                return;
+                return filteredEnquiries;
             }
         }
         System.out.println("Camp not found: " + campName);
-    }//from camp committee
+        return new ArrayList<>(); //Return empty list if camp not found
+    }
     
+    public void viewEnquiries(String campName) {
+        filterAndDisplayEnquiries(campName);
+    }
+
     public void replyEnquiries(Scanner sc, String campName) {
-        // Display enquiries for the specified camp
-        this.viewEnquiries(campName);
-        // Filter enquiries for the specified camp
-        List<Enquiry> filteredEnquiries = new ArrayList<>();
-        for (Enquiry enquiry : enquiries) {
-            if (enquiry.getCampName().equals(campName)) {
-                filteredEnquiries.add(enquiry);
-            }
-        }
+        ArrayList<Enquiry> filteredEnquiries = filterAndDisplayEnquiries(campName);
 
         if (filteredEnquiries.isEmpty()) {
-            return; // No enquiries to reply to
+            return;
         }
 
         System.out.println("Enter the number of the enquiry you wish to reply to:");
@@ -294,7 +288,6 @@ public class Staff extends User{
 
     public void generatePerformanceReport(){} //generate performance report of campcom members
 
-    public void approveSuggestions(Scanner sc, String camp){}
     
     public void viewStudentsInCamp(int camp){
         campsCreated.get(camp).viewListStudents();
