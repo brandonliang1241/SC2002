@@ -279,7 +279,7 @@ public class Test {
                 case 10:
                     System.out.println("Enter camp name: ");
                     String camp = sc.nextLine();
-                    staff.approveSuggestions(sc, camp);
+                    //staff.approveSuggestions(sc, camp);
                     break;
                 case 11:
                     System.out.println("Enter camp name to generate report: ");
