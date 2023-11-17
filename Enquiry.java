@@ -4,6 +4,7 @@ public class Enquiry {
 	private static int enquiryCounter = 0;
 	
     private String enquiryText;
+    private String replyText;
     private boolean status; //true = replied, false = not replied
     private int enquiryIndex;
     private String owner; // ID or name of the user who made the enquiry
@@ -24,6 +25,14 @@ public class Enquiry {
 
     public void setEnquiryText(String enquiryText) {
         this.enquiryText = enquiryText;
+    }
+    
+    public String getReplyText() {
+    	return replyText;
+    }
+    
+    public void setReplyText(String replyText) {
+    	this.replyText = replyText;
     }
 
     public boolean getStatus() {
@@ -59,7 +68,11 @@ public class Enquiry {
     }
 
     public void displayEnquiry() {
+    	System.out.println("Enquiry Index: " + enquiryIndex);
         System.out.println("Enquiry: " + enquiryText + " by " + owner);
-        System.out.println("Status: " + status);
+        System.out.println("Status: " + (status ? "Replied" : "Not Replied"));
+        if (status) {
+            System.out.println("Reply: " + replyText);
+        }
     }
 }
