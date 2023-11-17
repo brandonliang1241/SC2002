@@ -222,7 +222,7 @@ public class Staff extends User{
     public void replySuggestions(Scanner sc, String campName) {
         for (Camp camp : campsCreated) {
             if (camp.getCampName().equals(campName)) {
-                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+                ArrayList<Suggestion> suggestions = camp.getSuggestions(); //create array of suggestions
 
                 if (suggestions.isEmpty()) {
                     System.out.println("No suggestions available for this camp.");
@@ -231,14 +231,15 @@ public class Staff extends User{
 
                 // Display all suggestions for the camp
                 for (int i = 0; i < suggestions.size(); i++) {
-                    System.out.println((i + 1) + ": " + suggestions.get(i).getSuggestionText() + " " + suggestions.get(i).getSuggestionIndex());
+                    System.out.print((i + 1) + ": ");
+                    suggestions.get(i).displaySuggestion();
                 }
 
                 System.out.println("Enter the index of the suggestion to reply:");
-                int suggestionIndex = sc.nextInt() - 1; // Subtract 1 to convert to 0-based index
+                int arrayIndex = sc.nextInt() - 1; // Subtract 1 to convert to 0-based index
                 sc.nextLine(); // Consume the leftover newline
 
-                if (suggestionIndex < 0 || suggestionIndex >= suggestions.size()) {
+                if (arrayIndex < 0 || arrayIndex >= suggestions.size()) {
                     System.out.println("Invalid suggestion index.");
                     return;
                 }
@@ -249,14 +250,14 @@ public class Staff extends User{
                 int choice = sc.nextInt();
                 sc.nextLine(); // Consume the leftover newline
 
-                Suggestion suggestion = suggestions.get(suggestionIndex);
+                Suggestion suggestion = suggestions.get(arrayIndex); //get array index of suggestions
 
                 if (choice == 1) {
                     suggestion.setStatus(true);
-                    System.out.println("Suggestion approved: " + suggestion.getSuggestionText());
+                    suggestion.toString();
                 } else if (choice == 2) {
                     suggestion.setStatus(false);
-                    System.out.println("Suggestion rejected: " + suggestion.getSuggestionText());
+                    suggestion.toString();
                 } else {
                     System.out.println("Invalid choice.");
                 }
