@@ -250,7 +250,7 @@ public class Test {
                 case 3:
                     System.out.println("Enter camp name to delete: ");
                     String campToBeDeleted = sc.nextLine();
-                    staff.deleteCamp(campToBeDeleted);
+                    staff.deleteCamp(campToBeDeleted,database);
                     break;
                 case 4:
                     System.out.println("Enter camp name to set visibility: ");
