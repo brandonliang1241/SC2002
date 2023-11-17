@@ -1,13 +1,16 @@
 package excel;
 
 public class Suggestion {
+  private static int suggestionCounter = 0;
+	
   private String suggestionText;
   private int suggestionIndex;
   private boolean status; //accepted or rejected
 
-  public Suggestion(String suggestionText, int suggestionIndex){
+  public Suggestion(String suggestionText){
     this.suggestionText = suggestionText;
-    this.suggestionIndex = suggestionIndex;
+    this.suggestionIndex = suggestionCounter;
+    suggestionCounter++;
     status = false;  //initialise suggestion as not accepted
   }
 
