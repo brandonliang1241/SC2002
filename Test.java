@@ -180,15 +180,15 @@
 	            System.out.println("3: Delete camp");
 	            System.out.println("4: Change camp visibility");
 	            System.out.println("5: View all camps");
-	            System.out.println("6: View your camps");
+	            System.out.println("6: View camps that I created");
 	            System.out.println("7: View Enquiries");
-	            System.out.println("8: Reply to Enquiry");
+	            System.out.println("8: Reply to Enquiries");
 	            System.out.println("9: View Suggestions");
 	            System.out.println("10: Approve/Reject a Suggestion");
 	            System.out.println("11: Generate camp report");
 	            System.out.println("12: Generate performance report of camp committee");
-	            System.out.println("13: Change Password");
-	            System.out.println("14: Quit");
+	            System.out.println("13: Change Settings");
+	            System.out.println("14: Return");
 	            choice = Integer.parseInt(sc.nextLine());
 	
 	            switch (choice) {
@@ -243,10 +243,38 @@
 	                    //staff.generatePerformanceReport();
 	                    break;
 	                case 13:
-	                    System.out.println("Enter New Password");
-	                    String newPassword = sc.nextLine();
-	                    staff.setPassword(newPassword);
-	                    break;
+	                	System.out.println("What do you want to change?");
+	                	System.out.println("1: Password");
+	                	System.out.println("2: StaffId");
+	                	System.out.println("3: Faculty");
+	                	int choice2 = sc.nextInt();
+	                	switch (choice2) {
+	                	case 1:
+		                    System.out.println("Enter New Password");
+		                    sc.nextLine();
+		                    String newPassword = sc.nextLine();
+		                    staff.setPassword(newPassword);
+		                    System.out.println("Password successfully changed!");
+		                    break;
+	                	case 2:
+		                    System.out.println("Enter New StaffId");
+		                    sc.nextLine();
+		                    String newStaffId = sc.nextLine();
+		                    staff.setUserId(newStaffId);
+		                    System.out.println("StaffId successfully changed!");
+		                    break;
+	                	case 3:
+		                    System.out.println("Enter New Faculty");
+		                    sc.nextLine();
+		                    String newFacultyName = sc.nextLine().toUpperCase();
+		                    try {
+		                        Faculty newFaculty = Faculty.valueOf(newFacultyName);
+		                        staff.setFacultyInfo(newFaculty);
+			                    System.out.println("Faculty successfully changed!");
+		                    } catch (IllegalArgumentException e) {
+		                        System.out.println("Invalid faculty name.");
+		                    }
+	                	}
 	                case 14:
 	                    System.out.println("Exiting Staff Interface.");
 	                    break;
