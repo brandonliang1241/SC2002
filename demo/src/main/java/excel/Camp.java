@@ -3,6 +3,8 @@ package excel;
 import java.time.*;
 import java.util.ArrayList;
 
+import org.apache.poi.hpsf.Array;
+
 public class Camp {
     private String campName;
     private LocalDate campDate;
@@ -22,8 +24,9 @@ public class Camp {
     private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
 
     //suggestions
-    private ArrayList<Suggestion> suggestions = new ArrayList<>();
-
+    private ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
+    private ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
+    
     public Camp(String campName, String staffId){
         this.campName = campName;
         this.staffId = staffId;
@@ -105,7 +108,7 @@ public class Camp {
     public void setStaffId(String staffId) {
         this.staffId = staffId;
     }
-    public boolean isVisible(Camp camp){
+    public boolean isVisible(){
         return isVisible;
     }
     public void toggleVisibility(boolean isVisible){
@@ -127,8 +130,19 @@ public class Camp {
         listOfStudents.remove(student);
         slotsLeft++;
     }
-    
+
+    public Boolean findStudent(Student student){
+        if(listOfStudents.contains(student)){return true;}
+        return false;
+    }
+
     public void viewListStudents(){
         //return the arraylist of students
+    }
+
+    public void viewEnquiries(){}
+
+    public ArrayList<Enquiry> getEnquiries(){
+        return enquiries;
     }
 }

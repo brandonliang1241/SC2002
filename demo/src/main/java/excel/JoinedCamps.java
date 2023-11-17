@@ -5,9 +5,9 @@ public class JoinedCamps {
     private Boolean inCamp; //if false means that they have left the camp b4 and cannot join again
     private Boolean isCampCom; 
 
-    JoinedCamps(String campName, Boolean inCamp, Boolean isCampCom){
+    JoinedCamps(String campName, Boolean isCampCom){
         this.campName = campName;
-        this.inCamp = inCamp;
+        this.inCamp = true; //by default true. Removing the camp from joined camps just turns this false
         this.isCampCom = isCampCom;
     }
     public String getCampName() {

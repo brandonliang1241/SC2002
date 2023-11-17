@@ -1,5 +1,4 @@
 package excel;
-import java.util.*;
 
 public interface CampCom {
     public int points = 0;
