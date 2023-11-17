@@ -47,8 +47,7 @@ public class Staff extends User{
         System.out.println("Camp not found: " + campName);
     }
 
-    public void editCamp() {
-        Scanner sc = new Scanner(System.in);
+    public void editCamp(Scanner sc) {
         System.out.println("Enter the name of the camp you want to edit: ");
         String campName = sc.nextLine();
 
