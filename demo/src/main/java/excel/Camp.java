@@ -22,8 +22,7 @@ public class Camp {
 
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
     private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
-
-    //suggestions
+    
     private ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
     private ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
     
