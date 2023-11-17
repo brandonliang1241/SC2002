@@ -1,289 +1,277 @@
-	package excel;
-	
-	import java.util.Scanner;
-	import java.util.ArrayList;
-	
-	public class Test {
-	    public static void main(String[] args) {
-	        Database database = new Database();
-	        Scanner sc = new Scanner(System.in); 
-	        //now to add into database
-	        Student brandon = new Student("BLIANG003", "password", Faculty.SCSE);
-	        Staff david = new Staff("DAVID", "password", Faculty.LKC);
-	        //database.addCamp(david.createCamp(sc));// database adds the camp that david creates.
-	        //database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
-	        //database.getCamp("SCSE").setTotalSlots(100);
-	        database.addStudent(brandon);
-	        database.addStaff(david);
-	        //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
-	        int choice;
-	        do{
-	            userInterface();
-	            choice = Integer.parseInt(sc.nextLine());
-	            switch(choice){
-	                case 1:
-	                loginInterface(sc,database);
-	                break;
-	                case 2:
-	                newUserInterface(sc,database);
-	                break;
-	                default: 
-	                break;
-	            }
-	        }while(choice < 3);
-	        sc.close();
-	    }
-	
-	    public static void userInterface(){
-	        System.out.println("Welcome! Please select your desired path."); 
-	        System.out.println("1: Login"); 
-	        System.out.println("2: Create new account"); 
-	        System.out.println("3: quit");
-	    }
-	
-	    public static void loginInterface(Scanner sc, Database database){
-	        int choice;
-	        do{
-	            System.out.println("Login Page"); 
-	            System.out.println("1: Student Login"); 
-	            System.out.println("2: Staff Login"); 
-	            System.out.println("3: Return"); 
-	            choice = Integer.parseInt(sc.nextLine());
-	            switch(choice){
-	                case 1: 
-	                System.out.println("Username:");
-	                String username = sc.nextLine();
-	                Student tempStudent = database.getStudent(username);
-	                if(tempStudent == null){
-	                    System.out.println("No user found.");
-	                    break;
-	                }
-	                System.out.println("Password:");
-	                String password = sc.nextLine();
-	                if(tempStudent.getPassword().equals(password)){studentInterface(sc, database, tempStudent);}
-	                else{System.out.println("Student Login Failed!");}
-	                break;
-	
-	                case 2:
-	                System.out.println("Username:");
-	                username = sc.nextLine();
-	                Staff tempStaff = database.getStaff(username);
-	                if(tempStaff == null){
-	                    System.out.println("No user found.");
-	                    break;
-	                }
-	                System.out.println("Password:");
-	                password = sc.nextLine();
-	                if(tempStaff.getPassword().equals(password)){staffInterface(sc, database, tempStaff);}
-	                else{System.out.println("Staff Login Failed!");}
-	                break;
-	
-	                case 3: break;
-	                default: System.out.println("Unknown Input"); 
-	                break;
-	            }
-	        }while(choice != 3);
-	    }
-	
-	    public static void newUserInterface(Scanner sc, Database database){
-	        int choice;
-	        do{
-	            System.out.println("Create New User Page"); 
-	            System.out.println("1: New Student"); 
-	            System.out.println("2: New Staff"); 
-	            System.out.println("3: Return"); 
-	            choice = Integer.parseInt(sc.nextLine());
-	            switch(choice){
-	                case 1: 
-	                System.out.println("Username:");
-	                String username = sc.nextLine();
-	                System.out.println("Password:");
-	                String password = sc.nextLine();
-	                System.out.println("Faculty:"); //Do another function for gods sake
-	                String faculty = sc.nextLine();
-	                Student tempStudent = new Student(username, password, Faculty.valueOf(faculty));
-	                database.addStudent(tempStudent);
-	                System.out.println("Student Creation Successful!");
-	                break;
-	
-	                case 2:
-	                System.out.println("Username:");
-	                username = sc.nextLine();
-	                System.out.println("Password:");
-	                password = sc.nextLine();
-	                System.out.println("Faculty:"); //Do another function for gods sake
-	                faculty = sc.nextLine();
-	                Staff tempStaff = new Staff(username, password, Faculty.valueOf(faculty));
-	                database.addStaff(tempStaff);
-	                System.out.println("Staff Creation Successful!");
-	                break;
-	                case 3: break;
-	                default: System.out.println("Unknown Input"); 
-	                break;
-	            }
-	        }while(choice != 3);
-	    }
-	
-	    public static void studentInterface(Scanner sc, Database database, Student student){
-	        int choice;
-	        do{
-	            System.out.println("1: See available list of camps"); 
-	            System.out.println("2: List of camps that you have joined"); 
-	            System.out.println("3: Student information"); 
-	            System.out.println("4: Return"); 
-	            choice = Integer.parseInt(sc.nextLine());
-	            switch(choice){
-	                case 1:
-	                studentInterfaceCamp(sc, database, student); 
-	                case 2:
-	                case 3:
-	                case 4:
-	                default:
-	            }
-	        } while (choice != 10);
-	    }
-	
-	    public static void studentInterfaceCamp(Scanner sc, Database database, Student student){
-	        int choice;
-	        System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
-	        //Need to create an array for each student that stores the names of the camps that they have joined.
-	        ArrayList<Camp> tempCamp = new ArrayList<Camp>(10);
-	        database.listOfCampsFaculty(tempCamp, student.getFacultyInfo());
-	        for(int i = 0; i < tempCamp.size(); i++){
-	            System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
-	        }
-	        choice = Integer.parseInt(sc.nextLine()); //choice chooses the camp we would like to access. 
-	        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student);
-	    }
-	
-	    public static void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student){
-	        //Specific to the selected camp
-	        int choice;
-	        System.out.println("Visibility: "); //need a visibility value
-	        System.out.println("Slots remaining: ");
-	        System.out.println("Slots remaining: ");
-	        System.out.println("You have joined this camp"); //or not we need to check with the student obj
-	        //if student is camp com state if camp com. (can make camp com store the camp he is com of) 
-	        //print more choices if camp com
-	        System.out.println("1: Leave this camp"); //or join
-	        System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
-	        System.out.println("3:");
-	        System.out.println("4:");
-	    }
-	
-	    public static void staffInterface(Scanner sc, Database database, Staff staff) {
-	        int choice;
-	        do {
-	            System.out.println("Staff Interface - Choose an option:");
-	            System.out.println("1: Create camp");
-	            System.out.println("2: Edit camp");
-	            System.out.println("3: Delete camp");
-	            System.out.println("4: Change camp visibility");
-	            System.out.println("5: View all camps");
-	            System.out.println("6: View camps that I created");
-	            System.out.println("7: View Enquiries");
-	            System.out.println("8: Reply to Enquiries");
-	            System.out.println("9: View Suggestions");
-	            System.out.println("10: Approve/Reject a Suggestion");
-	            System.out.println("11: Generate camp report");
-	            System.out.println("12: Generate performance report of camp committee");
-	            System.out.println("13: Change Settings");
-	            System.out.println("14: Return");
-	            choice = Integer.parseInt(sc.nextLine());
-	
-	            switch (choice) {
-	                case 1:
-	                    staff.createCamp(sc, database);
-	                    break;
-	                case 2:
-	                    staff.editCamp(sc);
-	                    break;
-	                case 3:
-	                    System.out.println("Enter camp name to delete: ");
-	                    String newCamp = sc.nextLine();
-	                    staff.deleteCamp(newCamp);
-	                    break;
-	                case 4:
-	                    System.out.println("Enter camp name to set visibility: ");
-	                    newCamp = sc.nextLine();
-	                    staff.toggleCampVisibility(sc, newCamp);
-	                    break;
-	                case 5:
-	                    database.viewCampList();
-	                    break;
-	                case 6:
-	                    staff.viewCampList();
-	                    break;
-	                case 7:
-	                    System.out.println("Enter camp name to view enquiries: ");
-	                    newCamp = sc.nextLine();
-	                    staff.viewEnquiries(newCamp);
-	                    break;
-	                case 8:
-	                    System.out.println("Enter camp name to reply to enquiry: ");
-	                    newCamp = sc.nextLine();
-	                    staff.replyEnquiries(newCamp);
-	                    break;
-	                case 9:
-	                    System.out.println("Enter camp name to view suggestions: ");
-	                    newCamp = sc.nextLine();
-	                    staff.viewSuggestions(newCamp);
-	                    break;
-	                case 10:
-	                    System.out.println("Enter camp name: ");
-	                    newCamp = sc.nextLine();
-	                    //staff.approveSuggestions(newCamp);
-	                    break;
-	                case 11:
-	                    //System.out.println("Enter camp name to generate report: ");
-	                    //newCamp = sc.nextLine();
-	                    //staff.generateCampReport(newCamp);
-	                    break;
-	                case 12:
-	                    //staff.generatePerformanceReport();
-	                    break;
-	                case 13:
-	                	System.out.println("What do you want to change?");
-	                	System.out.println("1: Password");
-	                	System.out.println("2: StaffId");
-	                	System.out.println("3: Faculty");
-	                	int choice2 = sc.nextInt();
-	                	switch (choice2) {
-	                	case 1:
-		                    System.out.println("Enter New Password");
-		                    sc.nextLine();
-		                    String newPassword = sc.nextLine();
-		                    staff.setPassword(newPassword);
-		                    System.out.println("Password successfully changed!");
-		                    break;
-	                	case 2:
-		                    System.out.println("Enter New StaffId");
-		                    sc.nextLine();
-		                    String newStaffId = sc.nextLine();
-		                    staff.setUserId(newStaffId);
-		                    System.out.println("StaffId successfully changed!");
-		                    break;
-	                	case 3:
-		                    System.out.println("Enter New Faculty");
-		                    sc.nextLine();
-		                    String newFacultyName = sc.nextLine().toUpperCase();
-		                    try {
-		                        Faculty newFaculty = Faculty.valueOf(newFacultyName);
-		                        staff.setFacultyInfo(newFaculty);
-			                    System.out.println("Faculty successfully changed!");
-		                    } catch (IllegalArgumentException e) {
-		                        System.out.println("Invalid faculty name.");
-		                    }
-	                	}
-	                case 14:
-	                    System.out.println("Exiting Staff Interface.");
-	                    break;
-	                default:
-	                    System.out.println("Invalid choice. Please try again.");
-	                    break;
-	            }
-	        } while (choice != 14);
-	    }
-	            
-	
-	}
+package excel;
+
+import java.util.*;
+import java.time.*;
+import java.time.format.DateTimeParseException;
+
+public class Staff extends User{
+    private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
+    private List<Enquiry> enquiries = new ArrayList<>();
+
+    public Staff(String userId, String password, Faculty facultyInfo){
+        super(userId, password, facultyInfo);
+        this.campsCreated = new ArrayList<Camp>();
+    }
+
+    public Camp createCamp(Scanner sc, Database database){
+        System.out.println("Enter camp name: ");
+        String campName = sc.nextLine();
+        Camp camp1 = new Camp(campName, super.getUserId());
+        campsCreated.add(camp1);
+        System.out.println("Camp created successfully!");
+        database.addCamp(camp1);
+        return camp1;
+    }
+
+
+    public void viewCampList(){
+        if (campsCreated.isEmpty()){
+            System.out.println("No camps available");
+        }
+        for (int i = 0; i<campsCreated.size(); i++){
+            System.out.println(campsCreated.get(i).getCampName() + " : " + (i+1));
+        }
+    }
+
+    public void deleteCamp(String campName) {
+        Iterator<Camp> iterator = campsCreated.iterator();
+        while (iterator.hasNext()) {
+            Camp camp = iterator.next();
+            if (campName.equals(camp.getCampName())) {
+				//Database.removeCamp(camp);
+                iterator.remove();
+                System.out.println("Camp deleted: " + campName);
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    }
+
+    public void editCamp(Scanner sc) {
+        System.out.println("Enter the name of the camp you want to edit: ");
+        String campName = sc.nextLine();
+
+        // Find the camp
+        Camp selectedCamp = null;
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                selectedCamp = camp;
+                break;
+            }
+        }
+
+        if (selectedCamp == null) {
+            System.out.println("Camp not found.");
+            return;
+        }
+
+        // Edit options
+        System.out.println("Select what you want to edit: ");
+        System.out.println("1. Camp Name\n2. Camp Date\n3. Closing Time\n4. User Group\n5. Location\n6. Total Slots\n7. Camp Committee Slots\n8. Description");
+        int choice = sc.nextInt();
+        sc.nextLine(); // Consume the leftover newline
+
+        switch (choice) {
+            case 1:
+                System.out.println("Enter new camp name: ");
+                selectedCamp.setCampName(sc.nextLine());
+                break;
+            case 2:
+                System.out.println("Enter new camp date (yyyy-MM-dd): ");
+                String dateStr = sc.nextLine();
+                try {
+                    LocalDate newDate = LocalDate.parse(dateStr);
+                    selectedCamp.setCampDate(newDate);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format.");
+                }
+                break;
+            case 3:
+                System.out.println("Enter new closing time (yyyy-MM-ddTHH:mm): ");
+                String timeStr = sc.nextLine();
+                try {
+                    LocalDateTime newClosingTime = LocalDateTime.parse(timeStr);
+                    selectedCamp.setClosingTime(newClosingTime);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date and time format.");
+                }
+                break;
+            case 4:
+                System.out.println("Enter new user group (e.g., SCSE, LKC): ");
+                String facultyName = sc.nextLine().toUpperCase();
+                try {
+                    Faculty newFaculty = Faculty.valueOf(facultyName);
+                    selectedCamp.setUserGroup(newFaculty);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid faculty name.");
+                }
+            break;
+            case 5:
+                System.out.println("Enter new location: ");
+                selectedCamp.setLocation(sc.nextLine());
+                break;
+            case 6:
+                System.out.println("Enter new total slots: ");
+                selectedCamp.setTotalSlots(sc.nextInt());
+                sc.nextLine(); // Consume the leftover newline
+                break;
+            case 7:
+                System.out.println("Enter new camp committee slots: ");
+                selectedCamp.setCampComSlots(sc.nextInt());
+                //sc.nextLine(); // Consume the leftover newline
+                break;
+            case 8:
+                System.out.println("Enter new description: ");
+                selectedCamp.setDescription(sc.nextLine());
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
+        }
+
+        System.out.println("Camp updated successfully!");
+    } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
+    
+    public void toggleCampVisibility(Scanner sc, String campName) {
+        for (Camp camp : campsCreated) {
+            if (campName.equals(camp.getCampName())) {
+                System.out.println("Do you want to toggle visibility on/off?");
+                System.out.println("1: On");
+                System.out.println("2: Off");
+                int choice = sc.nextInt();
+                sc.nextLine(); // Consume the leftover newline
+
+                boolean visibility;
+                if (choice == 1) visibility = true;
+                else visibility = false;      // If choice is 1, visibility is true (On), otherwise false (Off)
+
+                camp.toggleVisibility(visibility);
+                String visibilityStatus = visibility ? "on" : "off";
+                System.out.println("Visibility toggled " + visibilityStatus + " for " + campName);
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    }
+    
+    public void viewEnquiries(String campName) {
+        boolean found = false;
+        for (Enquiry enquiry : enquiries) {
+            if (enquiry.getCampName().equals(campName)) {
+                enquiry.displayEnquiry();
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("No enquiries found for camp: " + campName);
+        }
+    }
+    
+    public void replyEnquiries(Scanner sc, String campName) {
+        // Display enquiries for the specified camp
+        this.viewEnquiries(campName);
+        // Filter enquiries for the specified camp
+        List<Enquiry> filteredEnquiries = new ArrayList<>();
+        for (Enquiry enquiry : enquiries) {
+            if (enquiry.getCampName().equals(campName)) {
+                filteredEnquiries.add(enquiry);
+            }
+        }
+
+        if (filteredEnquiries.isEmpty()) {
+            return; // No enquiries to reply to
+        }
+
+        System.out.println("Enter the number of the enquiry you wish to reply to: ");
+        int enquiryNumber = sc.nextInt();
+
+        if (enquiryNumber < 1 || enquiryNumber > filteredEnquiries.size()) {
+            System.out.println("Invalid enquiry number.");
+            return;
+        }
+
+        Enquiry selectedEnquiry = filteredEnquiries.get(enquiryNumber - 1);
+
+        System.out.println("Enter your reply: ");
+        //sc.nextLine(); // Consume the leftover newline
+        String reply = sc.nextLine();
+
+        System.out.println("Your reply: " + reply);
+        selectedEnquiry.setStatus("Resolved"); // Update status or handle as needed
+
+        System.out.println("Reply sent and enquiry status updated.");
+    }
+    
+    public void viewSuggestions(String campName) {
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+                if (suggestions.isEmpty()) {
+                    System.out.println("No suggestions for this camp.");
+                } else {
+                    for (Suggestion suggestion : suggestions) {
+                        System.out.println(suggestion);
+                    }
+                }
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    }//from camp committee
+    
+    public void replySuggestions(Scanner sc, String campName) {
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+
+                if (suggestions.isEmpty()) {
+                    System.out.println("No suggestions available for this camp.");
+                    return;
+                }
+
+                // Display all suggestions for the camp
+                for (int i = 0; i < suggestions.size(); i++) {
+                    System.out.println((i + 1) + ": " + suggestions.get(i).getSuggestionText());
+                }
+
+                System.out.println("Enter the index of the suggestion to reply:");
+                int suggestionIndex = sc.nextInt() - 1; // Subtract 1 to convert to 0-based index
+                sc.nextLine(); // Consume the leftover newline
+
+                if (suggestionIndex < 0 || suggestionIndex >= suggestions.size()) {
+                    System.out.println("Invalid suggestion index.");
+                    return;
+                }
+
+                System.out.println("Do you want to approve or reject the suggestion?");
+                System.out.println("1: Approve");
+                System.out.println("2: Reject");
+                int choice = sc.nextInt();
+                sc.nextLine(); // Consume the leftover newline
+
+                Suggestion suggestion = suggestions.get(suggestionIndex);
+
+                if (choice == 1) {
+                    suggestion.setStatus(true);
+                    System.out.println("Suggestion approved: " + suggestion.getSuggestionText());
+                } else if (choice == 2) {
+                    suggestion.setStatus(false);
+                    System.out.println("Suggestion rejected: " + suggestion.getSuggestionText());
+                } else {
+                    System.out.println("Invalid choice.");
+                }
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    }
+
+    public void generateCampReport(String campName){} //generate list of students (attendees/campcom)
+
+    public void generatePerformanceReport(){} //generate performance report of campcom members
+
+    
+    public void viewStudentsInCamp(int camp){
+        campsCreated.get(camp).viewListStudents();
+    }
+}
