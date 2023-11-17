@@ -197,6 +197,7 @@ public class Test {
                         if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
                         if(camp.findStudent(student)){System.out.println("You are already in this camp"); break;} //WTF
                         camp.addStudent(student);
+                        System.out.println("You have joined the Camp!");
                         join = true;
                     }
                     else{
@@ -207,6 +208,7 @@ public class Test {
                         choice = Integer.parseInt(sc.nextLine());
                         if(choice == 1){
                             camp.removeStudent(student);
+                            System.out.println("You have left the Camp.");
                             join = false;
                         }
                     }
