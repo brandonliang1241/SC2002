@@ -206,12 +206,24 @@ public class Staff extends User{
         for (Camp camp : campsCreated) {
             if (camp.getCampName().equals(campName)) {
                 ArrayList<Suggestion> suggestions = camp.getSuggestions();
-                if (suggestions.isEmpty()) {
-                    System.out.println("No suggestions for this camp.");
-                } else {
-                    for (Suggestion suggestion : suggestions) {
-                        System.out.println(suggestion);
+                ArrayList<Suggestion> filteredSuggestions = new ArrayList<>();
+
+                // Filter suggestions for the specified camp
+                for (Suggestion suggestion : suggestions) {
+                    if (suggestion.getCampName().equals(campName)) {
+                        filteredSuggestions.add(suggestion);
                     }
+                }
+
+                if (filteredSuggestions.isEmpty()) {
+                    System.out.println("No suggestions available for this camp.");
+                    return;
+                }
+
+                // Display all filtered suggestions for the camp using displaySuggestion method
+                System.out.println("Suggestions for camp: " + campName);
+                for (Suggestion suggestion : filteredSuggestions) {
+                    suggestion.displaySuggestion();
                 }
                 return;
             }
@@ -222,24 +234,32 @@ public class Staff extends User{
     public void replySuggestions(Scanner sc, String campName) {
         for (Camp camp : campsCreated) {
             if (camp.getCampName().equals(campName)) {
-                ArrayList<Suggestion> suggestions = camp.getSuggestions(); //create array of suggestions
+                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+                ArrayList<Suggestion> filteredSuggestions = new ArrayList<>();
 
-                if (suggestions.isEmpty()) {
+                // Filter suggestions for the specified camp
+                for (Suggestion suggestion : suggestions) {
+                    if (suggestion.getCampName().equals(campName)) {
+                        filteredSuggestions.add(suggestion);
+                    }
+                }
+
+                if (filteredSuggestions.isEmpty()) {
                     System.out.println("No suggestions available for this camp.");
                     return;
                 }
 
-                // Display all suggestions for the camp
-                for (int i = 0; i < suggestions.size(); i++) {
+                // Display all filtered suggestions for the camp using displaySuggestion method
+                for (int i = 0; i < filteredSuggestions.size(); i++) {
                     System.out.print((i + 1) + ": ");
-                    suggestions.get(i).displaySuggestion();
+                    filteredSuggestions.get(i).displaySuggestion();
                 }
 
                 System.out.println("Enter the index of the suggestion to reply:");
                 int arrayIndex = sc.nextInt() - 1; // Subtract 1 to convert to 0-based index
                 sc.nextLine(); // Consume the leftover newline
 
-                if (arrayIndex < 0 || arrayIndex >= suggestions.size()) {
+                if (arrayIndex < 0 || arrayIndex >= filteredSuggestions.size()) {
                     System.out.println("Invalid suggestion index.");
                     return;
                 }
@@ -250,17 +270,20 @@ public class Staff extends User{
                 int choice = sc.nextInt();
                 sc.nextLine(); // Consume the leftover newline
 
-                Suggestion suggestion = suggestions.get(arrayIndex); //get array index of suggestions
+                Suggestion suggestion = filteredSuggestions.get(arrayIndex);
 
                 if (choice == 1) {
                     suggestion.setStatus(true);
-                    suggestion.toString();
                 } else if (choice == 2) {
                     suggestion.setStatus(false);
-                    suggestion.toString();
                 } else {
                     System.out.println("Invalid choice.");
+                    return;
                 }
+
+                // Display the updated suggestion
+                System.out.println("Updated Suggestion:");
+                suggestion.displaySuggestion();
                 return;
             }
         }
