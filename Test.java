@@ -184,8 +184,8 @@ public class Test {
             System.out.println("9: View Suggestions");
             System.out.println("10: Approve/Reject a Suggestion");
             System.out.println("11: Generate camp report");
-            System.out.println("12: Generate performance report of camp committee");
-            System.out.println("13: Change Password");
+            ///System.out.println("12: Generate performance report of camp committee");
+            //System.out.println("13: Change Password");
             System.out.println("14: Quit");
             choice = Integer.parseInt(sc.nextLine());
 
