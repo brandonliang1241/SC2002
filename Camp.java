@@ -27,6 +27,9 @@ public class Camp {
     public Camp(String campName, String staffId){
         this.campName = campName;
         this.staffId = staffId;
+        this.totalSlots = 100; //default
+        this.slotsLeft = totalSlots;
+        this.campComSlots = 0;
     }
 
     public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, String staffId) {
@@ -115,6 +118,16 @@ public class Camp {
         return suggestions;
     }
 
+    public void addStudent(Student student){
+        listOfStudents.add(student);
+        slotsLeft--;
+    }
+
+    public void removeStudent(Student student){
+        listOfStudents.remove(student);
+        slotsLeft++;
+    }
+    
     public void viewListStudents(){
         //return the arraylist of students
     }
