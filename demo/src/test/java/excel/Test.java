@@ -281,7 +281,7 @@ public class Test {
                     String camp = sc.nextLine();
                     //staff.approveSuggestions(sc, camp);
                     break;
-                case 11:
+                case 11:    
                     System.out.println("Enter camp name to generate report: ");
                     String campNameForReport = sc.nextLine();
                     staff.generateCampReport(campNameForReport);
