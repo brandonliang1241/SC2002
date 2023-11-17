@@ -231,7 +231,7 @@ public class Staff extends User{
 
                 // Display all suggestions for the camp
                 for (int i = 0; i < suggestions.size(); i++) {
-                    System.out.println((i + 1) + ": " + suggestions.get(i).getSuggestionText());
+                    System.out.println((i + 1) + ": " + suggestions.get(i).getSuggestionText() + " " + suggestions.get(i).getSuggestionIndex());
                 }
 
                 System.out.println("Enter the index of the suggestion to reply:");
