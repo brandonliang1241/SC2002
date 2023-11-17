@@ -5,7 +5,7 @@ public interface CampCom {
 
     public void viewCampDetails();
     public void submitSuggestions();
-    public void viewEnquiries();
+    public void viewAllEnquiries();
     public void replyEnquiries();
     public void addPoints();
 

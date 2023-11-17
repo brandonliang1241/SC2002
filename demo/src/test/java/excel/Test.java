@@ -39,19 +39,23 @@ public class Test {
     }
 
     public static void userInterface(){
+        System.out.println("//////////////////////////////////////////");
         System.out.println("Welcome! Please select your desired path."); 
         System.out.println("1: Login"); 
         System.out.println("2: Create new account"); 
         System.out.println("3: quit");
+        System.out.println("//////////////////////////////////////////");
     }
 
     public static void loginInterface(Scanner sc, Database database){
         int choice;
         do{
+            System.out.println("//////////////////////////////////////////");
             System.out.println("Login Page"); 
             System.out.println("1: Student Login"); 
             System.out.println("2: Staff Login"); 
             System.out.println("3: Return"); 
+            System.out.println("//////////////////////////////////////////");
             choice = Integer.parseInt(sc.nextLine());
             switch(choice){
                 case 1: 
@@ -92,10 +96,12 @@ public class Test {
     public static void newUserInterface(Scanner sc, Database database){
         int choice;
         do{
+            System.out.println("//////////////////////////////////////////");
             System.out.println("Create New User Page"); 
             System.out.println("1: New Student"); 
             System.out.println("2: New Staff"); 
             System.out.println("3: Return"); 
+            System.out.println("//////////////////////////////////////////");
             choice = Integer.parseInt(sc.nextLine());
             switch(choice){
                 case 1: 
@@ -131,10 +137,12 @@ public class Test {
     public static void studentInterface(Scanner sc, Database database, Student student){
         int choice;
         do{
+            System.out.println("//////////////////////////////////////////");
             System.out.println("1: See available list of camps"); 
             System.out.println("2: List of camps that you have joined"); 
             System.out.println("3: Student information"); 
             System.out.println("4: Return"); 
+            System.out.println("//////////////////////////////////////////");
             choice = Integer.parseInt(sc.nextLine());
             switch(choice){
                 case 1:
@@ -150,6 +158,7 @@ public class Test {
     public static void studentInterfaceCamp(Scanner sc, Database database, Student student, Boolean join){
         int choice;
         ArrayList<Camp> tempCamp = new ArrayList<Camp>(10);
+        System.out.println("//////////////////////////////////////////");
         if(join.equals(false)){
             //Need to create an array for each student that stores the names of the camps that they have joined.
             database.listOfCampsFaculty(tempCamp, student.getFacultyInfo());
@@ -158,16 +167,18 @@ public class Test {
         }
         else{
             database.listOfCampsJoined(tempCamp, student);
-            if(tempCamp.size() == 0){System.out.println("You have no joined camps"); return;}
+            if(tempCamp.size() == 0){System.out.println("You have no joined camps"); 
+            System.out.println("//////////////////////////////////////////");
+            return;}
             System.out.println("Here is the list of joined camps."); 
         }
 
         for(int i = 0; i < tempCamp.size(); i++){
             System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
         }
+        System.out.println("//////////////////////////////////////////");
         choice = Integer.parseInt(sc.nextLine()); //choice chooses the camp we would like to access. 
         studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join);
-        System.out.println("Testing");
         //once we leave this function returns to student interface
     }
 
@@ -175,6 +186,7 @@ public class Test {
         //Specific to the selected camp
         int choice;
         do{
+            System.out.println("//////////////////////////////////////////");
             System.out.println("Visibility: " + camp.isVisible()); 
             System.out.println("Total Slots: " + camp.getTotalSlots());
             System.out.println("Slots remaining: " + camp.getSlotsLeft());
@@ -190,6 +202,7 @@ public class Test {
             System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
             System.out.println("3:");
             System.out.println("4: Return");
+            System.out.println("//////////////////////////////////////////");
             choice = Integer.parseInt(sc.nextLine());
             switch(choice){
                 case 1:
@@ -214,6 +227,8 @@ public class Test {
                     }
                     break;
                 case 2:
+                    student.viewEnquires(sc, camp);
+                    break;
                 case 3:
                 default:
             }
@@ -223,6 +238,7 @@ public class Test {
     public static void staffInterface(Scanner sc, Database database, Staff staff) {
         int choice;
         do {
+            System.out.println("//////////////////////////////////////////");
             System.out.println("Staff Interface - Choose an option:");
             System.out.println("1: Create camp");
             System.out.println("2: Edit camp");
@@ -238,6 +254,7 @@ public class Test {
             ///System.out.println("12: Generate performance report of camp committee");
             //System.out.println("13: Change Password");
             System.out.println("14: Quit");
+            System.out.println("//////////////////////////////////////////");
             choice = Integer.parseInt(sc.nextLine());
 
             switch (choice) {
