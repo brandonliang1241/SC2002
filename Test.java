@@ -200,13 +200,13 @@
 	                    break;
 	                case 3:
 	                    System.out.println("Enter camp name to delete: ");
-	                    String campToBeDeleted = sc.nextLine();
-	                    staff.deleteCamp(campToBeDeleted);
+	                    String newCamp = sc.nextLine();
+	                    staff.deleteCamp(newCamp);
 	                    break;
 	                case 4:
 	                    System.out.println("Enter camp name to set visibility: ");
-	                    String campToBeEdited = sc.nextLine();
-	                    staff.toggleCampVisibility(sc, campToBeEdited);
+	                    newCamp = sc.nextLine();
+	                    staff.toggleCampVisibility(sc, newCamp);
 	                    break;
 	                case 5:
 	                    database.viewCampList();
@@ -216,28 +216,28 @@
 	                    break;
 	                case 7:
 	                    System.out.println("Enter camp name to view enquiries: ");
-	                    String campToViewEnquiries = sc.nextLine();
-	                    staff.viewEnquiries(campToViewEnquiries);
+	                    newCamp = sc.nextLine();
+	                    staff.viewEnquiries(newCamp);
 	                    break;
 	                case 8:
 	                    System.out.println("Enter camp name to reply to enquiry: ");
-	                    String campToReplyEnquiry = sc.nextLine();
-	                    staff.replyEnquiries(campToReplyEnquiry);
+	                    newCamp = sc.nextLine();
+	                    staff.replyEnquiries(newCamp);
 	                    break;
 	                case 9:
 	                    System.out.println("Enter camp name to view suggestions: ");
-	                    String campToViewSuggestions = sc.nextLine();
-	                    staff.viewSuggestions(campToViewSuggestions);
+	                    newCamp = sc.nextLine();
+	                    staff.viewSuggestions(newCamp);
 	                    break;
 	                case 10:
 	                    System.out.println("Enter camp name: ");
-	                    String camp = sc.nextLine();
-	                    //staff.approveSuggestions(camp);
+	                    newCamp = sc.nextLine();
+	                    //staff.approveSuggestions(newCamp);
 	                    break;
 	                case 11:
 	                    //System.out.println("Enter camp name to generate report: ");
-	                    //String campNameForReport = sc.nextLine();
-	                    //staff.generateCampReport(campNameForReport);
+	                    //newCamp = sc.nextLine();
+	                    //staff.generateCampReport(newCamp);
 	                    break;
 	                case 12:
 	                    //staff.generatePerformanceReport();
