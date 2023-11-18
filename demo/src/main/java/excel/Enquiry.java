@@ -1,7 +1,7 @@
 package excel;
 
 public class Enquiry {
-	private static int enquiryCounter = 0;
+	private static int enquiryCounter;
 	
     private String enquiryText;
     private String replyText;

@@ -21,8 +21,13 @@ public class Test {
         //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
         int choice;
         do{
-            userInterface();
-            choice = Integer.parseInt(sc.nextLine());
+            System.out.println("//////////////////////////////////////////");
+            System.out.println("Welcome! Please select your desired path."); 
+            System.out.println("1: Login"); 
+            System.out.println("2: Create new account"); 
+            System.out.println("3: quit");
+            System.out.println("//////////////////////////////////////////");
+            choice = scan(sc);
             switch(choice){
                 case 1:
                 loginInterface(sc,database);
@@ -33,18 +38,9 @@ public class Test {
                 default: 
                 break;
             }
-        }while(choice < 3);
+        }while(choice != 3);
         sc.close();
 
-    }
-
-    public static void userInterface(){
-        System.out.println("//////////////////////////////////////////");
-        System.out.println("Welcome! Please select your desired path."); 
-        System.out.println("1: Login"); 
-        System.out.println("2: Create new account"); 
-        System.out.println("3: quit");
-        System.out.println("//////////////////////////////////////////");
     }
 
     public static void loginInterface(Scanner sc, Database database){
@@ -56,7 +52,7 @@ public class Test {
             System.out.println("2: Staff Login"); 
             System.out.println("3: Return"); 
             System.out.println("//////////////////////////////////////////");
-            choice = Integer.parseInt(sc.nextLine());
+            choice = scan(sc);
             switch(choice){
                 case 1: 
                 System.out.println("Username:");
@@ -102,7 +98,7 @@ public class Test {
             System.out.println("2: New Staff"); 
             System.out.println("3: Return"); 
             System.out.println("//////////////////////////////////////////");
-            choice = Integer.parseInt(sc.nextLine());
+            choice = scan(sc);
             switch(choice){
                 case 1: 
                 System.out.println("Username:");
@@ -143,7 +139,7 @@ public class Test {
             System.out.println("3: Student information"); 
             System.out.println("4: Return"); 
             System.out.println("//////////////////////////////////////////");
-            choice = Integer.parseInt(sc.nextLine());
+            choice = scan(sc);
             switch(choice){
                 case 1:
                 studentInterfaceCamp(sc, database, student, false); break;
@@ -177,7 +173,10 @@ public class Test {
             System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
         }
         System.out.println("//////////////////////////////////////////");
-        choice = Integer.parseInt(sc.nextLine()); //choice chooses the camp we would like to access. 
+        do{
+            choice = scan(sc); //choice chooses the camp we would like to access.
+            if(choice > tempCamp.size() || choice < 1){System.out.println("Not a valid option");}
+        }while(choice > tempCamp.size() || choice < 1);
         studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join);
         //once we leave this function returns to student interface
     }
@@ -200,10 +199,10 @@ public class Test {
             if(join == true){System.out.println("1: Leave this camp");}
             else{System.out.println("1: Join this camp");}
             System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
-            System.out.println("3:");
+            System.out.println("3: Camp Committee tasks");
             System.out.println("4: Return");
             System.out.println("//////////////////////////////////////////");
-            choice = Integer.parseInt(sc.nextLine());
+            choice = scan(sc);
             switch(choice){
                 case 1:
                     if(join == false){
@@ -230,6 +229,20 @@ public class Test {
                     student.viewEnquires(sc, camp);
                     break;
                 case 3:
+                    if(student.getCampCom().getIsCampCom()){student.campComInterface(sc, camp);}
+                    else{
+                        System.out.println("You are not a member of this camp committee");
+                        System.out.println("Submit an application?");
+                        System.out.println("1: Yes");
+                        System.out.println("2: Return");
+                        int temp = Integer.parseInt(sc.nextLine());
+                        if(temp == 1){
+                            student.getCampCom().setIsCampCom(true);
+                            student.getCampCom().setCamp(camp.getCampName());
+                            System.out.println("Congratulations you are now a camp committee of this camp!");
+                        }
+                    }
+                    break;
                 default:
             }
         }while(choice != 4);
@@ -255,7 +268,7 @@ public class Test {
             //System.out.println("13: Change Password");
             System.out.println("14: Quit");
             System.out.println("//////////////////////////////////////////");
-            choice = Integer.parseInt(sc.nextLine());
+            choice = scan(sc);
 
             switch (choice) {
                 case 1:
@@ -377,4 +390,12 @@ public class Test {
             //System.out.println(database.getCamp(extractedCampData.get(i).getCampName()).getUserGroup());
         }
 	}
+
+    public static int scan(Scanner sc){ //catches exceptions
+        try{return Integer.parseInt(sc.nextLine());}
+        catch(Exception e){
+            System.err.println("Not a valid input");
+            return 0;
+        }
+    }
 }

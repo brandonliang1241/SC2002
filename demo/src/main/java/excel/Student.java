@@ -3,13 +3,13 @@ package excel;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Student extends User implements CampCom{
-    private boolean isCampCom;
-    //private ArrayList<Enquiry> listOfEnquiries = new ArrayList<Enquiry>(10);
+public class Student extends User{
+    private CampCom campCom;
     public void viewCampList(){}
     
     public Student(String userId, String password, Faculty facultyInfo){
         super(userId, password, facultyInfo);
+        campCom = new CampCom();
     }
 
     public void viewEnquires(Scanner sc, Camp camp){
@@ -57,10 +57,36 @@ public class Student extends User implements CampCom{
         }
     }
 
-    //all below use if isCamCom is True.
-    public void viewCampDetails(){}
-    public void submitSuggestions(){}
-    public void viewAllEnquiries(){}
-    public void replyEnquiries(){}
-    public void addPoints(){}
+    public CampCom getCampCom(){
+        return this.campCom;
+    }
+
+    public void campComInterface(Scanner sc,Camp camp){
+        int choice;
+        do{
+            System.out.println("//////////////////////////////////////////");
+            System.out.println("You are a member of this camp committee");
+            System.out.println("1: View camp details");
+            System.out.println("2: View enquires");
+            System.out.println("3: View Suggestions");
+            System.err.println("4: Return");
+            System.out.println("//////////////////////////////////////////");
+            try{choice = Integer.parseInt(sc.nextLine());}
+            catch(Exception e){
+                System.err.println("Not a valid input");
+                choice = 0;
+                continue;
+            }
+            switch(choice){
+                case 1:
+                    getCampCom().viewCampDetails(camp); break;
+                case 2:
+                    getCampCom().replyEnquiries(camp); break;
+                case 3:
+                    getCampCom().submitSuggestions(camp); break;
+                default:
+                    break;
+            }
+        }while(choice != 4);
+    }
 }
