@@ -2,11 +2,13 @@ package excel;
 
 public abstract class User {
     private String userId;
+    private String name;
     private String password;
     private Faculty facultyInfo;
 
-    public User(String userId, String password, Faculty facultyInfo){
+    public User(String userId, String name, String password, Faculty facultyInfo){
         this.userId = userId;
+        this.name = name;
         this.password = password;
         this.facultyInfo = facultyInfo;
     }
@@ -17,6 +19,14 @@ public abstract class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {

@@ -7,8 +7,8 @@ public class Student extends User{
     private CampCom campCom;
     public void viewCampList(){}
     
-    public Student(String userId, String password, Faculty facultyInfo){
-        super(userId, password, facultyInfo);
+    public Student(String userId, String name, String password, Faculty facultyInfo){
+        super(userId, name, password, facultyInfo);
         campCom = new CampCom();
     }
 
@@ -20,7 +20,7 @@ public class Student extends User{
             if(camp.getEnquiries().get(i).getOwner().equals(super.getUserId())){
                 x++;
                 System.out.println(x + ": Enquiry " + x);
-                tempArray.add(camp.getEnquiries().get(i).getEnquiryIndex());//added the locaton of enquiry to end of list
+                tempArray.add(i);//added the locaton of enquiry to end of list
             }
         }
         System.out.println(++x + ": Add a new enquiry");
@@ -43,7 +43,11 @@ public class Student extends User{
             System.out.println("2: Delet Enquiry");
             System.out.println("3: Return");
             System.out.println("//////////////////////////////////////////");
-            choice = Integer.parseInt(sc.nextLine());
+            try{choice = Integer.parseInt(sc.nextLine());}
+            catch(Exception e){
+                System.err.println("Not a valid input");
+                choice = 3;
+            }
             if(choice == 1){
                 System.out.println("Enter a new enquiry: ");
                 String newEnquiry = sc.nextLine();
@@ -51,6 +55,7 @@ public class Student extends User{
                 System.out.println("New enquiry set!");
             }
             else if(choice == 2){
+                camp.getEnquiries().get(x).deleteEnquiry();
                 camp.getEnquiries().remove(x);
                 System.out.println("Bye bye Enquiry!");
             }

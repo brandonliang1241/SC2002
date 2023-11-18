@@ -11,8 +11,8 @@ public class Test {
         Scanner sc = new Scanner(System.in); 
         //now to add into database
         Download(database);
-        Student brandon = new Student("BLIANG003", "password", Faculty.SCSE);
-        Staff david = new Staff("DAVID", "password", Faculty.LKC);
+        Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
+        Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
         david.createCamp(sc,database);// database adds the camp that david creates.
         database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
         database.getCamp("SCSE").setTotalSlots(100);
@@ -40,7 +40,7 @@ public class Test {
             }
         }while(choice != 3);
         sc.close();
-
+        storeWorkbook(database);
     }
 
     public static void loginInterface(Scanner sc, Database database){
@@ -101,25 +101,29 @@ public class Test {
             choice = scan(sc);
             switch(choice){
                 case 1: 
+                System.out.println("Name:");
+                String name = sc.nextLine();
                 System.out.println("Username:");
                 String username = sc.nextLine();
                 System.out.println("Password:");
                 String password = sc.nextLine();
                 System.out.println("Faculty:"); //Do another function for gods sake
                 String faculty = sc.nextLine();
-                Student tempStudent = new Student(username, password, Faculty.valueOf(faculty));
+                Student tempStudent = new Student(username, name, password, Faculty.valueOf(faculty));
                 database.addStudent(tempStudent);
                 System.out.println("Student Creation Successful!");
                 break;
 
                 case 2:
+                System.out.println("Name:");
+                name = sc.nextLine();
                 System.out.println("Username:");
                 username = sc.nextLine();
                 System.out.println("Password:");
                 password = sc.nextLine();
                 System.out.println("Faculty:"); //Do another function for gods sake
                 faculty = sc.nextLine();
-                Staff tempStaff = new Staff(username, password, Faculty.valueOf(faculty));
+                Staff tempStaff = new Staff(username, name, password, Faculty.valueOf(faculty));
                 database.addStaff(tempStaff);
                 System.out.println("Staff Creation Successful!");
                 break;
@@ -378,8 +382,8 @@ public class Test {
 			extractedCampData
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileCamp(
-						"/Users/brandon1241/Documents/Database.xlsx");
-		}
+						"/Users/brandon1241/Downloads/staff_list.xlsx");
+		}//   /Users/brandon1241/Downloads/staff_list.xlsx
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -397,5 +401,11 @@ public class Test {
             System.err.println("Not a valid input");
             return 0;
         }
+    }
+
+    public static void storeWorkbook(Database database){
+        GetStudent storeContentToExcel = new GetStudent();
+        try{storeContentToExcel.storeWorkbook(database);}
+        catch(Exception e){e.printStackTrace();}
     }
 }

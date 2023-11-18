@@ -75,4 +75,8 @@ public class Enquiry {
             System.out.println("Reply: " + replyText);
         }
     }
+
+    public void deleteEnquiry(){
+        enquiryCounter--;
+    }
 }

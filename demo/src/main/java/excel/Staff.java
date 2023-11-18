@@ -7,8 +7,8 @@ import java.time.format.DateTimeParseException;
 public class Staff extends User{
     private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
 
-    public Staff(String userId, String password, Faculty facultyInfo){
-        super(userId, password, facultyInfo);
+    public Staff(String userId, String name, String password, Faculty facultyInfo){
+        super(userId, name, password, facultyInfo);
         this.campsCreated = new ArrayList<Camp>();
     }
 

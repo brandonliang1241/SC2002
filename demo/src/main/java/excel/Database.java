@@ -107,4 +107,16 @@
             }
             return inputCamp;
         }
+
+        public ArrayList<Camp> getCamps() {
+            return this.camps;
+        }
+
+        public ArrayList<Student> getStudents() {
+            return this.students;
+        }
+
+        public ArrayList<Staff> getStaffs() {
+            return this.staffs;
+        }
     }
