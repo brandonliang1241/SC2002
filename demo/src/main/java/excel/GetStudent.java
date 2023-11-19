@@ -62,7 +62,7 @@ public class GetStudent {
 			
 		default: break;
 		}
-
+		System.out.println(cell.getDateCellValue());
 
 		return null;
 	}
@@ -206,21 +206,39 @@ public class GetStudent {
 						Faculty.valueOf((String)getCellValue(nextCell)));
 					break;
                 case 3: //Total Slots
-                    double cellValue = Double.parseDouble((String)getCellValue(nextCell));
-                    int number = (int) cellValue;
-                    camp.setTotalSlots(number);
+					try{
+						double cellValue = (Double)getCellValue(nextCell);
+                    	int number = (int) cellValue;
+						camp.setTotalSlots(number);}
+					catch(Exception e){                    
+						double cellValue = Double.parseDouble((String)getCellValue(nextCell));
+						int number = (int) cellValue;
+						camp.setTotalSlots(number);}
                     break;
                 case 4: //Slots left
-                    cellValue = Double.parseDouble((String)getCellValue(nextCell));
-                    number = (int) cellValue;
-                    camp.setSlotsLeft(number);
+					try{
+						double cellValue = (Double)getCellValue(nextCell);
+                    	int number = (int) cellValue;
+						camp.setSlotsLeft(number);}
+					catch(Exception e){                    
+						double cellValue = Double.parseDouble((String)getCellValue(nextCell));
+						int number = (int) cellValue;
+						camp.setSlotsLeft(number);}
                     break;
                 case 5: //Date
                     // SerialDate sd = new SerialDate(Double.parseDouble((String)getCellValue(nextCell)));
                     // LocalDate ld = LocalDate.ofEpochDay(sd.toEpochDays());
-					if(((String)getCellValue(nextCell)).equals("null")){break;}
-                    camp.setCampDate(
+					//if(((String)getCellValue(nextCell)).equals("null")){break;}
+					try{                    
+						camp.setCampDate(
 						LocalDate.parse((String)getCellValue(nextCell)));
+					}
+					catch(Exception e){
+						SerialDate sd = new SerialDate((Double)getCellValue(nextCell));
+						LocalDate ld = LocalDate.ofEpochDay(sd.toEpochDays());
+						camp.setCampDate(
+						ld);
+					}
                     break;
                 case 6: //Closing time
                     // sd = new SerialDate(Double.parseDouble((String)getCellValue(nextCell)));
@@ -236,9 +254,14 @@ public class GetStudent {
                         (String)getCellValue(nextCell));
                     break;
                 case 8: //CampCom slots
-                    cellValue = Double.parseDouble((String)getCellValue(nextCell));
-                    number = (int) cellValue;
-                    camp.setCampComSlots(number);
+					try{
+						double cellValue = (Double)getCellValue(nextCell);
+                    	int number = (int) cellValue;
+						camp.setCampComSlots(number);}
+					catch(Exception e){                    
+						double cellValue = Double.parseDouble((String)getCellValue(nextCell));
+						int number = (int) cellValue;
+						camp.setCampComSlots(number);}
                     break;
                 case 9: //Description
                     camp.setDescription(

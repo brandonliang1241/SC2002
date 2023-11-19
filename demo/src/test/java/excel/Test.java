@@ -11,13 +11,13 @@ public class Test {
         Scanner sc = new Scanner(System.in); 
         //now to add into database
         Download(database);
-        Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
-        Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
-        david.createCamp(sc,database);// database adds the camp that david creates.
-        database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
-        database.getCamp("SCSE").setTotalSlots(100);
-        database.addStudent(brandon);
-        database.addStaff(david);
+        // Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
+        // Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
+        // david.createCamp(sc,database);// database adds the camp that david creates.
+        // database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
+        // database.getCamp("SCSE").setTotalSlots(100);
+        // database.addStudent(brandon);
+        // database.addStaff(david);
         //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
         int choice;
         do{
@@ -407,5 +407,6 @@ public class Test {
         GetStudent storeContentToExcel = new GetStudent();
         try{storeContentToExcel.storeWorkbook(database);}
         catch(Exception e){e.printStackTrace();}
+        System.out.println("Workbook Stored.");
     }
 }
