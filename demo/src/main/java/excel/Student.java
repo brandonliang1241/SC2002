@@ -94,4 +94,14 @@ public class Student extends User{
             }
         }while(choice != 4);
     }
+
+    public void informationInterface(){
+        System.out.println("//////////////////////////////////////////");
+        System.out.println("Information");
+        System.out.println("1: Change password");
+        System.out.println("2: View enquires");
+        System.out.println("3: View Suggestions");
+        System.err.println("4: Return");
+        System.out.println("//////////////////////////////////////////");
+    }
 }

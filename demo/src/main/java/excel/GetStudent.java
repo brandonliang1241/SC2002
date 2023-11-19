@@ -86,10 +86,14 @@ public class GetStudent {
 				= nextRow.cellIterator();
             Student stu = new Student("userId","name", "password",Faculty.SCSE);
 
+
 			while (cellIterator.hasNext()) {
 				Cell nextCell = cellIterator.next();
+				// System.out.println("--------------------------");
+				// System.out.println(nextCell);
+				// System.out.println("--------------------------");
 				int columnIndex = nextCell.getColumnIndex();
-
+				// System.out.println(columnIndex);
 				switch (columnIndex) {
 				case 0:
 					stu.setName((String)getCellValue(nextCell));
@@ -107,6 +111,11 @@ public class GetStudent {
                     //this would be the password
                     stu.setPassword(
                         (String)getCellValue(nextCell));
+					// Password encrypt = new Password();
+					// String password = (String)getCellValue(nextCell);
+					// char[] newpass = password.toCharArray();
+					// password = encrypt.hash(newpass);
+					// stu.setPassword(password);
                     break;
 				default: System.out.println("fail"); break;
 				}
@@ -158,6 +167,9 @@ public class GetStudent {
                     //this would be the password
                     stu.setPassword(
                         (String)getCellValue(nextCell));
+					// Password encrypt = new Password();
+					// String password = (String)getCellValue(nextCell);
+					// stu.setPassword(encrypt.hash(password.toCharArray()));
                     break;
 				default: System.out.println("fail"); break;
 				}

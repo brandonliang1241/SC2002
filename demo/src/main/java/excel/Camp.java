@@ -144,4 +144,15 @@ public class Camp {
     public ArrayList<Enquiry> getEnquiries(){
         return enquiries;
     }
+
+    public void printCampDetails(){
+        System.out.println("//////////////////////////////////////////");
+        System.out.println("Camp name: " + getCampName()); 
+        System.out.println("Location: " + getLocation());
+        System.out.println("Total Slots: " + getTotalSlots());
+        System.out.println("Slots remaining: " + getSlotsLeft());
+        System.out.println("Date: " + getCampDate());
+        System.out.println("Closing Date time: " + getClosingTime());
+        System.out.println("Visibility: " + isVisible()); 
+    }
 }

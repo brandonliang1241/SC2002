@@ -64,7 +64,9 @@ public class Test {
                 }
                 System.out.println("Password:");
                 String password = sc.nextLine();
-                if(tempStudent.getPassword().equals(password)){studentInterface(sc, database, tempStudent);}
+                Password encrypt = new Password();
+                if(encrypt.authenticate(password.toCharArray(), tempStudent.getPassword())){studentInterface(sc,database,tempStudent);}
+                //if(tempStudent.getPassword().equals(password)){studentInterface(sc, database, tempStudent);}
                 else{System.out.println("Student Login Failed!");}
                 break;
 
@@ -78,7 +80,9 @@ public class Test {
                 }
                 System.out.println("Password:");
                 password = sc.nextLine();
-                if(tempStaff.getPassword().equals(password)){staffInterface(sc,database,tempStaff);}
+                encrypt = new Password();
+                if(encrypt.authenticate(password.toCharArray(), tempStaff.getPassword())){staffInterface(sc,database,tempStaff);}
+                // if(tempStaff.getPassword().equals(password)){staffInterface(sc,database,tempStaff);}
                 else{System.out.println("Staff Login Failed!");}
                 break;
 
@@ -150,6 +154,7 @@ public class Test {
                 case 2:
                 studentInterfaceCamp(sc, database, student, true); break;
                 case 3:
+                student.informationInterface();
                 default:
             }
         } while (choice != 4);
@@ -189,10 +194,7 @@ public class Test {
         //Specific to the selected camp
         int choice;
         do{
-            System.out.println("//////////////////////////////////////////");
-            System.out.println("Visibility: " + camp.isVisible()); 
-            System.out.println("Total Slots: " + camp.getTotalSlots());
-            System.out.println("Slots remaining: " + camp.getSlotsLeft());
+            camp.printCampDetails();
             if(join == true){System.out.println("You have joined this camp");} //or not we need to check with the student obj
             else{
                 if(camp.findStudent(student)){System.out.println("You have joined this camp");}
@@ -350,7 +352,7 @@ public class Test {
 			extractedStudentData
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileStudent(
-						"/Users/brandon1241/Documents/Database.xlsx");
+						"/Users/brandon1241/Downloads/staff_list.xlsx");
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -366,7 +368,7 @@ public class Test {
 			extractedStaffData
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileStaff(
-						"/Users/brandon1241/Documents/Database.xlsx");
+						"/Users/brandon1241/Downloads/staff_list.xlsx");
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
