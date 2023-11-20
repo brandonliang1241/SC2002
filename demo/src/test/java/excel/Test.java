@@ -95,6 +95,7 @@ public class Test {
 
     public static void newUserInterface(Scanner sc, Database database){
         int choice;
+        Password encrypt = new Password();
         do{
             System.out.println("//////////////////////////////////////////");
             System.out.println("Create New User Page"); 
@@ -109,11 +110,17 @@ public class Test {
                 String name = sc.nextLine();
                 System.out.println("Username:");
                 String username = sc.nextLine();
-                System.out.println("Password:");
-                String password = sc.nextLine();
+                String password1, password2;
+                do{
+                    System.out.println("Enter new password:");
+                    password1 = sc.nextLine();
+                    System.out.println("Re-enter password:");
+                    password2 = sc.nextLine();
+                    if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
+                }while(!password1.equals(password2));
                 System.out.println("Faculty:"); //Do another function for gods sake
                 String faculty = sc.nextLine();
-                Student tempStudent = new Student(username, name, password, Faculty.valueOf(faculty));
+                Student tempStudent = new Student(username, name, encrypt.hash(password1.toCharArray()), Faculty.valueOf(faculty));
                 database.addStudent(tempStudent);
                 System.out.println("Student Creation Successful!");
                 break;
@@ -123,11 +130,16 @@ public class Test {
                 name = sc.nextLine();
                 System.out.println("Username:");
                 username = sc.nextLine();
-                System.out.println("Password:");
-                password = sc.nextLine();
+                do{
+                    System.out.println("Enter new password:");
+                    password1 = sc.nextLine();
+                    System.out.println("Re-enter password:");
+                    password2 = sc.nextLine();
+                    if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
+                }while(!password1.equals(password2));
                 System.out.println("Faculty:"); //Do another function for gods sake
                 faculty = sc.nextLine();
-                Staff tempStaff = new Staff(username, name, password, Faculty.valueOf(faculty));
+                Staff tempStaff = new Staff(username, name, encrypt.hash(password1.toCharArray()), Faculty.valueOf(faculty));
                 database.addStaff(tempStaff);
                 System.out.println("Staff Creation Successful!");
                 break;
@@ -154,7 +166,7 @@ public class Test {
                 case 2:
                 studentInterfaceCamp(sc, database, student, true); break;
                 case 3:
-                student.informationInterface();
+                student.informationInterface(sc, database);
                 default:
             }
         } while (choice != 4);

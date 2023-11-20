@@ -95,7 +95,9 @@ public class Student extends User{
         }while(choice != 4);
     }
 
-    public void informationInterface(){
+    public void informationInterface(Scanner sc, Database database){
+        int choice;
+        do{
         System.out.println("//////////////////////////////////////////");
         System.out.println("Information");
         System.out.println("1: Change password");
@@ -103,5 +105,40 @@ public class Student extends User{
         System.out.println("3: View Suggestions");
         System.err.println("4: Return");
         System.out.println("//////////////////////////////////////////");
+        try{choice = Integer.parseInt(sc.nextLine());}
+            catch(Exception e){
+                System.err.println("Not a valid input");
+                choice = 0;
+                continue;
+            }
+        switch (choice) {
+            case 1:
+                String password1, password2;
+                do{
+                    System.out.println("Enter new password:");
+                    password1 = sc.nextLine();
+                    System.out.println("Re-enter password:");
+                    password2 = sc.nextLine();
+                    if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
+                }while(!password1.equals(password2));
+                Password encrypt = new Password();
+                setPassword(encrypt.hash(password1.toCharArray()));
+                System.out.println("New password set!");
+                break;
+            case 2:
+                break;
+            case 3:
+                if(getCampCom().getIsCampCom()){
+                    for(int i = 0; i < database.getCamp(campCom.getCamp()).getEnquiries().size(); i++)
+                    database.getCamp(campCom.getCamp()).getEnquiries().get(i).displayEnquiry();
+                }
+                else{
+                    System.out.println("You are not a member of the camp committee");
+                }
+                break;
+            default:
+                break;
+        }
+        }while(choice != 4);
     }
 }
