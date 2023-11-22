@@ -92,7 +92,7 @@
         */
         public ArrayList<Camp> listOfCampsFaculty(ArrayList<Camp> inputCamp, Faculty faculty){
             for(int i = 0; i < camps.size(); i++){
-                if(camps.get(i).getUserGroup().equals(faculty)){inputCamp.add(camps.get(i));}
+                if(camps.get(i).getUserGroup().equals(faculty)&& camps.get(i).isVisible()){inputCamp.add(camps.get(i));}
             }
             return inputCamp;
         }

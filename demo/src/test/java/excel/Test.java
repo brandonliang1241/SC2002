@@ -225,7 +225,7 @@ public class Test {
                 case 1:
                     if(join == false){
                         if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
-                        if(camp.findStudent(student)){System.out.println("You are already in this camp"); break;} //WTF
+                        if(camp.findRemovedStudent(student.getName())){System.out.println("You are already in this camp"); break;} //WTF
                         camp.addStudent(student);
                         System.out.println("You have joined the Camp!");
                         join = true;

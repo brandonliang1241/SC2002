@@ -20,7 +20,8 @@ public class Camp {
 
     private ArrayList<Student> listOfStudents = new ArrayList<Student>(totalSlots);
     private ArrayList<Student> listOfCamCom = new ArrayList<Student>(totalSlots);
-    
+    private ArrayList<String> listOfRemovedStudents = new ArrayList<String>(totalSlots);
+
     private ArrayList<Enquiry> enquiries = new ArrayList<Enquiry>();
     private ArrayList<Suggestion> suggestions = new ArrayList<Suggestion>();
     
@@ -125,11 +126,17 @@ public class Camp {
 
     public void removeStudent(Student student){
         listOfStudents.remove(student);
+        listOfRemovedStudents.add(student.getName());
         slotsLeft++;
     }
 
     public Boolean findStudent(Student student){
         if(listOfStudents.contains(student)){return true;}
+        return false;
+    }
+
+    public Boolean findRemovedStudent(String student){
+        if(listOfRemovedStudents.contains(student)){return true;}
         return false;
     }
 
