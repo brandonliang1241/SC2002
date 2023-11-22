@@ -30,6 +30,7 @@ public class Camp {
         this.totalSlots = 100; //default
         this.slotsLeft = totalSlots;
         this.campComSlots = 0;
+        isVisible = true; //by default visible is true
     }
 
     public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, String staffId) {
