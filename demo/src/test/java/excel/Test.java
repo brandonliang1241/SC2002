@@ -430,6 +430,7 @@ public class Test {
 		}
         for(int i = 0; i < extractedCampData.size(); i++){
             database.addCamp(extractedCampData.get(i));
+            database.getStaff(extractedCampData.get(i).getStaffId()).addCamp(extractedCampData.get(i));
             // System.out.println(extractedCampData.get(i).getCampDate()+ " " + extractedCampData.get(i).getClosingTime());
             //System.out.println(database.getCamp(extractedCampData.get(i).getCampName()).getUserGroup());
         }

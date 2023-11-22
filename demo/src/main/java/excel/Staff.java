@@ -31,6 +31,10 @@ public class Staff extends User{
         return newCamp;
     }
 
+    public void addCamp(Camp camp){
+        campsCreated.add(camp);
+    }
+
 
     public void viewCampList(){
         if (campsCreated.isEmpty()){
