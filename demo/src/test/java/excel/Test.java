@@ -10,7 +10,8 @@ public class Test {
         Database database = new Database();
         Scanner sc = new Scanner(System.in); 
         //now to add into database
-        Download(database);
+        String pathName = "/Users/brandon1241/Downloads/staff_list.xlsx";
+        Download(database, pathName);
         // Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
         // Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
         // david.createCamp(sc,database);// database adds the camp that david creates.
@@ -40,7 +41,7 @@ public class Test {
             }
         }while(choice != 3);
         sc.close();
-        storeWorkbook(database);
+        storeWorkbook(database, pathName);
     }
 
     public static void loginInterface(Scanner sc, Database database){
@@ -380,7 +381,7 @@ public class Test {
 	        } while (choice != 14);
 	    }
 
-    public static void Download(Database database){
+    public static void Download(Database database, String pathName){
         // detecting the file type
 		GetStudent getContentFromExcelSheets
 			= new GetStudent();
@@ -390,7 +391,7 @@ public class Test {
 			extractedStudentData
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileStudent(
-						"/Users/brandon1241/Downloads/staff_list.xlsx");
+						pathName);
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -406,7 +407,7 @@ public class Test {
 			extractedStaffData
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileStaff(
-						"/Users/brandon1241/Downloads/staff_list.xlsx");
+						pathName);
 		}
 		catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -422,7 +423,7 @@ public class Test {
 			extractedCampData
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileCamp(
-						"/Users/brandon1241/Downloads/staff_list.xlsx");
+						pathName);
 		}//   /Users/brandon1241/Downloads/staff_list.xlsx
 		catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -444,9 +445,9 @@ public class Test {
         }
     }
 
-    public static void storeWorkbook(Database database){
+    public static void storeWorkbook(Database database, String pathName){
         GetStudent storeContentToExcel = new GetStudent();
-        try{storeContentToExcel.storeWorkbook(database);}
+        try{storeContentToExcel.storeWorkbook(database, pathName);}
         catch(Exception e){e.printStackTrace();}
         System.out.println("Workbook Stored.");
     }

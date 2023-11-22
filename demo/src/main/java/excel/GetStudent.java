@@ -294,7 +294,7 @@ public class GetStudent {
 		return listCamp;
 	}
 	
-	public void storeWorkbook(Database database)
+	public void storeWorkbook(Database database, String pathName)
 			throws IOException
 	{
 
@@ -404,7 +404,7 @@ public class GetStudent {
         // .xlsx is the format for Excel Sheets... 
         // writing the workbook into the file... 
         FileOutputStream out = new FileOutputStream( 
-            new File("/Users/brandon1241/Downloads/staff_list.xlsx")); 
+            new File(pathName)); 
   
         workbook.write(out); 
         out.close(); 
