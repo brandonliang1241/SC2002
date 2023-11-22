@@ -5,7 +5,7 @@ import java.time.*;
 import java.time.format.DateTimeParseException;
 
 public class Staff extends User{
-    private ArrayList<Camp> campsCreated = new ArrayList<Camp>(10);
+    private ArrayList<Camp> campsCreated = new ArrayList<Camp>();
 
     public Staff(String userId, String name, String password, Faculty facultyInfo){
         super(userId, name, password, facultyInfo);
