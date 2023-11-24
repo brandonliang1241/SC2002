@@ -26,8 +26,62 @@ public class Staff extends User{
 
         Camp newCamp = new Camp(campName, super.getUserId());
         campsCreated.add(newCamp);
-        System.out.println("Camp created successfully!");
         database.addCamp(newCamp);
+        
+        boolean validDate = false;
+        while (!validDate) {
+            System.out.println("Enter new camp date (yyyy-MM-dd): ");
+            String dateStr = sc.nextLine();
+            try {
+                LocalDate newDate = LocalDate.parse(dateStr);
+                newCamp.setCampDate(newDate);
+                validDate = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format.");
+            }
+        }
+
+        boolean validTime = false;
+        while (!validTime) {
+            System.out.println("Enter new closing time (yyyy-MM-ddTHH:mm): ");
+            String timeStr = sc.nextLine();
+            try {
+                LocalDateTime newClosingTime = LocalDateTime.parse(timeStr);
+                newCamp.setClosingTime(newClosingTime);
+                validTime = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date and time format.");
+            }
+        }
+
+        boolean validGroup = false;
+        while (!validGroup) {
+            System.out.println("Enter new user group (e.g., SCSE, LKC): ");
+            String facultyName = sc.nextLine().toUpperCase();
+            try {
+                Faculty newFaculty = Faculty.valueOf(facultyName);
+                newCamp.setUserGroup(newFaculty);
+                validGroup = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid faculty name.");
+            }
+        }
+
+        
+        System.out.println("Enter new location: ");
+        newCamp.setLocation(sc.nextLine());
+        
+        System.out.println("Enter new total slots: ");
+        newCamp.setTotalSlots(sc.nextInt());
+        
+        System.out.println("Enter new camp committee slots: ");
+        newCamp.setCampComSlots(sc.nextInt());
+        
+        System.out.println("Enter new description: ");
+        newCamp.setDescription(sc.nextLine());
+        
+        System.out.println("Camp created successfully!");
+
         return newCamp;
     }
 
@@ -308,3 +362,6 @@ public class Staff extends User{
         campsCreated.get(camp).viewListStudents();
     }
 }
+
+
+
