@@ -41,7 +41,6 @@ public class CampCom {
             return;
         }
         camp.printCampDetails();
-        // available for extension for other details
     }
     
     public void viewAllEnquiries(Camp camp){
