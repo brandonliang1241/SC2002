@@ -186,7 +186,7 @@ public class Staff extends User{
             case 7:
                 System.out.println("Enter new camp committee slots: ");
                 selectedCamp.setCampComSlots(sc.nextInt());
-                //sc.nextLine(); // Consume the leftover newline
+                sc.nextLine(); // Consume the leftover newline
                 break;
             case 8:
                 System.out.println("Enter new description: ");
