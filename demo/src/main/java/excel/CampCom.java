@@ -37,18 +37,13 @@ public class CampCom {
 
     public void viewCampDetails(Camp camp){
         if (camp == null) {
-            System.out.println("No camp details available.");
+            System.out.println("No camp found.");
             return;
         }
         camp.printCampDetails();
     }
     
     public void viewAllEnquiries(Camp camp){
-        if (camp == null) {
-            System.out.println("No camp details available.");
-            return;
-        }
-
         ArrayList<Enquiry> enquiries = camp.getEnquiries();
         if (enquiries.isEmpty()) {
             System.out.println("No enquiries available for camp: " + camp.getCampName());
@@ -61,11 +56,6 @@ public class CampCom {
     }
     
     public void replyEnquiries(Scanner sc, Camp camp){
-        if (camp == null) {
-            System.out.println("No camp details available.");
-            return;
-        }
-
         ArrayList<Enquiry> enquiries = camp.getEnquiries();
         if (enquiries.isEmpty()) {
             System.out.println("No enquiries available for camp: " + camp.getCampName());
@@ -105,8 +95,80 @@ public class CampCom {
         selectedEnquiry.displayEnquiry();
     }
     
-    public void submitSuggestions(Camp camp){};
+    public void submitSuggestions(Scanner sc, Camp camp, Student student){
+        System.out.println("Enter your suggestion for the camp:");
+        String suggestionText = sc.nextLine();
 
+        Suggestion newSuggestion = new Suggestion(suggestionText, student.getName(), camp.getCampName());
+        camp.addSuggestion(newSuggestion);
+
+        System.out.println("Suggestion submitted successfully for camp " + camp.getCampName() + ".");
+    }
+
+    public void viewSuggestions(Camp camp){
+        ArrayList<Suggestion> suggestions = camp.getSuggestions();
+        if (suggestions.isEmpty()) {
+            System.out.println("No suggestions available for camp: " + camp.getCampName());
+            return;
+        }
+
+        System.out.println("Suggestions for camp: " + camp.getCampName());
+        for (Suggestion suggestion : suggestions) {
+            suggestion.displaySuggestion();
+        }
+    }
+    
+    public void editSuggestion(Scanner sc, Camp camp) {
+        ArrayList<Suggestion> suggestions = camp.getSuggestions();
+        if (suggestions.isEmpty()) {
+            System.out.println("No suggestions available for editing.");
+            return;
+        }
+
+        System.out.println("Enter suggestion index to edit:");
+        for (int i = 0; i < suggestions.size(); i++) {
+            System.out.println((i + 1) + ": " + suggestions.get(i).getSuggestionText());
+        }
+
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        if (choice < 1 || choice > suggestions.size()) {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        Suggestion suggestion = suggestions.get(choice - 1);
+        System.out.println("Enter the new text for the suggestion:");
+        String newText = sc.nextLine();
+        suggestion.setSuggestionText(newText);
+        System.out.println("Suggestion updated successfully.");
+    }
+    
+    public void deleteSuggestion(Scanner sc, Camp camp) {
+        ArrayList<Suggestion> suggestions = camp.getSuggestions();
+        if (suggestions.isEmpty()) {
+            System.out.println("No suggestions available for deletion.");
+            return;
+        }
+
+        System.out.println("Enter suggestion index to delete:");
+        for (int i = 0; i < suggestions.size(); i++) {
+            System.out.println((i + 1) + ": " + suggestions.get(i).getSuggestionText());
+        }
+
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        if (choice < 1 || choice > suggestions.size()) {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        suggestions.remove(choice - 1);
+        System.out.println("Suggestion deleted successfully.");
+    }
+    
     public void addPoints(Scanner sc){
         int choice;
         System.out.println("How many points to add?");
