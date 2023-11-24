@@ -42,8 +42,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 // 2007 and later.
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import jxl.write.DateTime;
-
 // POJO class having 3 fields matching with the given excel
 // class to assign the cell value once it is getting done to
 // read from excel sheet It can be String/Boolean/Numeric
