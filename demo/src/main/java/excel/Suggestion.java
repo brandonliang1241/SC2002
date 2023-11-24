@@ -60,7 +60,7 @@ public class Suggestion {
   
   
   public void displaySuggestion() {
-      System.out.println("Suggestion Index: " + suggestionIndex);
+      System.out.println("Suggestion Index: " + (suggestionIndex + 1) );
       System.out.println("Suggestion: " + suggestionText + " by " + owner);
       System.out.println("Status: " + (status ? "Approved" : "Rejected"));
   }
