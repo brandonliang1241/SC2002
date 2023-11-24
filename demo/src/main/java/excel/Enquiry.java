@@ -68,7 +68,7 @@ public class Enquiry {
     }
 
     public void displayEnquiry() {
-    	System.out.println("Enquiry Index: " + enquiryIndex);
+    	System.out.println("Enquiry Index: " + (enquiryIndex+1) );
         System.out.println("Enquiry: " + enquiryText + " by " + owner);
         System.out.println("Status: " + (status ? "Replied" : "Not Replied"));
         if (status) {
