@@ -28,23 +28,7 @@ public class Camp {
     public Camp(String campName, String staffId){
         this.campName = campName;
         this.staffId = staffId;
-        this.totalSlots = 100; //default
-        this.slotsLeft = totalSlots;
-        this.campComSlots = 0;
         this.isVisible = true; //by default visible is true
-    }
-
-    public Camp(String campName, LocalDate campDate, LocalDateTime closingTime, Faculty userGroup, String location, int totalSlots, int campComSlots, int slotsLeft, String staffId) {
-        this.campName = campName;
-        this.campDate = campDate;
-        this.closingTime = closingTime;
-        this.userGroup = userGroup;
-        this.location = location;
-        this.totalSlots = totalSlots;
-        this.campComSlots = campComSlots;
-        this.staffId = staffId;
-        this.slotsLeft = slotsLeft;
-        this.isVisible = true;
     }
 
     public String getCampName() {
@@ -119,10 +103,26 @@ public class Camp {
     public ArrayList<Suggestion> getSuggestions() {
         return suggestions;
     }
+    
+    public boolean applyForCampCom(Student student) {
+        if (campComSlots > 0) {
+            listOfCamCom.add(student);
+            campComSlots--;
+            totalSlots--;
+            return true;
+        } else {
+            System.out.println("No available slots for Camp Committee.");
+            return false;
+        }
+    }
 
     public void addStudent(Student student){
-        listOfStudents.add(student);
-        slotsLeft--;
+        if (!listOfStudents.contains(student) && slotsLeft > 0) {
+            listOfStudents.add(student);
+            slotsLeft--;
+        } else {
+            System.out.println("Student already added or no slots left.");
+        }
     }
 
     public void removeStudent(Student student){
@@ -150,6 +150,7 @@ public class Camp {
     public ArrayList<Enquiry> getEnquiries(){
         return enquiries;
     }
+    
 
     public void printCampDetails(){
         System.out.println("//////////////////////////////////////////");
@@ -157,6 +158,7 @@ public class Camp {
         System.out.println("Location: " + getLocation());
         System.out.println("Total Slots: " + getTotalSlots());
         System.out.println("Slots remaining: " + getSlotsLeft());
+        System.out.println("Camp Committee Slots: " + getCampComSlots());
         System.out.println("Date: " + getCampDate());
         System.out.println("Closing Date time: " + getClosingTime());
         System.out.println("Visibility: " + isVisible()); 
