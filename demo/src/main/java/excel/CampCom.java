@@ -40,14 +40,7 @@ public class CampCom {
             System.out.println("No camp details available.");
             return;
         }
-        System.out.println("Camp Name: " + camp.getCampName());
-        System.out.println("Camp Date: " + camp.getCampDate());
-        System.out.println("Closing Time: " + camp.getClosingTime());
-        System.out.println("Location: " + camp.getLocation());
-        System.out.println("Total Slots: " + camp.getTotalSlots());
-        System.out.println("Camp Committee Slots: " + camp.getCampComSlots());
-        System.out.println("User Group: " + camp.getUserGroup());
-        System.out.println("Description: " + camp.getDescription());
+        camp.printCampDetails();
         // available for extension for other details
     }
     
