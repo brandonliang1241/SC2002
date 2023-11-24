@@ -315,7 +315,7 @@ public class Staff extends User{
         filterAndDisplaySuggestions(campName);
     }
 
-    public void replySuggestions(Scanner sc, String campName) {
+    public void replySuggestions(Scanner sc, String campName, Database database) {
         ArrayList<Suggestion> filteredSuggestions = filterAndDisplaySuggestions(campName);
         
         if (filteredSuggestions.isEmpty()) {
@@ -341,6 +341,7 @@ public class Staff extends User{
 
         if (choice == 1) {
             suggestion.setStatus(true);
+            incrementCampComPoints(suggestion.getOwner(), database);//suggestion approved, increase camp com member points by 1
         } else if (choice == 2) {
             suggestion.setStatus(false);
         } else {
@@ -352,7 +353,18 @@ public class Staff extends User{
         System.out.println("Updated Suggestion:");
         suggestion.displaySuggestion();
     }
-
+    
+    private void incrementCampComPoints(String ownerName, Database database) {
+        // Find the student (CampCom member) by owner name and increment their points
+        for (Student student : database.getStudents()) {
+            if (student.getName().equals(ownerName) && student.getCampCom().getIsCampCom()) {
+                CampCom campCom = student.getCampCom();
+                campCom.setPoints(campCom.getPoints() + 1);
+                break;
+            }
+        }
+    }
+    
     public void generateCampReport(String campName){} //generate list of students (attendees/campcom)
 
     public void generatePerformanceReport(){} //generate performance report of campcom members
