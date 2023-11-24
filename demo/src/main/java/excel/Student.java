@@ -171,4 +171,12 @@ public class Student extends User{
         }
         }while(choice != 4);
     }
+    
+    public void submitCampComApplication(Student student, Camp camp){
+        if(camp.applyForCampCom(this)){
+            student.getCampCom().setIsCampCom(true);
+            student.getCampCom().setCamp(camp.getCampName());
+        	System.out.println("Congratulations you are now a camp committee of this camp!");
+        }
+    }
 }
