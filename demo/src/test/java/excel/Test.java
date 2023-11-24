@@ -256,9 +256,7 @@ public class Test {
                         System.out.println("2: Return");
                         int temp = Integer.parseInt(sc.nextLine());
                         if(temp == 1){
-                            student.getCampCom().setIsCampCom(true);
-                            student.getCampCom().setCamp(camp.getCampName());
-                            System.out.println("Congratulations you are now a camp committee of this camp!");
+                        	student.submitCampComApplication(student, camp);
                         }
                     }
                     break;
@@ -328,7 +326,7 @@ public class Test {
 	                case 10:
 	                    System.out.println("Enter camp name: ");
 	                    newCamp = sc.nextLine();
-	                    staff.replySuggestions(sc, newCamp);
+	                    staff.replySuggestions(sc, newCamp, database);
 	                    break;
 	                case 11:
 	                    //System.out.println("Enter camp name to generate report: ");
