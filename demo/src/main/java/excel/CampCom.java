@@ -169,6 +169,8 @@ public class CampCom {
         System.out.println("Suggestion deleted successfully.");
     }
     
+    public void generateCampReport(Camp campName) {}
+    
     public void addPoints(Scanner sc){
         int choice;
         System.out.println("How many points to add?");
