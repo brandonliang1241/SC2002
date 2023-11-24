@@ -39,8 +39,8 @@ public class Student extends User{
             x = tempArray.get(choice-1); //storing the location of enquiry
             System.out.println("//////////////////////////////////////////");
             camp.getEnquiries().get(x).displayEnquiry();
-            System.out.println("1: Change Enquiry");
-            System.out.println("2: Delet Enquiry");
+            System.out.println("1: Edit Enquiry");
+            System.out.println("2: Delete Enquiry");
             System.out.println("3: Return");
             System.out.println("//////////////////////////////////////////");
             try{choice = Integer.parseInt(sc.nextLine());}
@@ -66,15 +66,16 @@ public class Student extends User{
         return this.campCom;
     }
 
-    public void campComInterface(Scanner sc,Camp camp){
+    public void campComInterface(Scanner sc,Camp camp, Student student){
         int choice;
         do{
             System.out.println("//////////////////////////////////////////");
             System.out.println("You are a member of this camp committee");
             System.out.println("1: View camp details");
             System.out.println("2: View enquires");
-            System.out.println("3: View Suggestions");
-            System.err.println("4: Return");
+            System.out.println("3: Reply to enquiries");
+            System.out.println("4: Manage Suggestions"); //view, edit, delete
+            System.err.println("5: Return");
             System.out.println("//////////////////////////////////////////");
             try{choice = Integer.parseInt(sc.nextLine());}
             catch(Exception e){
@@ -86,13 +87,42 @@ public class Student extends User{
                 case 1:
                     getCampCom().viewCampDetails(camp); break;
                 case 2:
-                    getCampCom().replyEnquiries(camp); break;
+                    getCampCom().viewAllEnquiries(camp); break;
                 case 3:
-                    getCampCom().submitSuggestions(camp); break;
+                    getCampCom().replyEnquiries(sc, camp); break;
+                case 4:
+                	manageSuggestions(sc, camp, student); break;
                 default:
                     break;
             }
-        }while(choice != 4);
+        }while(choice != 5);
+    }
+    
+    private void manageSuggestions(Scanner sc, Camp camp, Student student) {
+        System.out.println("Manage suggestions");
+        System.out.println("1: Submit Suggestions");
+        System.out.println("2: View Suggestions");
+        System.out.println("3: Edit Suggestions");
+        System.out.println("4: Delete Suggestions");
+        System.out.println("5: Return");
+
+        int choice2 = Integer.parseInt(sc.nextLine());
+        switch(choice2) {
+            case 1:
+                campCom.submitSuggestions(sc, camp, student);
+                break;
+            case 2:
+                campCom.viewSuggestions(camp);
+                break;
+            case 3:
+                campCom.editSuggestion(sc, camp);
+                break;
+            case 4:
+                campCom.deleteSuggestion(sc, camp);
+                break;
+            default:
+            	break;
+        }
     }
 
     public void informationInterface(Scanner sc, Database database){
