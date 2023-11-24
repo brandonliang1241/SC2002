@@ -10,7 +10,7 @@ public class Test {
         Database database = new Database();
         Scanner sc = new Scanner(System.in); 
         //now to add into database
-        String pathName = "/Users/brandon1241/Downloads/staff_list.xlsx";
+        String pathName = "/Users/Wei Jun/Downloads/staff_list.xlsx";
         Download(database, pathName);
         // Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
         // Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
@@ -248,7 +248,7 @@ public class Test {
                     student.viewEnquires(sc, camp);
                     break;
                 case 3:
-                    if(student.getCampCom().getIsCampCom()){student.campComInterface(sc, camp);}
+                    if(student.getCampCom().getIsCampCom()){student.campComInterface(sc, camp, student);}
                     else{
                         System.out.println("You are not a member of this camp committee");
                         System.out.println("Submit an application?");
@@ -424,7 +424,7 @@ public class Test {
 				= getContentFromExcelSheets
 					.readBooksFromExcelFileCamp(
 						pathName);
-		}//   /Users/brandon1241/Downloads/staff_list.xlsx
+		}//   /Users/Wei Jun/Downloads/staff_list.xlsx
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
