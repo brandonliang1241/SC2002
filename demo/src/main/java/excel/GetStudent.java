@@ -292,6 +292,50 @@ public class GetStudent {
 		return listCamp;
 	}
 	
+	public void
+	readBooksFromExcelFileCampAttendees(String excelFilePath, Database database)
+		throws IOException
+	{
+		FileInputStream inputStream
+			= new FileInputStream(new File(excelFilePath));
+
+		Workbook workbook = new XSSFWorkbook(inputStream);
+		Sheet firstSheet = workbook.getSheetAt(3);
+		Iterator<Row> iterator = firstSheet.iterator();
+		int pos = 0;
+		while (iterator.hasNext()) {
+			Row nextRow = iterator.next();
+			Iterator<Cell> cellIterator
+				= nextRow.cellIterator();
+
+			while (cellIterator.hasNext()) {
+				Cell nextCell = cellIterator.next();
+				int columnIndex = nextCell.getColumnIndex();
+				Camp tempCamp = database.getCamps().get(pos);
+				Student tempStudent;
+				int studentPos = -1;
+				switch (columnIndex%2) {
+				case 0: //Student name
+					tempStudent = database.getStudent((String)getCellValue(nextCell));
+					tempCamp.addStudent(tempStudent, 1);
+					studentPos++;
+					break;
+				case 1: //Is camp com
+					try{tempCamp.getListStudents().get(studentPos).getCampCom().setIsCampCom(Boolean.valueOf((String)getCellValue(nextCell)));}
+					catch(Exception e){
+						System.out.println("Issue");
+					}
+					break;
+				default: System.out.println("fail"); break;
+				}
+			}
+			pos++;
+		}
+        workbook.close();
+		inputStream.close();
+
+	}
+
 	public void storeWorkbook(Database database, String pathName)
 			throws IOException
 	{
@@ -305,6 +349,8 @@ public class GetStudent {
             = workbook.createSheet(" Staff Data "); 
 		XSSFSheet spreadsheet3 
             = workbook.createSheet(" Camp Data "); 
+		XSSFSheet spreadsheet4 
+            = workbook.createSheet(" Individual camp data "); 
         // creating a row object 
         XSSFRow row; 
   
@@ -399,6 +445,22 @@ public class GetStudent {
                 cell.setCellValue((String)obj); 
             } 
         } 
+
+		Set<String> keyid4 = campData.keySet(); 
+
+		rowid = 0; 
+		
+		for(int i = 0; i < database.getCamps().size();i++){
+			row = spreadsheet4.createRow(rowid++); 
+			int cellid = 0; 
+			Camp tempCamp = database.getCamps().get(i);
+			for(int h = 0; h < tempCamp.getListStudents().size();h++){
+				Cell cell = row.createCell(cellid++); 
+                cell.setCellValue(tempCamp.getListStudents().get(h).getUserId()); 
+				cell = row.createCell(cellid++); 
+				cell.setCellValue(String.valueOf(tempCamp.getListStudents().get(h).getCampCom().getIsCampCom())); 
+			}
+		}
         // .xlsx is the format for Excel Sheets... 
         // writing the workbook into the file... 
         FileOutputStream out = new FileOutputStream( 

@@ -10,7 +10,7 @@ public class Test {
         Database database = new Database();
         Scanner sc = new Scanner(System.in); 
         //now to add into database
-        String pathName = "/Users/Wei Jun/Downloads/staff_list.xlsx";
+        String pathName = "/Users/brandon1241/Downloads/staff_list.xlsx";
         Download(database, pathName);
         // Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
         // Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
@@ -329,9 +329,14 @@ public class Test {
 	                    staff.replySuggestions(sc, newCamp, database);
 	                    break;
 	                case 11:
-	                    //System.out.println("Enter camp name to generate report: ");
-	                    //newCamp = sc.nextLine();
-	                    //staff.generateCampReport(newCamp);
+	                    System.out.println("Enter camp name to generate report: ");
+	                    newCamp = sc.nextLine();
+                        System.out.println("How to print?");
+	                	System.out.println("1: Attendees only");
+	                	System.out.println("2: Camp committee only");
+	                	System.out.println("3: Both");
+                        int number = scan(sc);
+	                    staff.generateCampReport(database.getCamp(newCamp), number);
 	                    break;
 	                case 12:
 	                    //staff.generatePerformanceReport();
@@ -433,6 +438,15 @@ public class Test {
             // System.out.println(extractedCampData.get(i).getCampDate()+ " " + extractedCampData.get(i).getClosingTime());
             //System.out.println(database.getCamp(extractedCampData.get(i).getCampName()).getUserGroup());
         }
+        try {
+			getContentFromExcelSheets
+					.readBooksFromExcelFileCampAttendees(
+						pathName, database);
+		}//   /Users/Wei Jun/Downloads/staff_list.xlsx
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
     public static int scan(Scanner sc){ //catches exceptions

@@ -1,6 +1,8 @@
 package excel;
 
 import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeParseException;
 
@@ -365,14 +367,58 @@ public class Staff extends User{
         }
     }
     
-    public void generateCampReport(String campName){} //generate list of students (attendees/campcom)
+    public void generateCampReport(Camp camp, int number){
+        try {
+        FileWriter myWriter = new FileWriter("filename.txt");
+        myWriter.write("Camp name: " + camp.getCampName()); 
+        myWriter.write("Location: " + camp.getLocation());
+        myWriter.write("Total Slots: " + camp.getTotalSlots());
+        myWriter.write("Slots remaining: " + camp.getSlotsLeft());
+        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());
+        myWriter.write("Date: " + camp.getCampDate());
+        myWriter.write("Closing Date time: " + camp.getClosingTime());
+        myWriter.write("Visibility: " + camp.isVisible()); 
+        switch(number){
+            case 1:
+                for(int i = 0; i < camp.getListStudents().size(); i++){
+                    Student tempStudent = camp.getListStudents().get(i);
+                    if(tempStudent.getCampCom().getIsCampCom()){
+                        myWriter.write(tempStudent.getName() + " is a camp committee member");
+                    }
+                    else{
+                        myWriter.write(tempStudent.getName() + " is a participant");
+                    }
+                }
+                break;
+            case 2:
+                for(int i = 0; i < camp.getListStudents().size(); i++){
+                    Student tempStudent = camp.getListStudents().get(i);
+                    if(tempStudent.getCampCom().getIsCampCom()){
+                        myWriter.write(tempStudent.getName() + " is a camp committee member");
+                    }
+                }
+                break;
+            case 3:
+                for(int i = 0; i < camp.getListStudents().size(); i++){
+                    myWriter.write(camp.getListStudents().get(i).getName() + " is a participant");
+                }
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                myWriter.close();
+                return;
+        }
+        myWriter.close();
+        System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+        }
+    } //generate list of students (attendees/campcom)
+
 
     public void generatePerformanceReport(){} //generate performance report of campcom members
 
-    
-    public void viewStudentsInCamp(int camp){
-        campsCreated.get(camp).viewListStudents();
-    }
 }
 
 

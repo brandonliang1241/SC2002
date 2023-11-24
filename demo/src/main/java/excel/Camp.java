@@ -125,6 +125,10 @@ public class Camp {
         }
     }
 
+    public void addStudent(Student student, int number){ //from database
+            listOfStudents.add(student);
+    }
+
     public void removeStudent(Student student){
         listOfStudents.remove(student);
         listOfRemovedStudents.add(student.getName());
@@ -141,11 +145,9 @@ public class Camp {
         return false;
     }
 
-    public void viewListStudents(){
-        //return the arraylist of students
+    public ArrayList<Student> getListStudents(){
+        return listOfStudents;
     }
-
-    public void viewEnquiries(){}
 
     public ArrayList<Enquiry> getEnquiries(){
         return enquiries;
