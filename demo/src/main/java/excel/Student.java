@@ -1,174 +1,379 @@
 package excel;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+import java.time.*;
+import java.time.format.DateTimeParseException;
 
-public class Student extends User{
-    private CampCom campCom;
-    public void viewCampList(){}
-    
-    public Student(String userId, String name, String password, Faculty facultyInfo){
+public class Staff extends User{
+    private ArrayList<Camp> campsCreated = new ArrayList<Camp>();
+
+    public Staff(String userId, String name, String password, Faculty facultyInfo){
         super(userId, name, password, facultyInfo);
-        campCom = new CampCom();
+        this.campsCreated = new ArrayList<Camp>();
     }
 
-    public void viewEnquires(Scanner sc, Camp camp){
-        ArrayList<Integer> tempArray = new ArrayList<Integer>();
-        int choice; int x = 0;
-        System.out.println("//////////////////////////////////////////");
-        for(int i = 0; i < camp.getEnquiries().size(); i++){
-            if(camp.getEnquiries().get(i).getOwner().equals(super.getUserId())){
-                x++;
-                System.out.println(x + ": Enquiry " + x);
-                tempArray.add(i);//added the locaton of enquiry to end of list
+    public Camp createCamp(Scanner sc, Database database) {
+        System.out.println("Enter camp name: ");
+        String campName = sc.nextLine();
+
+        // Check if a camp with the same name already exists
+        for (Camp existingCamp : campsCreated) {
+            if (existingCamp.getCampName().equalsIgnoreCase(campName)) {
+                System.out.println("A camp with this name already exists. Please choose a different name.");
+                return null; // Return null to indicate that no new camp was created
             }
         }
-        System.out.println(++x + ": Add a new enquiry");
-        System.out.println(++x + ": Return"); 
-        System.out.println("//////////////////////////////////////////");
-        choice = Integer.parseInt(sc.nextLine()); //havent debugged if i didnt put proper input
-        if(choice == x){return;}
-        else if(choice == x-1){ //adding enquiry
-            System.out.println("Enter new enquiry: ");
-            String newString = sc.nextLine();
-            Enquiry newEnquiry = new Enquiry(newString, super.getUserId(), camp.getCampName());
-            camp.getEnquiries().add(newEnquiry);
-            System.out.println("New enquiry set!");
-        }
-        else{ //chosen inquiry and we want to view it
-            x = tempArray.get(choice-1); //storing the location of enquiry
-            System.out.println("//////////////////////////////////////////");
-            camp.getEnquiries().get(x).displayEnquiry();
-            System.out.println("1: Edit Enquiry");
-            System.out.println("2: Delete Enquiry");
-            System.out.println("3: Return");
-            System.out.println("//////////////////////////////////////////");
-            try{choice = Integer.parseInt(sc.nextLine());}
-            catch(Exception e){
-                System.err.println("Not a valid input");
-                choice = 3;
-            }
-            if(choice == 1){
-                System.out.println("Enter a new enquiry: ");
-                String newEnquiry = sc.nextLine();
-                camp.getEnquiries().get(x).setEnquiryText(newEnquiry);
-                System.out.println("New enquiry set!");
-            }
-            else if(choice == 2){
-                camp.getEnquiries().get(x).deleteEnquiry();
-                camp.getEnquiries().remove(x);
-                System.out.println("Bye bye Enquiry!");
+
+        Camp newCamp = new Camp(campName, super.getUserId());
+        campsCreated.add(newCamp);
+        database.addCamp(newCamp);
+        
+        boolean validDate = false;
+        while (!validDate) {
+            System.out.println("Enter new camp date (yyyy-MM-dd): ");
+            String dateStr = sc.nextLine();
+            try {
+                LocalDate newDate = LocalDate.parse(dateStr);
+                newCamp.setCampDate(newDate);
+                validDate = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format.");
             }
         }
-    }
 
-    public CampCom getCampCom(){
-        return this.campCom;
-    }
-
-    public void campComInterface(Scanner sc,Camp camp, Student student){
-        int choice;
-        do{
-            System.out.println("//////////////////////////////////////////");
-            System.out.println("You are a member of this camp committee");
-            System.out.println("1: View camp details");
-            System.out.println("2: View enquires");
-            System.out.println("3: Reply to enquiries");
-            System.out.println("4: Manage Suggestions"); //view, edit, delete
-            System.err.println("5: Return");
-            System.out.println("//////////////////////////////////////////");
-            try{choice = Integer.parseInt(sc.nextLine());}
-            catch(Exception e){
-                System.err.println("Not a valid input");
-                choice = 0;
-                continue;
+        boolean validTime = false;
+        while (!validTime) {
+            System.out.println("Enter new closing time (yyyy-MM-ddTHH:mm): ");
+            String timeStr = sc.nextLine();
+            try {
+                LocalDateTime newClosingTime = LocalDateTime.parse(timeStr);
+                newCamp.setClosingTime(newClosingTime);
+                validTime = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date and time format.");
             }
-            switch(choice){
-                case 1:
-                    getCampCom().viewCampDetails(camp); break;
-                case 2:
-                    getCampCom().viewAllEnquiries(camp); break;
-                case 3:
-                    getCampCom().replyEnquiries(sc, camp); break;
-                case 4:
-                	manageSuggestions(sc, camp, student); break;
-                default:
-                    break;
-            }
-        }while(choice != 5);
-    }
-    
-    private void manageSuggestions(Scanner sc, Camp camp, Student student) {
-        System.out.println("Manage suggestions");
-        System.out.println("1: Submit Suggestions");
-        System.out.println("2: View Suggestions");
-        System.out.println("3: Edit Suggestions");
-        System.out.println("4: Delete Suggestions");
-        System.out.println("5: Return");
+        }
 
-        int choice2 = Integer.parseInt(sc.nextLine());
-        switch(choice2) {
-            case 1:
-                campCom.submitSuggestions(sc, camp, student);
-                break;
-            case 2:
-                campCom.viewSuggestions(camp);
-                break;
-            case 3:
-                campCom.editSuggestion(sc, camp);
-                break;
-            case 4:
-                campCom.deleteSuggestion(sc, camp);
-                break;
-            default:
-            	break;
+        boolean validGroup = false;
+        while (!validGroup) {
+            System.out.println("Enter new user group (e.g., SCSE, LKC): ");
+            String facultyName = sc.nextLine().toUpperCase();
+            try {
+                Faculty newFaculty = Faculty.valueOf(facultyName);
+                newCamp.setUserGroup(newFaculty);
+                validGroup = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid faculty name.");
+            }
+        }
+
+        
+        System.out.println("Enter new location: ");
+        newCamp.setLocation(sc.nextLine());
+        
+        System.out.println("Enter new total slots: ");
+        newCamp.setTotalSlots(sc.nextInt());
+        
+        System.out.println("Enter new camp committee slots: ");
+        newCamp.setCampComSlots(sc.nextInt());
+        
+        System.out.println("Enter new description: ");
+        newCamp.setDescription(sc.nextLine());
+        
+        System.out.println("Camp created successfully!");
+
+        return newCamp;
+    }
+
+    public void addCamp(Camp camp){
+        campsCreated.add(camp);
+    }
+
+
+    public void viewCampList(){
+        if (campsCreated.isEmpty()){
+            System.out.println("No camps available");
+            return;
+        }
+    	System.out.println("All camps: ");
+        for (int i = 0; i<campsCreated.size(); i++){
+            System.out.println((i+1) + ": " + campsCreated.get(i).getCampName());
         }
     }
 
-    public void informationInterface(Scanner sc, Database database){
-        int choice;
-        do{
-        System.out.println("//////////////////////////////////////////");
-        System.out.println("Information");
-        System.out.println("1: Change password");
-        System.out.println("2: View enquires");
-        System.out.println("3: View Suggestions");
-        System.err.println("4: Return");
-        System.out.println("//////////////////////////////////////////");
-        try{choice = Integer.parseInt(sc.nextLine());}
-            catch(Exception e){
-                System.err.println("Not a valid input");
-                choice = 0;
-                continue;
+    public void deleteCamp(String campName, Database database) {
+        Iterator<Camp> iterator = campsCreated.iterator();
+        while (iterator.hasNext()) {
+            Camp camp = iterator.next();
+            if (campName.equals(camp.getCampName())) {
+				database.removeCamp(camp);
+                iterator.remove();
+                System.out.println("Camp deleted: " + campName);
+                return;
             }
+        }
+        System.out.println("Camp not found: " + campName);
+    }
+
+    public void editCamp(Scanner sc) {
+        System.out.println("Enter the name of the camp you want to edit: ");
+        String campName = sc.nextLine();
+
+        // Find the camp
+        Camp selectedCamp = null;
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                selectedCamp = camp;
+                break;
+            }
+        }
+
+        if (selectedCamp == null) {
+            System.out.println("Camp not found.");
+            return;
+        }
+
+        // Edit options
+        System.out.println("Select what you want to edit: ");
+        System.out.println("1. Camp Name\n2. Camp Date\n3. Closing Time\n4. User Group\n5. Location\n6. Total Slots\n7. Camp Committee Slots\n8. Description");
+        int choice = sc.nextInt();
+        sc.nextLine(); // Consume the leftover newline
+
         switch (choice) {
             case 1:
-                String password1, password2;
-                do{
-                    System.out.println("Enter new password:");
-                    password1 = sc.nextLine();
-                    System.out.println("Re-enter password:");
-                    password2 = sc.nextLine();
-                    if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
-                }while(!password1.equals(password2));
-                Password encrypt = new Password();
-                setPassword(encrypt.hash(password1.toCharArray()));
-                System.out.println("New password set!");
+                System.out.println("Enter new camp name: ");
+                selectedCamp.setCampName(sc.nextLine());
                 break;
             case 2:
+                System.out.println("Enter new camp date (yyyy-MM-dd): ");
+                String dateStr = sc.nextLine();
+                try {
+                    LocalDate newDate = LocalDate.parse(dateStr);
+                    selectedCamp.setCampDate(newDate);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date format.");
+                }
                 break;
             case 3:
-                if(getCampCom().getIsCampCom()){
-                    for(int i = 0; i < database.getCamp(campCom.getCamp()).getEnquiries().size(); i++)
-                    database.getCamp(campCom.getCamp()).getEnquiries().get(i).displayEnquiry();
+                System.out.println("Enter new closing time (yyyy-MM-ddTHH:mm): ");
+                String timeStr = sc.nextLine();
+                try {
+                    LocalDateTime newClosingTime = LocalDateTime.parse(timeStr);
+                    selectedCamp.setClosingTime(newClosingTime);
+                } catch (DateTimeParseException e) {
+                    System.out.println("Invalid date and time format.");
                 }
-                else{
-                    System.out.println("You are not a member of the camp committee");
+                break;
+            case 4:
+                System.out.println("Enter new user group (e.g., SCSE, LKC): ");
+                String facultyName = sc.nextLine().toUpperCase();
+                try {
+                    Faculty newFaculty = Faculty.valueOf(facultyName);
+                    selectedCamp.setUserGroup(newFaculty);
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid faculty name.");
                 }
+            break;
+            case 5:
+                System.out.println("Enter new location: ");
+                selectedCamp.setLocation(sc.nextLine());
+                break;
+            case 6:
+                System.out.println("Enter new total slots: ");
+                selectedCamp.setTotalSlots(sc.nextInt());
+                sc.nextLine(); // Consume the leftover newline
+                break;
+            case 7:
+                System.out.println("Enter new camp committee slots: ");
+                selectedCamp.setCampComSlots(sc.nextInt());
+                //sc.nextLine(); // Consume the leftover newline
+                break;
+            case 8:
+                System.out.println("Enter new description: ");
+                selectedCamp.setDescription(sc.nextLine());
                 break;
             default:
-                break;
+                System.out.println("Invalid choice.");
+                return;
         }
-        }while(choice != 4);
+
+        System.out.println("Camp updated successfully!");
+    } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
+    
+    public void toggleCampVisibility(Scanner sc, String campName) {
+        for (Camp camp : campsCreated) {
+            if (campName.equals(camp.getCampName())) {
+                System.out.println("Do you want to toggle visibility on/off?");
+                System.out.println("1: On");
+                System.out.println("2: Off");
+                int choice = sc.nextInt();
+                sc.nextLine(); // Consume the leftover newline
+
+                boolean visibility;
+                if (choice == 1) visibility = true;
+                else visibility = false;      // If choice is 1, visibility is true (On), otherwise false (Off)
+
+                camp.toggleVisibility(visibility);
+                String visibilityStatus = visibility ? "on" : "off";
+                System.out.println("Visibility toggled " + visibilityStatus + " for " + campName);
+                return;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+    } 
+    
+     //created new method to display enquiry based on campname
+    private ArrayList<Enquiry> filterAndDisplayEnquiries(String campName) {
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Enquiry> enquiries = camp.getEnquiries();
+                ArrayList<Enquiry> filteredEnquiries = new ArrayList<>();
+                
+                for (Enquiry enquiry : enquiries) {
+                    if (enquiry.getCampName().equals(campName)) {
+                        filteredEnquiries.add(enquiry);
+                    }
+                }
+
+                if (filteredEnquiries.isEmpty()) {
+                    System.out.println("No enquiries available for camp: " + campName);
+                } else {
+                	System.out.println("Enquiries for camp: " + campName);
+                	for (Enquiry enquiry : filteredEnquiries) {
+                		enquiry.displayEnquiry();
+                	}
+                }
+                return filteredEnquiries;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+        return new ArrayList<>(); //Return empty list if camp not found
+    }
+    
+    public void viewEnquiries(String campName) {
+        filterAndDisplayEnquiries(campName);
+    }
+
+    public void replyEnquiries(Scanner sc, String campName) {
+        ArrayList<Enquiry> filteredEnquiries = filterAndDisplayEnquiries(campName);
+
+        if (filteredEnquiries.isEmpty()) {
+            return;
+        }
+
+        System.out.println("Enter the number of the enquiry you wish to reply to:");
+        int enquiryNumber = sc.nextInt();
+        sc.nextLine(); // Consume newline
+
+        if (enquiryNumber < 1 || enquiryNumber > filteredEnquiries.size()) {
+            System.out.println("Invalid enquiry number.");
+            return;
+        }
+
+        Enquiry selectedEnquiry = filteredEnquiries.get(enquiryNumber - 1);
+
+        System.out.println("Enter your reply:");
+        String reply = sc.nextLine();
+
+        selectedEnquiry.setReplyText(reply);
+        selectedEnquiry.setStatus(true); // Set the status as replied
+
+        System.out.println("Reply sent successfully.");
+        System.out.println("Updated Enquiry:");
+        selectedEnquiry.displayEnquiry();
+    }
+    
+    //created new method to display suggestion based on campname
+    private ArrayList<Suggestion> filterAndDisplaySuggestions(String campName) {
+        for (Camp camp : campsCreated) {
+            if (camp.getCampName().equals(campName)) {
+                ArrayList<Suggestion> suggestions = camp.getSuggestions();
+                ArrayList<Suggestion> filteredSuggestions = new ArrayList<>();
+
+                for (Suggestion suggestion : suggestions) {
+                    if (suggestion.getCampName().equals(campName)) {
+                        filteredSuggestions.add(suggestion);
+                    }
+                }
+
+                if (filteredSuggestions.isEmpty()) {
+                    System.out.println("No suggestions available for this camp.");
+                } else {
+                    System.out.println("Suggestions for camp: " + campName);
+                    for (Suggestion suggestion : filteredSuggestions) {
+                        suggestion.displaySuggestion();
+                    }
+                }
+                return filteredSuggestions;
+            }
+        }
+        System.out.println("Camp not found: " + campName);
+        return new ArrayList<>(); // Return empty list if camp not found
+    }
+
+    public void viewSuggestions(String campName) {
+        filterAndDisplaySuggestions(campName);
+    }
+
+    public void replySuggestions(Scanner sc, String campName, Database database) {
+        ArrayList<Suggestion> filteredSuggestions = filterAndDisplaySuggestions(campName);
+        
+        if (filteredSuggestions.isEmpty()) {
+            return;
+        }
+
+        System.out.println("Enter the index of the suggestion to reply:");
+        int suggestionNumber = sc.nextInt() - 1;
+        sc.nextLine();
+
+        if (suggestionNumber < 0 || suggestionNumber >= filteredSuggestions.size()) {
+            System.out.println("Invalid suggestion index.");
+            return;
+        }
+
+        System.out.println("Do you want to approve or reject the suggestion?");
+        System.out.println("1: Approve");
+        System.out.println("2: Reject");
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        Suggestion suggestion = filteredSuggestions.get(suggestionNumber);
+
+        if (choice == 1) {
+            suggestion.setStatus(true);
+            incrementCampComPoints(suggestion.getOwner(), database);//suggestion approved, increase camp com member points by 1
+        } else if (choice == 2) {
+            suggestion.setStatus(false);
+        } else {
+            System.out.println("Invalid choice.");
+            return;
+        }
+
+        // Display the updated suggestion
+        System.out.println("Updated Suggestion:");
+        suggestion.displaySuggestion();
+    }
+    
+    private void incrementCampComPoints(String ownerName, Database database) {
+        // Find the student (CampCom member) by owner name and increment their points
+        for (Student student : database.getStudents()) {
+            if (student.getName().equals(ownerName) && student.getCampCom().getIsCampCom()) {
+                CampCom campCom = student.getCampCom();
+                campCom.setPoints(campCom.getPoints() + 1);
+                break;
+            }
+        }
+    }
+    
+    public void generateCampReport(String campName){} //generate list of students (attendees/campcom)
+
+    public void generatePerformanceReport(){} //generate performance report of campcom members
+
+    
+    public void viewStudentsInCamp(int camp){
+        campsCreated.get(camp).viewListStudents();
     }
 }
+
+
+
