@@ -131,7 +131,7 @@ public class Student extends User{
         System.out.println("//////////////////////////////////////////");
         System.out.println("Information");
         System.out.println("1: Change password");
-        System.out.println("2: View enquires");
+        System.out.println("2: View enquiries");
         System.out.println("3: View Suggestions");
         System.err.println("4: Return");
         System.out.println("//////////////////////////////////////////");
@@ -156,6 +156,7 @@ public class Student extends User{
                 System.out.println("New password set!");
                 break;
             case 2:
+            	viewAllEnquiries(database);
                 break;
             case 3:
                 if(getCampCom().getIsCampCom()){
@@ -170,6 +171,25 @@ public class Student extends User{
                 break;
         }
         }while(choice != 4);
+    }
+    
+    private void viewAllEnquiries(Database database) {
+        boolean hasEnquiries = false;
+        for (Camp camp : database.getCamps()) {
+            for (Enquiry enquiry : camp.getEnquiries()) {
+                if (enquiry.getOwner().equals(super.getUserId())) {
+                    if (!hasEnquiries) {
+                        System.out.println("Your enquiries in all camps:");
+                        hasEnquiries = true;
+                    }
+                    System.out.println("Camp: " + camp.getCampName());
+                    enquiry.displayEnquiry();
+                }
+            }
+        }
+        if (!hasEnquiries) {
+            System.out.println("You have no enquiries in any camp.");
+        }
     }
     
     public void submitCampComApplication(Student student, Camp camp){
