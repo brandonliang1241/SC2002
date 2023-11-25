@@ -179,12 +179,12 @@ public class Test {
         System.out.println("//////////////////////////////////////////");
         if(join.equals(false)){
             //Need to create an array for each student that stores the names of the camps that they have joined.
-            database.listOfCampsFaculty(tempCamp, student.getFacultyInfo());
+            database.listOfCamps(tempCamp, student.getFacultyInfo());
             if(tempCamp.size() == 0){System.out.println("No available for your faculty camps"); return;}
             System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
         }
         else{
-            database.listOfCampsJoined(tempCamp, student);
+            database.listOfCamps(tempCamp, student);
             if(tempCamp.size() == 0){System.out.println("You have no joined camps"); 
             System.out.println("//////////////////////////////////////////");
             return;}

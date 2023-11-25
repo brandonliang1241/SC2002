@@ -12,14 +12,6 @@ import java.util.regex.Pattern;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
-/**
- * Hash passwords for storage, and test passwords against password tokens.
- * 
- * Instances of this class can be used concurrently by multiple threads.
- *  
- * @author erickson
- * @see <a href="http://stackoverflow.com/a/2861125/3474">StackOverflow</a>
- */
 public final class Password
 {
 
