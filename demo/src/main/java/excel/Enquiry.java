@@ -78,5 +78,5 @@ public class Enquiry {
 
     public void deleteEnquiry(){
         enquiryCounter--;
-    }
+    }//for future implementation if not there will be too many enquiries
 }
