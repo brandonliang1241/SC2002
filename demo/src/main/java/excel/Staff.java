@@ -370,23 +370,23 @@ public class Staff extends User{
     public void generateCampReport(Camp camp, int number){
         try {
         FileWriter myWriter = new FileWriter("filename.txt");
-        myWriter.write("Camp name: " + camp.getCampName()); 
-        myWriter.write("Location: " + camp.getLocation());
-        myWriter.write("Total Slots: " + camp.getTotalSlots());
-        myWriter.write("Slots remaining: " + camp.getSlotsLeft());
-        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());
-        myWriter.write("Date: " + camp.getCampDate());
-        myWriter.write("Closing Date time: " + camp.getClosingTime());
-        myWriter.write("Visibility: " + camp.isVisible()); 
+        myWriter.write("Camp name: " + camp.getCampName());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Slots remaining: " + camp.getSlotsLeft());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Date: " + camp.getCampDate());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Closing Date time: " + camp.getClosingTime());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Visibility: " + camp.isVisible());myWriter.write(System.getProperty( "line.separator" ));
         switch(number){
-            case 1:
+            case 3:
                 for(int i = 0; i < camp.getListStudents().size(); i++){
                     Student tempStudent = camp.getListStudents().get(i);
                     if(tempStudent.getCampCom().getIsCampCom()){
-                        myWriter.write(tempStudent.getName() + " is a camp committee member");
+                        myWriter.write(tempStudent.getName() + " is a camp committee member");myWriter.write(System.getProperty( "line.separator" ));
                     }
                     else{
-                        myWriter.write(tempStudent.getName() + " is a participant");
+                        myWriter.write(tempStudent.getName() + " is a participant");myWriter.write(System.getProperty( "line.separator" ));
                     }
                 }
                 break;
@@ -394,13 +394,13 @@ public class Staff extends User{
                 for(int i = 0; i < camp.getListStudents().size(); i++){
                     Student tempStudent = camp.getListStudents().get(i);
                     if(tempStudent.getCampCom().getIsCampCom()){
-                        myWriter.write(tempStudent.getName() + " is a camp committee member");
+                        myWriter.write(tempStudent.getName() + " is a camp committee member");myWriter.write(System.getProperty( "line.separator" ));
                     }
                 }
                 break;
-            case 3:
+            case 1:
                 for(int i = 0; i < camp.getListStudents().size(); i++){
-                    myWriter.write(camp.getListStudents().get(i).getName() + " is a participant");
+                    myWriter.write(camp.getListStudents().get(i).getName() + " is a participant");myWriter.write(System.getProperty( "line.separator" ));
                 }
                 break;
             default:
