@@ -339,10 +339,9 @@ public class GetStudent {
 							false);
 						}
 					}
-					System.out.println(tempCamp.getListStudents().get(studentPos).getName());
-					System.out.println(tempCamp.getListStudents().get(studentPos).getCampCom().getIsCampCom());
-					System.out.println(tempCamp.getListStudents().get(studentPos).getCampCom().getCamp());
-
+					// System.out.println(tempCamp.getListStudents().get(studentPos).getName());
+					// System.out.println(tempCamp.getListStudents().get(studentPos).getCampCom().getIsCampCom());
+					// System.out.println(tempCamp.getListStudents().get(studentPos).getCampCom().getCamp());
 					break;
 				default: System.out.println("fail"); break;
 				}
