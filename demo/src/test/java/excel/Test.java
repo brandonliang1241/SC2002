@@ -12,14 +12,6 @@ public class Test {
         //now to add into database
         String pathName = "/Users/brandon1241/Downloads/staff_list.xlsx";
         Download(database, pathName);
-        // Student brandon = new Student("BLIANG003", "Brandon", "password", Faculty.SCSE);
-        // Staff david = new Staff("DAVID","David", "password", Faculty.LKC);
-        // david.createCamp(sc,database);// database adds the camp that david creates.
-        // database.getCamp("SCSE").setUserGroup(Faculty.SCSE);
-        // database.getCamp("SCSE").setTotalSlots(100);
-        // database.addStudent(brandon);
-        // database.addStaff(david);
-        //System.out.println(database.getCamp("SCSE").getStaffId()); //Finds SCSE camp and grabs the staff name
         int choice;
         do{
             System.out.println("//////////////////////////////////////////");
@@ -82,7 +74,7 @@ public class Test {
                 System.out.println("Password:");
                 password = sc.nextLine();
                 encrypt = new Password();
-                if(encrypt.authenticate(password.toCharArray(), tempStaff.getPassword())){staffInterface(sc,database,tempStaff);}
+                if(encrypt.authenticate(password.toCharArray(), tempStaff.getPassword())){staffInterface(tempStaff, database);}
                 // if(tempStaff.getPassword().equals(password)){staffInterface(sc,database,tempStaff);}
                 else{System.out.println("Staff Login Failed!");}
                 break;
@@ -266,8 +258,16 @@ public class Test {
             }
         }while(choice != 4);
     }
+    
+    public static void staffInterface(Staff staff, Database database){
+        StaffMenu staffMenu = new StaffMenu(staff, database);
+        staffMenu.displayMenu();
+        while(staffMenu.selectOption() != 14){ // Assuming option 14 is to exit
+            staffMenu.displayMenu();
+        }
+    }
 
-    	    public static void staffInterface(Scanner sc, Database database, Staff staff) {
+    public static void staffInterface(Scanner sc, Database database, Staff staff) {
 	        int choice;
 	        do {
 	            System.out.println("Staff Interface - Choose an option:");
