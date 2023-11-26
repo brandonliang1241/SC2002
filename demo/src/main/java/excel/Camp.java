@@ -108,7 +108,6 @@ public class Camp {
         if (campComSlots > 0) {
             listOfCamCom.add(student);
             campComSlots--;
-            totalSlots--;
             return true;
         } else {
             System.out.println("No available slots for Camp Committee.");
@@ -125,8 +124,9 @@ public class Camp {
         }
     }
 
-    public void addStudent(Student student, int number){ //from database
+    public int addStudent(Student student, int number){ //from database
             listOfStudents.add(student);
+            return listOfStudents.indexOf(student);
     }
 
     public void removeStudent(Student student){

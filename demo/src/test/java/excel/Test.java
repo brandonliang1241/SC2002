@@ -225,8 +225,8 @@ public class Test {
             switch(choice){
                 case 1:
                     if(join == false){
-                        if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
                         if(camp.findRemovedStudent(student.getName())){System.out.println("You are already in this camp"); break;} //WTF
+                        if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
                         camp.addStudent(student);
                         System.out.println("You have joined the Camp!");
                         join = true;
@@ -245,10 +245,11 @@ public class Test {
                     }
                     break;
                 case 2:
-                    student.viewEnquires(sc, camp);
-                    break;
+                    student.viewEnquires(sc, camp); break;
                 case 3:
-                    if(student.getCampCom().getIsCampCom()){student.campComInterface(sc, camp, student);}
+                    if(student.getCampCom().getIsCampCom() && student.getCampCom().getCamp().equals(camp.getCampName())){
+                        student.campComInterface(sc, camp, student);
+                    }
                     else{
                         System.out.println("You are not a member of this camp committee");
                         System.out.println("Submit an application?");
@@ -257,6 +258,7 @@ public class Test {
                         int temp = Integer.parseInt(sc.nextLine());
                         if(temp == 1){
                         	student.submitCampComApplication(student, camp);
+                            System.out.println("Congratulations you are now a camp committee of this camp!");
                         }
                     }
                     break;

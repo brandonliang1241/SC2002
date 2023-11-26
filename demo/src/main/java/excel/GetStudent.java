@@ -307,24 +307,42 @@ public class GetStudent {
 			Row nextRow = iterator.next();
 			Iterator<Cell> cellIterator
 				= nextRow.cellIterator();
-
+			int studentPos = 0;
 			while (cellIterator.hasNext()) {
 				Cell nextCell = cellIterator.next();
 				int columnIndex = nextCell.getColumnIndex();
 				Camp tempCamp = database.getCamps().get(pos);
 				Student tempStudent;
-				int studentPos = -1;
 				switch (columnIndex%2) {
 				case 0: //Student name
 					tempStudent = database.getStudent((String)getCellValue(nextCell));
-					tempCamp.addStudent(tempStudent, 1);
-					studentPos++;
+					studentPos = tempCamp.addStudent(tempStudent, 1); //add student without changing space in the camp
 					break;
 				case 1: //Is camp com
-					try{tempCamp.getListStudents().get(studentPos).getCampCom().setIsCampCom(Boolean.valueOf((String)getCellValue(nextCell)));}
-					catch(Exception e){
-						System.out.println("Issue");
+					try{
+						if(Boolean.valueOf((String)getCellValue(nextCell))){
+							tempCamp.getListStudents().get(studentPos).submitCampComApplication(tempCamp.getListStudents().get(studentPos), tempCamp);
+							tempCamp.setCampComSlots(tempCamp.getCampComSlots()+1);
+						}
+						else{
+							tempCamp.getListStudents().get(studentPos).getCampCom().setIsCampCom(
+							false);
+						}
 					}
+					catch(Exception e){
+						if((Boolean)getCellValue(nextCell)){
+							tempCamp.getListStudents().get(studentPos).submitCampComApplication(tempCamp.getListStudents().get(studentPos), tempCamp);
+							tempCamp.setCampComSlots(tempCamp.getCampComSlots()+1);
+						}
+						else{
+							tempCamp.getListStudents().get(studentPos).getCampCom().setIsCampCom(
+							false);
+						}
+					}
+					System.out.println(tempCamp.getListStudents().get(studentPos).getName());
+					System.out.println(tempCamp.getListStudents().get(studentPos).getCampCom().getIsCampCom());
+					System.out.println(tempCamp.getListStudents().get(studentPos).getCampCom().getCamp());
+
 					break;
 				default: System.out.println("fail"); break;
 				}
@@ -446,7 +464,6 @@ public class GetStudent {
             } 
         } 
 
-		Set<String> keyid4 = campData.keySet(); 
 
 		rowid = 0; 
 		

@@ -77,7 +77,8 @@ public class Student extends User{
             System.out.println("2: View enquires");
             System.out.println("3: Reply to enquiries");
             System.out.println("4: Manage Suggestions"); //view, edit, delete
-            System.err.println("5: Return");
+            System.err.println("5: Print camp details");
+            System.err.println("6: Return");
             System.out.println("//////////////////////////////////////////");
             try{choice = Integer.parseInt(sc.nextLine());}
             catch(Exception e){
@@ -94,10 +95,24 @@ public class Student extends User{
                     getCampCom().replyEnquiries(sc, camp); break;
                 case 4:
                 	manageSuggestions(sc, camp, student); break;
+                case 5:
+                    System.out.println("How to print?");
+                    System.out.println("1: Attendees only");
+                    System.out.println("2: Camp committee only");
+                    System.out.println("3: Both");
+                    int number;
+                    try{number = Integer.parseInt(sc.nextLine());}
+                    catch(Exception e){
+                    System.err.println("Not a valid input");
+                    number = 0;
+                    continue;
+                    }
+                    generateCampReport(camp, number);
+                    break;
                 default:
                     break;
             }
-        }while(choice != 5);
+        }while(choice != 6);
     }
     
     private void manageSuggestions(Scanner sc, Camp camp, Student student) {
@@ -138,11 +153,11 @@ public class Student extends User{
         System.err.println("4: Return");
         System.out.println("//////////////////////////////////////////");
         try{choice = Integer.parseInt(sc.nextLine());}
-            catch(Exception e){
-                System.err.println("Not a valid input");
-                choice = 0;
-                continue;
-            }
+        catch(Exception e){
+            System.err.println("Not a valid input");
+            choice = 0;
+            continue;
+        }
         switch (choice) {
             case 1:
                 String password1, password2;
@@ -198,7 +213,6 @@ public class Student extends User{
         if(camp.applyForCampCom(this)){
             student.getCampCom().setIsCampCom(true);
             student.getCampCom().setCamp(camp.getCampName());
-        	System.out.println("Congratulations you are now a camp committee of this camp!");
         }
     }
 
