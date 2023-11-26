@@ -10,7 +10,7 @@ public class Test {
         Database database = new Database();
         Scanner sc = new Scanner(System.in); 
         //now to add into database
-        String pathName = "/Users/brandon1241/Downloads/staff_list.xlsx";
+        String pathName = "/Users/Wei Jun/Downloads/staff_list.xlsx";
         Download(database, pathName);
         int choice;
         do{
@@ -142,259 +142,22 @@ public class Test {
             }
         }while(choice != 3);
     }
-
-    public static void studentInterface(Scanner sc, Database database, Student student){
-        int choice;
-        do{
-            System.out.println("//////////////////////////////////////////");
-            System.out.println("1: See available list of camps"); 
-            System.out.println("2: List of camps that you have joined"); 
-            System.out.println("3: Student information"); 
-            System.out.println("4: Return"); 
-            System.out.println("//////////////////////////////////////////");
-            choice = scan(sc);
-            switch(choice){
-                case 1:
-                studentInterfaceCamp(sc, database, student, false); break;
-                case 2:
-                studentInterfaceCamp(sc, database, student, true); break;
-                case 3:
-                student.informationInterface(sc, database);
-                default:
-            }
-        } while (choice != 4);
-    }
-
-    public static void studentInterfaceCamp(Scanner sc, Database database, Student student, Boolean join){
-        int choice;
-        ArrayList<Camp> tempCamp = new ArrayList<Camp>(10);
-        System.out.println("//////////////////////////////////////////");
-        if(join.equals(false)){
-            //Need to create an array for each student that stores the names of the camps that they have joined.
-            database.listOfCamps(tempCamp, student.getFacultyInfo());
-            if(tempCamp.size() == 0){System.out.println("No available for your faculty camps"); return;}
-            System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
+    
+    public static void studentInterface(Scanner sc, Database database, Student student) {
+        StudentMenu studentMenu = new StudentMenu(student, database);
+        studentMenu.displayMenu();
+        while (studentMenu.selectOption() != 4) { 
+            studentMenu.displayMenu();
         }
-        else{
-            database.listOfCamps(tempCamp, student);
-            if(tempCamp.size() == 0){System.out.println("You have no joined camps"); 
-            System.out.println("//////////////////////////////////////////");
-            return;}
-            System.out.println("Here is the list of joined camps."); 
-        }
-
-        for(int i = 0; i < tempCamp.size(); i++){
-            System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
-        }
-        System.out.println("//////////////////////////////////////////");
-        do{
-            choice = scan(sc); //choice chooses the camp we would like to access.
-            if(choice > tempCamp.size() || choice < 1){System.out.println("Not a valid option");}
-        }while(choice > tempCamp.size() || choice < 1);
-        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join);
-        //once we leave this function returns to student interface
-    }
-
-    public static void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student, Boolean join){
-        //Specific to the selected camp
-        int choice;
-        do{
-            camp.printCampDetails();
-            if(join == true){System.out.println("You have joined this camp");} //or not we need to check with the student obj
-            else{
-                if(camp.findStudent(student)){System.out.println("You have joined this camp");}
-                else{System.out.println("You have not joined this camp");}
-            }
-            //if student is camp com state if camp com. (can make camp com store the camp he is com of) 
-            //print more choices if camp com
-            if(join == true){System.out.println("1: Leave this camp");}
-            else{System.out.println("1: Join this camp");}
-            System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
-            System.out.println("3: Camp Committee tasks");
-            System.out.println("4: Return");
-            System.out.println("//////////////////////////////////////////");
-            choice = scan(sc);
-            switch(choice){
-                case 1:
-                    if(join == false){
-                        if(camp.findRemovedStudent(student.getName())){System.out.println("You are already in this camp"); break;} //WTF
-                        if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
-                        camp.addStudent(student);
-                        System.out.println("You have joined the Camp!");
-                        join = true;
-                    }
-                    else{
-                        System.out.println("Do you want to leave this camp?");
-                        System.out.println("You will be unable to rejoin this camp.");
-                        System.out.println("1: Leave the camp");
-                        System.out.println("2: Return");
-                        choice = Integer.parseInt(sc.nextLine());
-                        if(choice == 1){
-                            camp.removeStudent(student);
-                            System.out.println("You have left the Camp.");
-                            join = false;
-                        }
-                    }
-                    break;
-                case 2:
-                    student.viewEnquires(sc, camp); break;
-                case 3:
-                    if(student.getCampCom().getIsCampCom() && student.getCampCom().getCamp().equals(camp.getCampName())){
-                        student.campComInterface(sc, camp);
-                    }
-                    else{
-                        System.out.println("You are not a member of this camp committee");
-                        System.out.println("Submit an application?");
-                        System.out.println("1: Yes");
-                        System.out.println("2: Return");
-                        int temp = Integer.parseInt(sc.nextLine());
-                        if(temp == 1){
-                        	student.submitCampComApplication(camp);
-                            System.out.println("Congratulations you are now a camp committee of this camp!");
-                        }
-                    }
-                    break;
-                default:
-            }
-        }while(choice != 4);
     }
     
     public static void staffInterface(Staff staff, Database database){
         StaffMenu staffMenu = new StaffMenu(staff, database);
         staffMenu.displayMenu();
-        while(staffMenu.selectOption() != 14){ // Assuming option 14 is to exit
+        while(staffMenu.selectOption() != 14){ 
             staffMenu.displayMenu();
         }
     }
-
-    public static void staffInterface(Scanner sc, Database database, Staff staff) {
-	        int choice;
-	        do {
-	            System.out.println("Staff Interface - Choose an option:");
-	            System.out.println("1: Create camp");
-	            System.out.println("2: Edit camp");
-	            System.out.println("3: Delete camp");
-	            System.out.println("4: Change camp visibility");
-	            System.out.println("5: View all camps");
-	            System.out.println("6: View camps that I created");
-	            System.out.println("7: View Enquiries");
-	            System.out.println("8: Reply to Enquiries");
-	            System.out.println("9: View Suggestions");
-	            System.out.println("10: Approve/Reject a Suggestion");
-	            System.out.println("11: Generate camp report");
-	            System.out.println("12: Generate performance report of camp committee");
-	            System.out.println("13: Change Settings");
-	            System.out.println("14: Return");
-	            choice = Integer.parseInt(sc.nextLine());
-	
-	            switch (choice) {
-	                case 1:
-	                    staff.createCamp(sc, database);
-	                    break;
-	                case 2:
-	                    staff.editCamp(sc);
-	                    break;
-	                case 3:
-	                    System.out.println("Enter camp name to delete: ");
-	                    String newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.deleteCamp(newCamp, database);
-	                    break;
-	                case 4:
-	                    System.out.println("Enter camp name to set visibility: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.toggleCampVisibility(sc, newCamp);
-	                    break;
-	                case 5:
-	                    database.viewCampList();
-	                    break;
-	                case 6:
-	                    staff.viewCampList();
-	                    break;
-	                case 7:
-	                    System.out.println("Enter camp name to view enquiries: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.viewEnquiries(newCamp);
-	                    break;
-	                case 8:
-	                    System.out.println("Enter camp name to reply to enquiry: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.replyEnquiries(sc, newCamp);
-	                    break;
-	                case 9:
-	                    System.out.println("Enter camp name to view suggestions: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.viewSuggestions(newCamp);
-	                    break;
-	                case 10:
-	                    System.out.println("Enter camp name: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.replySuggestions(sc, newCamp, database);
-	                    break;
-	                case 11:
-	                    System.out.println("Enter camp name to generate report: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-                        System.out.println("How to print?");
-	                	System.out.println("1: Attendees only");
-	                	System.out.println("2: Camp committee only");
-	                	System.out.println("3: Both");
-                        int number = scan(sc);
-	                    staff.generateCampReport(database.getCamp(newCamp), number);
-	                    break;
-	                case 12:
-                    	System.out.println("Enter camp name to generate report: ");
-	                    newCamp = sc.nextLine();
-                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
-	                    staff.generatePerformanceReport(database.getCamp(newCamp));
-	                    break;
-	                case 13:
-	                	System.out.println("What do you want to change?");
-	                	System.out.println("1: Password");
-	                	System.out.println("2: StaffId");
-	                	System.out.println("3: Faculty");
-	                	int choice2 = sc.nextInt();
-	                	switch (choice2) {
-	                	case 1:
-		                    System.out.println("Enter New Password");
-		                    sc.nextLine();
-		                    String newPassword = sc.nextLine();
-		                    staff.setPassword(newPassword);
-		                    System.out.println("Password successfully changed!");
-		                    break;
-	                	case 2:
-		                    System.out.println("Enter New StaffId");
-		                    sc.nextLine();
-		                    String newStaffId = sc.nextLine();
-		                    staff.setUserId(newStaffId);
-		                    System.out.println("StaffId successfully changed!");
-		                    break;
-	                	case 3:
-		                    System.out.println("Enter New Faculty");
-		                    sc.nextLine();
-		                    String newFacultyName = sc.nextLine().toUpperCase();
-		                    try {
-		                        Faculty newFaculty = Faculty.valueOf(newFacultyName);
-		                        staff.setFacultyInfo(newFaculty);
-			                    System.out.println("Faculty successfully changed!");
-		                    } catch (IllegalArgumentException e) {
-		                        System.out.println("Invalid faculty name.");
-		                    }
-	                	}
-	                case 14:
-	                    System.out.println("Exiting Staff Interface.");
-	                    break;
-	                default:
-	                    System.out.println("Invalid choice. Please try again.");
-	                    break;
-	            }
-	        } while (choice != 14);
-	    }
 
     public static void Download(Database database, String pathName){
         // detecting the file type
