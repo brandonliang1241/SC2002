@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.time.*;
 
 public class Student extends User{
     private CampCom campCom;
@@ -292,17 +291,11 @@ public class Student extends User{
             choice = scan(sc); //choice chooses the camp we would like to access.
             if(choice > tempCamp.size() || choice < 1){System.out.println("Not a valid option");}
         }while(choice > tempCamp.size() || choice < 1);
-        Boolean time = false; //true if contradict timings
-        LocalDate campDate = tempCamp.get(choice-1).getCampDate();
-        for(int i = 0; i < tempCamp.size(); i++){
-            if(i == choice-1){continue;}
-            if(tempCamp.get(i).getCampDate().equals(campDate)){time = true;};
-        }
-        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join, time);
+        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join);
         //once we leave this function returns to student interface
     }
 
-    public void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student, Boolean join, Boolean time){
+    public void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student, Boolean join){
         //Specific to the selected camp
         int choice;
         do{
@@ -326,7 +319,6 @@ public class Student extends User{
                     if(join == false){
                         if(camp.findRemovedStudent(student.getName())){System.out.println("You are already in this camp"); break;} //WTF
                         if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
-                        if(time == true){System.out.println("You cannot register as the timings clash with another register camp"); break;}
                         camp.addStudent(student);
                         System.out.println("You have joined the Camp!");
                         join = true;
@@ -347,13 +339,8 @@ public class Student extends User{
                 case 2:
                     student.viewEnquires(sc, camp); break;
                 case 3:
-                    if(student.getCampCom().getIsCampCom()){
-                        if(student.getCampCom().getCamp().equals(camp.getCampName())){
-                            student.campComInterface(sc, camp);
-                        }
-                        else{
-                        System.out.println("You are a Committee member elsewhere."); break;
-                        }
+                    if(student.getCampCom().getIsCampCom() && student.getCampCom().getCamp().equals(camp.getCampName())){
+                        student.campComInterface(sc, camp);
                     }
                     else{
                         System.out.println("You are not a member of this camp committee");
