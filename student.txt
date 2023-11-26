@@ -4,7 +4,7 @@ Total Slots: 100
 Slots remaining: 96
 Camp Committee Slots Taken: 1
 Camp Committee Slots Left: 2
-Date: 2024-01-01
+Date: 2024-02-02
 Closing Date time: 2023-01-01T12:00
 Visibility: true
 CHERN  is a camp committee member
