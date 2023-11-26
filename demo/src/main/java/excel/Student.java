@@ -177,14 +177,19 @@ public class Student extends User{
                 break;
             case 3:
                 if(getCampCom().getIsCampCom()){
-                    for(int i = 0; i < database.getCamp(campCom.getCamp()).getEnquiries().size(); i++)
-                    database.getCamp(campCom.getCamp()).getEnquiries().get(i).displayEnquiry();
+                    if(database.getCamp(campCom.getCamp()).getSuggestions().size() == 0){
+                        System.out.println("No Suggestions yet");
+                    }
+                    for(int i = 0; i < database.getCamp(campCom.getCamp()).getSuggestions().size(); i++){
+                    database.getCamp(campCom.getCamp()).getSuggestions().get(i).displaySuggestion();
+                    }
                 }
                 else{
                     System.out.println("You are not a member of the camp committee");
                 }
                 break;
             default:
+                System.out.println("default");
                 break;
         }
         }while(choice != 4);
@@ -325,7 +330,7 @@ public class Student extends User{
             switch(choice){
                 case 1:
                     if(join == false){
-                        if(camp.findRemovedStudent(student.getName())){System.out.println("You are already in this camp"); break;} //WTF
+                        if(camp.findRemovedStudent(student.getName())){System.out.println("You have left the camp before"); break;} //WTF
                         if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
                         if(time == true){System.out.println("You cannot register as the timings clash with another register camp"); break;}
                         camp.addStudent(student);
@@ -333,6 +338,9 @@ public class Student extends User{
                         join = true;
                     }
                     else{
+                        if(student.getCampCom().getIsCampCom() == true && student.getCampCom().getCamp().equals(camp.getCampName())){
+                            System.out.println("You cannot leave as you are a camp committee member"); break;
+                        }
                         System.out.println("Do you want to leave this camp?");
                         System.out.println("You will be unable to rejoin this camp.");
                         System.out.println("1: Leave the camp");
