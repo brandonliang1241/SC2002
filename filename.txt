@@ -1,8 +1,11 @@
-Camp name: SCSEcelebration
-Location: SCSE office
-Total Slots: 50
-Slots remaining: 50
-Camp Committee Slots: 5
+Camp name: SCSE
+Location: SCSE Lounge
+Total Slots: 100
+Slots remaining: 97
+Camp Committee Slots: 2
 Date: 2024-01-01
-Closing Date time: 2024-01-01T20:00
+Closing Date time: 2023-01-01T12:00
 Visibility: true
+CHERN  is a camp committee member
+DENISE is a participant
+LEE  is a participant

@@ -95,6 +95,20 @@ public class Test {
     }    
     
     public static void studentInterface(Scanner sc, Database database, Student student) {
+        Password encrypt = new Password();
+        String password = "password";
+        if(encrypt.authenticate(password.toCharArray(), student.getPassword())){
+            String password1, password2;
+            do{
+                System.out.println("Enter new password:");
+                password1 = sc.nextLine();
+                System.out.println("Re-enter password:");
+                password2 = sc.nextLine();
+                if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
+            }while(!password1.equals(password2));
+            student.setPassword(encrypt.hash(password1.toCharArray()));
+            System.out.println("New password set!");
+        }
         StudentMenu studentMenu = new StudentMenu(student, database);
         studentMenu.displayMenu();
         while (studentMenu.selectOption() != 4) { 
@@ -103,11 +117,28 @@ public class Test {
     }
     
     public static void staffInterface(Staff staff, Database database){
+        Scanner sc = new Scanner(System.in);
+        Password encrypt = new Password();
+        String password = "password";
+        if(encrypt.authenticate(password.toCharArray(), staff.getPassword())){
+            String password1, password2;
+            do{
+                System.out.println("Enter new password:");
+                password1 = sc.nextLine();
+                System.out.println("Re-enter password:");
+                password2 = sc.nextLine();
+                if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
+            }while(!password1.equals(password2));
+            staff.setPassword(encrypt.hash(password1.toCharArray()));
+            System.out.println("New password set!");
+        }
+        sc.close();
         StaffMenu staffMenu = new StaffMenu(staff, database);
         staffMenu.displayMenu();
         while(staffMenu.selectOption() != 14){ 
             staffMenu.displayMenu();
         }
+
     }
 
     public static void Download(Database database, String pathName){

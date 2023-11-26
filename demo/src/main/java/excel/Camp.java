@@ -160,7 +160,7 @@ public class Camp {
         System.out.println("Location: " + getLocation());
         System.out.println("Total Slots: " + getTotalSlots());
         System.out.println("Slots remaining: " + getSlotsLeft());
-        System.out.println("Camp Committee Slots: " + getCampComSlots());
+        System.out.println("Camp Committee Slots Left: " + getCampComSlots());
         System.out.println("Date: " + getCampDate());
         System.out.println("Closing Date time: " + getClosingTime());
         System.out.println("Visibility: " + isVisible()); 

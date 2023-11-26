@@ -129,12 +129,19 @@ public class StaffMenu implements MainUI {
         	System.out.println("2: StaffId");
         	System.out.println("3: Faculty");
         	int choice2 = sc.nextInt();
+            sc.nextLine();
+            String password1, password2;
+            Password encrypt = new Password();
         	switch (choice2) {
         	case 1:
-                System.out.println("Enter New Password");
-                sc.nextLine();
-                String newPassword = sc.nextLine();
-                staff.setPassword(newPassword);
+            do{
+                System.out.println("Enter new password:");
+                password1 = sc.nextLine();
+                System.out.println("Re-enter password:");
+                password2 = sc.nextLine();
+                if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
+            }while(!password1.equals(password2));
+                staff.setPassword(encrypt.hash(password1.toCharArray()));
                 System.out.println("Password successfully changed!");
                 break;
         	case 2:

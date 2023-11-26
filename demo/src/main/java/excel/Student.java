@@ -224,7 +224,7 @@ public class Student extends User{
         myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Slots remaining: " + camp.getSlotsLeft());myWriter.write(System.getProperty( "line.separator" ));
-        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots Left: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Date: " + camp.getCampDate());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Closing Date time: " + camp.getClosingTime());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Visibility: " + camp.isVisible());myWriter.write(System.getProperty( "line.separator" ));
@@ -292,7 +292,7 @@ public class Student extends User{
             choice = scan(sc); //choice chooses the camp we would like to access.
             if(choice > tempCamp.size() || choice < 1){System.out.println("Not a valid option");}
         }while(choice > tempCamp.size() || choice < 1);
-
+        join = tempCamp.get(choice-1).findStudent(student);
         Boolean time = false; //true if contradict timings
         LocalDate campDate = tempCamp.get(choice-1).getCampDate();
         for(int i = 0; i < tempCamp.size(); i++){

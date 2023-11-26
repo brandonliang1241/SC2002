@@ -199,7 +199,7 @@ public class Staff extends User{
                 System.out.println("Invalid choice.");
                 return;
         }
-
+        selectedCamp.setSlotsLeft(selectedCamp.getTotalSlots() - selectedCamp.getCampComSlots());
         System.out.println("Camp updated successfully!");
     } //can edit campName, campDate, closingTime, userGroup, location, totalSlots, campComSlots, description
     
@@ -375,7 +375,7 @@ public class Staff extends User{
         myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Slots remaining: " + camp.getSlotsLeft());myWriter.write(System.getProperty( "line.separator" ));
-        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots Left: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Date: " + camp.getCampDate());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Closing Date time: " + camp.getClosingTime());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Visibility: " + camp.isVisible());myWriter.write(System.getProperty( "line.separator" ));
