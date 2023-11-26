@@ -370,7 +370,7 @@ public class Staff extends User{
     
     public void generateCampReport(Camp camp, int number){
         try {
-        FileWriter myWriter = new FileWriter("filename.txt");
+        FileWriter myWriter = new FileWriter("staff.txt");
         myWriter.write("Camp name: " + camp.getCampName());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));

@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class Student extends User{
     private CampCom campCom;
-    public void viewCampList(){}
     
     public Student(String userId, String name, String password, Faculty facultyInfo){
         super(userId, name, password, facultyInfo);
@@ -219,7 +218,7 @@ public class Student extends User{
 
     public void generateCampReport(Camp camp, int number){
         try {
-        FileWriter myWriter = new FileWriter("filename.txt");
+        FileWriter myWriter = new FileWriter("student.txt");
         myWriter.write("Camp name: " + camp.getCampName());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));

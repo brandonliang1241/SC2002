@@ -45,5 +45,5 @@ public abstract class User {
         this.facultyInfo = facultyInfo;
     }
     //Function to view camp list
-    public abstract void viewCampList();
+    public abstract void generateCampReport(Camp camp, int number);
 }
