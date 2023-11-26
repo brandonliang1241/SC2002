@@ -321,7 +321,7 @@ public class GetStudent {
 				case 1: //Is camp com
 					try{
 						if(Boolean.valueOf((String)getCellValue(nextCell))){
-							tempCamp.getListStudents().get(studentPos).submitCampComApplication(tempCamp.getListStudents().get(studentPos), tempCamp);
+							tempCamp.getListStudents().get(studentPos).submitCampComApplication(tempCamp);
 							tempCamp.setCampComSlots(tempCamp.getCampComSlots()+1);
 						}
 						else{
@@ -331,7 +331,7 @@ public class GetStudent {
 					}
 					catch(Exception e){
 						if((Boolean)getCellValue(nextCell)){
-							tempCamp.getListStudents().get(studentPos).submitCampComApplication(tempCamp.getListStudents().get(studentPos), tempCamp);
+							tempCamp.getListStudents().get(studentPos).submitCampComApplication(tempCamp);
 							tempCamp.setCampComSlots(tempCamp.getCampComSlots()+1);
 						}
 						else{

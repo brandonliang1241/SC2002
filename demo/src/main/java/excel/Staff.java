@@ -417,7 +417,26 @@ public class Staff extends User{
     } //generate list of students (attendees/campcom)
 
 
-    public void generatePerformanceReport(){} //generate performance report of campcom members
+    public void generatePerformanceReport(Camp camp){
+        try {
+        FileWriter myWriter = new FileWriter("performanceReport.txt");
+        myWriter.write("Camp name: " + camp.getCampName());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
+        for(int i = 0; i < camp.getListStudents().size(); i++){
+            Student tempStudent = camp.getListStudents().get(i);
+            if(tempStudent.getCampCom().getIsCampCom()){
+                myWriter.write(tempStudent.getName() + " is a camp committee member with " + 
+                tempStudent.getCampCom().getPoints() + " points.");
+                myWriter.write(System.getProperty( "line.separator" ));
+            }
+        }
+        myWriter.close();
+        System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+        System.out.println("An error occurred.");
+        e.printStackTrace();
+        }
+    } //generate performance report of campcom members
 
 }
 

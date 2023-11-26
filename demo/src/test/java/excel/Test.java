@@ -248,7 +248,7 @@ public class Test {
                     student.viewEnquires(sc, camp); break;
                 case 3:
                     if(student.getCampCom().getIsCampCom() && student.getCampCom().getCamp().equals(camp.getCampName())){
-                        student.campComInterface(sc, camp, student);
+                        student.campComInterface(sc, camp);
                     }
                     else{
                         System.out.println("You are not a member of this camp committee");
@@ -257,7 +257,7 @@ public class Test {
                         System.out.println("2: Return");
                         int temp = Integer.parseInt(sc.nextLine());
                         if(temp == 1){
-                        	student.submitCampComApplication(student, camp);
+                        	student.submitCampComApplication(camp);
                             System.out.println("Congratulations you are now a camp committee of this camp!");
                         }
                     }
@@ -348,7 +348,10 @@ public class Test {
 	                    staff.generateCampReport(database.getCamp(newCamp), number);
 	                    break;
 	                case 12:
-	                    //staff.generatePerformanceReport();
+                    	System.out.println("Enter camp name to generate report: ");
+	                    newCamp = sc.nextLine();
+                        if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+	                    staff.generatePerformanceReport(database.getCamp(newCamp));
 	                    break;
 	                case 13:
 	                	System.out.println("What do you want to change?");

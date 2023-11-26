@@ -68,7 +68,7 @@ public class Student extends User{
         return this.campCom;
     }
 
-    public void campComInterface(Scanner sc,Camp camp, Student student){
+    public void campComInterface(Scanner sc,Camp camp){
         int choice;
         do{
             System.out.println("//////////////////////////////////////////");
@@ -94,7 +94,7 @@ public class Student extends User{
                 case 3:
                     getCampCom().replyEnquiries(sc, camp); break;
                 case 4:
-                	manageSuggestions(sc, camp, student); break;
+                	manageSuggestions(sc, camp); break;
                 case 5:
                     System.out.println("How to print?");
                     System.out.println("1: Attendees only");
@@ -115,7 +115,7 @@ public class Student extends User{
         }while(choice != 6);
     }
     
-    private void manageSuggestions(Scanner sc, Camp camp, Student student) {
+    private void manageSuggestions(Scanner sc, Camp camp) {
         System.out.println("Manage suggestions");
         System.out.println("1: Submit Suggestions");
         System.out.println("2: View Suggestions");
@@ -126,7 +126,7 @@ public class Student extends User{
         int choice2 = Integer.parseInt(sc.nextLine());
         switch(choice2) {
             case 1:
-                campCom.submitSuggestions(sc, camp, student);
+                campCom.submitSuggestions(sc, camp, this);
                 break;
             case 2:
                 campCom.viewSuggestions(camp);
@@ -209,10 +209,10 @@ public class Student extends User{
         }
     }
     
-    public void submitCampComApplication(Student student, Camp camp){
+    public void submitCampComApplication(Camp camp){
         if(camp.applyForCampCom(this)){
-            student.getCampCom().setIsCampCom(true);
-            student.getCampCom().setCamp(camp.getCampName());
+            this.getCampCom().setIsCampCom(true);
+            this.getCampCom().setCamp(camp.getCampName());
         }
     }
 
