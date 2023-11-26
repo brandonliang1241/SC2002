@@ -10,7 +10,7 @@ public class Test {
         Database database = new Database();
         Scanner sc = new Scanner(System.in); 
         //now to add into database
-        String pathName = "/Users/Wei Jun/Downloads/staff_list.xlsx";
+        String pathName = "/Users/brandon1241/Documents/VScode/Java/TestFolder/SC2002/staff_list.xlsx";
         Download(database, pathName);
         int choice;
         do{

@@ -75,6 +75,7 @@ public class Staff extends User{
         
         System.out.println("Enter new total slots: ");
         newCamp.setTotalSlots(sc.nextInt());
+        newCamp.setSlotsLeft(newCamp.getTotalSlots());
         
         System.out.println("Enter new camp committee slots: ");
         newCamp.setCampComSlots(sc.nextInt());
