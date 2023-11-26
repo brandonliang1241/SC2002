@@ -224,6 +224,7 @@ public class Student extends User{
         myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Slots remaining: " + camp.getSlotsLeft());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots Taken: " + camp.getCampComTaken());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Camp Committee Slots Left: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Date: " + camp.getCampDate());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Closing Date time: " + camp.getClosingTime());myWriter.write(System.getProperty( "line.separator" ));

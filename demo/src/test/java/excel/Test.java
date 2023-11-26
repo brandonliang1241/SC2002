@@ -74,7 +74,7 @@ public class Test {
                 System.out.println("Password:");
                 password = sc.nextLine();
                 encrypt = new Password();
-                if(encrypt.authenticate(password.toCharArray(), tempStaff.getPassword())){staffInterface(tempStaff, database);}
+                if(encrypt.authenticate(password.toCharArray(), tempStaff.getPassword())){staffInterface(sc,tempStaff, database);}
                 // if(tempStaff.getPassword().equals(password)){staffInterface(sc,database,tempStaff);}
                 else{System.out.println("Staff Login Failed!");}
                 break;
@@ -116,8 +116,7 @@ public class Test {
         }
     }
     
-    public static void staffInterface(Staff staff, Database database){
-        Scanner sc = new Scanner(System.in);
+    public static void staffInterface(Scanner sc, Staff staff, Database database){
         Password encrypt = new Password();
         String password = "password";
         if(encrypt.authenticate(password.toCharArray(), staff.getPassword())){
@@ -132,7 +131,6 @@ public class Test {
             staff.setPassword(encrypt.hash(password1.toCharArray()));
             System.out.println("New password set!");
         }
-        sc.close();
         StaffMenu staffMenu = new StaffMenu(staff, database);
         staffMenu.displayMenu();
         while(staffMenu.selectOption() != 14){ 

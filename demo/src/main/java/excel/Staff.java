@@ -375,6 +375,7 @@ public class Staff extends User{
         myWriter.write("Location: " + camp.getLocation());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Total Slots: " + camp.getTotalSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Slots remaining: " + camp.getSlotsLeft());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots Taken: " + camp.getCampComTaken());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Camp Committee Slots Left: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Date: " + camp.getCampDate());myWriter.write(System.getProperty( "line.separator" ));
         myWriter.write("Closing Date time: " + camp.getClosingTime());myWriter.write(System.getProperty( "line.separator" ));
@@ -422,7 +423,8 @@ public class Staff extends User{
         try {
         FileWriter myWriter = new FileWriter("performanceReport.txt");
         myWriter.write("Camp name: " + camp.getCampName());myWriter.write(System.getProperty( "line.separator" ));
-        myWriter.write("Camp Committee Slots: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots Taken: " + camp.getCampComTaken());myWriter.write(System.getProperty( "line.separator" ));
+        myWriter.write("Camp Committee Slots Left: " + camp.getCampComSlots());myWriter.write(System.getProperty( "line.separator" ));
         for(int i = 0; i < camp.getListStudents().size(); i++){
             Student tempStudent = camp.getListStudents().get(i);
             if(tempStudent.getCampCom().getIsCampCom()){

@@ -103,6 +103,9 @@ public class Camp {
     public ArrayList<Suggestion> getSuggestions() {
         return suggestions;
     }
+    public int getCampComTaken(){
+        return listOfCamCom.size();
+    }
     
     public boolean applyForCampCom(Student student) {
         if (campComSlots > 0) {
@@ -160,6 +163,7 @@ public class Camp {
         System.out.println("Location: " + getLocation());
         System.out.println("Total Slots: " + getTotalSlots());
         System.out.println("Slots remaining: " + getSlotsLeft());
+        System.out.println("Camp Committee Slots Taken: " + listOfCamCom.size());
         System.out.println("Camp Committee Slots Left: " + getCampComSlots());
         System.out.println("Date: " + getCampDate());
         System.out.println("Closing Date time: " + getClosingTime());
