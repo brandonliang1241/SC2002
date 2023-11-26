@@ -10,7 +10,7 @@ public class Test {
         Database database = new Database();
         Scanner sc = new Scanner(System.in); 
         //now to add into database
-        String pathName = "/Users/brandon1241/Documents/VScode/Java/TestFolder/SC2002/staff_list.xlsx";
+        String pathName = "/Users/Wei Jun/Downloads/staff_list.xlsx";
         Download(database, pathName);
         int choice;
         do{
@@ -26,7 +26,7 @@ public class Test {
                 loginInterface(sc,database);
                 break;
                 case 2:
-                newUserInterface(sc,database);
+                newUserMenu(sc,database);
                 break;
                 default: 
                 break;
@@ -86,62 +86,13 @@ public class Test {
         }while(choice != 3);
     }
 
-    public static void newUserInterface(Scanner sc, Database database){
-        int choice;
-        Password encrypt = new Password();
-        do{
-            System.out.println("//////////////////////////////////////////");
-            System.out.println("Create New User Page"); 
-            System.out.println("1: New Student"); 
-            System.out.println("2: New Staff"); 
-            System.out.println("3: Return"); 
-            System.out.println("//////////////////////////////////////////");
-            choice = scan(sc);
-            switch(choice){
-                case 1: 
-                System.out.println("Name:");
-                String name = sc.nextLine();
-                System.out.println("Username:");
-                String username = sc.nextLine();
-                String password1, password2;
-                do{
-                    System.out.println("Enter new password:");
-                    password1 = sc.nextLine();
-                    System.out.println("Re-enter password:");
-                    password2 = sc.nextLine();
-                    if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
-                }while(!password1.equals(password2));
-                System.out.println("Faculty:"); //Do another function for gods sake
-                String faculty = sc.nextLine();
-                Student tempStudent = new Student(username, name, encrypt.hash(password1.toCharArray()), Faculty.valueOf(faculty));
-                database.addStudent(tempStudent);
-                System.out.println("Student Creation Successful!");
-                break;
-
-                case 2:
-                System.out.println("Name:");
-                name = sc.nextLine();
-                System.out.println("Username:");
-                username = sc.nextLine();
-                do{
-                    System.out.println("Enter new password:");
-                    password1 = sc.nextLine();
-                    System.out.println("Re-enter password:");
-                    password2 = sc.nextLine();
-                    if(!password1.equals(password2)){System.out.println("Passwords do not match!");}
-                }while(!password1.equals(password2));
-                System.out.println("Faculty:"); //Do another function for gods sake
-                faculty = sc.nextLine();
-                Staff tempStaff = new Staff(username, name, encrypt.hash(password1.toCharArray()), Faculty.valueOf(faculty));
-                database.addStaff(tempStaff);
-                System.out.println("Staff Creation Successful!");
-                break;
-                case 3: break;
-                default: System.out.println("Unknown Input"); 
-                break;
-            }
-        }while(choice != 3);
-    }
+    public static void newUserMenu(Scanner sc, Database database) {
+        NewUserMenu newUserMenu = new NewUserMenu(database);
+        newUserMenu.displayMenu();
+        while (newUserMenu.selectOption() != 3) { 
+            newUserMenu.displayMenu();
+        }
+    }    
     
     public static void studentInterface(Scanner sc, Database database, Student student) {
         StudentMenu studentMenu = new StudentMenu(student, database);
