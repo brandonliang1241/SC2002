@@ -52,12 +52,16 @@ public class StaffMenu implements MainUI {
             System.out.println("Enter camp name to delete: ");
             String newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.deleteCamp(newCamp, database);
             break;
         case 4:
             System.out.println("Enter camp name to set visibility: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.toggleCampVisibility(sc, newCamp);
             break;
         case 5:
@@ -70,30 +74,40 @@ public class StaffMenu implements MainUI {
             System.out.println("Enter camp name to view enquiries: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.viewEnquiries(newCamp);
             break;
         case 8:
             System.out.println("Enter camp name to reply to enquiry: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.replyEnquiries(sc, newCamp);
             break;
         case 9:
             System.out.println("Enter camp name to view suggestions: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.viewSuggestions(newCamp);
             break;
         case 10:
             System.out.println("Enter camp name: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.replySuggestions(sc, newCamp, database);
             break;
         case 11:
             System.out.println("Enter camp name to generate report: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             System.out.println("How to print?");
         	System.out.println("1: Attendees only");
         	System.out.println("2: Camp committee only");
@@ -105,6 +119,8 @@ public class StaffMenu implements MainUI {
             System.out.println("Enter camp name to generate report: ");
             newCamp = sc.nextLine();
             if(database.getCamp(newCamp) == null){System.out.println("No such camp"); break;}
+            else if(!database.getCamp(newCamp).getStaffId().equals(staff.getUserId()))
+            {System.out.println("This camp is not under your jurisdiction"); break;}
             staff.generatePerformanceReport(database.getCamp(newCamp));
             break;
         case 13:
