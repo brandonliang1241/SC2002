@@ -1,0 +1,12 @@
+Camp name: SCSE
+Location: SCSE Lounge
+Total Slots: 100
+Slots remaining: 96
+Camp Committee Slots: 2
+Date: 2023-01-01
+Closing Date time: 2023-01-01T12:00
+Visibility: true
+CHERN  is a camp committee member
+DENISE is a participant
+Brandon Liang is a participant
+LEE  is a participant
