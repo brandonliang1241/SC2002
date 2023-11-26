@@ -264,4 +264,106 @@ public class Student extends User{
         e.printStackTrace();
         }
     } //generate list of students (attendees/campcom)
+    
+    public void studentInterfaceCamp(Scanner sc, Database database, Student student, Boolean join){
+        int choice;
+        ArrayList<Camp> tempCamp = new ArrayList<Camp>(10);
+        System.out.println("//////////////////////////////////////////");
+        if(join.equals(false)){
+            //Need to create an array for each student that stores the names of the camps that they have joined.
+            database.listOfCamps(tempCamp, student.getFacultyInfo());
+            if(tempCamp.size() == 0){System.out.println("No available for your faculty camps"); return;}
+            System.out.println("Here is the list of available camps for " + student.getFacultyInfo() + " students."); 
+        }
+        else{
+            database.listOfCamps(tempCamp, student);
+            if(tempCamp.size() == 0){System.out.println("You have no joined camps"); 
+            System.out.println("//////////////////////////////////////////");
+            return;}
+            System.out.println("Here is the list of joined camps."); 
+        }
+
+        for(int i = 0; i < tempCamp.size(); i++){
+            System.out.println(i+1 + ": " + tempCamp.get(i).getCampName());
+        }
+        System.out.println("//////////////////////////////////////////");
+        do{
+            choice = scan(sc); //choice chooses the camp we would like to access.
+            if(choice > tempCamp.size() || choice < 1){System.out.println("Not a valid option");}
+        }while(choice > tempCamp.size() || choice < 1);
+        studentInterfaceCampInterface(sc, tempCamp.get(choice-1), student, join);
+        //once we leave this function returns to student interface
+    }
+
+    public void studentInterfaceCampInterface(Scanner sc, Camp camp, Student student, Boolean join){
+        //Specific to the selected camp
+        int choice;
+        do{
+            camp.printCampDetails();
+            if(join == true){System.out.println("You have joined this camp");} //or not we need to check with the student obj
+            else{
+                if(camp.findStudent(student)){System.out.println("You have joined this camp");}
+                else{System.out.println("You have not joined this camp");}
+            }
+            //if student is camp com state if camp com. (can make camp com store the camp he is com of) 
+            //print more choices if camp com
+            if(join == true){System.out.println("1: Leave this camp");}
+            else{System.out.println("1: Join this camp");}
+            System.out.println("2: Manage enquiries"); // (have it be able to change own enquires)
+            System.out.println("3: Camp Committee tasks");
+            System.out.println("4: Return");
+            System.out.println("//////////////////////////////////////////");
+            choice = scan(sc);
+            switch(choice){
+                case 1:
+                    if(join == false){
+                        if(camp.findRemovedStudent(student.getName())){System.out.println("You are already in this camp"); break;} //WTF
+                        if(camp.getSlotsLeft() == 0){System.out.println("There are no more slots left in the camp"); break;}
+                        camp.addStudent(student);
+                        System.out.println("You have joined the Camp!");
+                        join = true;
+                    }
+                    else{
+                        System.out.println("Do you want to leave this camp?");
+                        System.out.println("You will be unable to rejoin this camp.");
+                        System.out.println("1: Leave the camp");
+                        System.out.println("2: Return");
+                        choice = Integer.parseInt(sc.nextLine());
+                        if(choice == 1){
+                            camp.removeStudent(student);
+                            System.out.println("You have left the Camp.");
+                            join = false;
+                        }
+                    }
+                    break;
+                case 2:
+                    student.viewEnquires(sc, camp); break;
+                case 3:
+                    if(student.getCampCom().getIsCampCom() && student.getCampCom().getCamp().equals(camp.getCampName())){
+                        student.campComInterface(sc, camp);
+                    }
+                    else{
+                        System.out.println("You are not a member of this camp committee");
+                        System.out.println("Submit an application?");
+                        System.out.println("1: Yes");
+                        System.out.println("2: Return");
+                        int temp = Integer.parseInt(sc.nextLine());
+                        if(temp == 1){
+                        	student.submitCampComApplication(camp);
+                            System.out.println("Congratulations you are now a camp committee of this camp!");
+                        }
+                    }
+                    break;
+                default:
+            }
+        }while(choice != 4);
+    }
+    
+    public static int scan(Scanner sc){ //catches exceptions
+        try{return Integer.parseInt(sc.nextLine());}
+        catch(Exception e){
+            System.err.println("Not a valid input");
+            return 0;
+        }
+    }
 }
