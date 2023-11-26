@@ -343,6 +343,7 @@ public class Student extends User{
                             join = false;
                         }
                     }
+                    
                     break;
                 case 2:
                     student.viewEnquires(sc, camp); break;
